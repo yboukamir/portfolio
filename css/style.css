@@ -641,12 +641,20 @@ img { max-width: 100%; height: auto; display: block; }
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 600ms ease, transform 600ms cubic-bezier(.2, .7, .3, 1);
-  /* Force le calque de composition GPU. Sans lui, le texte traversant le flou
-     de .site-header affiche une frange colorée : Chrome bascule entre
-     anticrénelage sous-pixel et niveaux de gris pendant l'animation. */
-  will-change: opacity, transform;
 }
 .reveal.visible { opacity: 1; transform: none; }
+
+/* Force le calque de composition GPU. Sans lui, le texte traversant le flou de
+   .site-header affiche une frange colorée : Chrome bascule entre anticrénelage
+   sous-pixel et niveaux de gris pendant l'animation.
+   Volontairement limité à :not(.visible). Ces éléments ne s'animent qu'une
+   fois — script.js appelle obs.unobserve() dès qu'ils deviennent visibles —
+   donc garder l'indice ensuite réserverait de la mémoire vidéo pour une
+   animation qui n'aura plus jamais lieu, sur 38 éléments. L'indice se retire
+   tout seul quand .visible est ajouté. */
+.reveal:not(.visible) {
+  will-change: opacity, transform;
+}
 
 /* Respecte le réglage système « réduire les animations ». */
 @media (prefers-reduced-motion: reduce) {
