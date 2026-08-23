@@ -75,6 +75,10 @@ img { max-width: 100%; height: auto; display: block; }
   backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
   transition: border-color var(--transition), background var(--transition);
+  /* Sans calque de composition dédié, Chrome recompose le flou à chaque image
+     quand un élément animé passe dessous : le texte montre une frange rouge/cyan
+     pendant une fraction de seconde. Voir le pendant sur .reveal. */
+  will-change: backdrop-filter;
 }
 .site-header.defile { border-bottom-color: var(--bordure); }
 
@@ -637,6 +641,10 @@ img { max-width: 100%; height: auto; display: block; }
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 600ms ease, transform 600ms cubic-bezier(.2, .7, .3, 1);
+  /* Force le calque de composition GPU. Sans lui, le texte traversant le flou
+     de .site-header affiche une frange colorée : Chrome bascule entre
+     anticrénelage sous-pixel et niveaux de gris pendant l'animation. */
+  will-change: opacity, transform;
 }
 .reveal.visible { opacity: 1; transform: none; }
 
