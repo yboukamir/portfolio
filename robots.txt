@@ -1,0 +1,10 @@
+# Tout le site est public et indexable.
+User-agent: *
+Allow: /
+
+# Fichiers de travail : le _redirects les renvoie déjà en 404, on le dit aussi ici.
+Disallow: /MES-INFOS.md
+Disallow: /CLAUDE.md
+Disallow: /README.md
+
+Sitemap: https://boukamir.be/sitemap.xml

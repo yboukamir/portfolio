@@ -1,7 +1,10 @@
-Dépose ici tes fichiers : photo de profil, captures de projets.
+Fichiers d'images du site.
 
-Fichier attendu par le site :
+  apercu.jpg    1200 × 630 px — aperçu affiché quand le lien du site est
+                partagé sur LinkedIn, Facebook, Slack, WhatsApp.
+                Référencé par les balises og:image dans index.html.
+                Pour le remplacer : garder le même nom et les mêmes
+                dimensions, sinon il faut ajuster les balises.
 
-  photo.jpg    Portrait pour la section « À propos ». Il faut aussi
-               décommenter la balise <img> dans index.html
-               (cherche « Ta photo ici »).
+Si tu ajoutes un jour un portrait, dépose-le ici sous photo.jpg et cherche
+« Colonne photo retirée » dans index.html : la marche à suivre y est.

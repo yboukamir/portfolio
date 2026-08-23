@@ -288,7 +288,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* --- À propos --- */
 .a-propos-grille {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1.15fr .85fr;
   gap: clamp(32px, 6vw, 72px);
   align-items: start;
 }
@@ -322,7 +322,12 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* --- Parcours daté --- */
-.parcours { margin-top: 2.6em; }
+/* Il occupe la seconde colonne de la grille « À propos », à la place de la
+   photo. Sur mobile, la grille passe en une colonne et il repasse dessous. */
+.parcours { margin-top: .3em; }
+@media (max-width: 820px) {
+  .parcours { margin-top: 2.4em; }
+}
 .parcours h3 {
   margin-bottom: .9em;
   font-size: .82rem;
@@ -373,23 +378,15 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--texte-doux);
 }
 
-.photo-cadre {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border: 1px solid var(--bordure);
-  border-radius: var(--rayon);
-  background: var(--fond-alt);
-  overflow: hidden;
-  box-shadow: var(--ombre);
-}
-.photo-cadre img { width: 100%; height: 100%; object-fit: cover; }
-.photo-placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
+/* Précision rattachée à une entrée : un stage inclus dans une formation,
+   par exemple. Décalée pour qu'on voie qu'elle en dépend. */
+.parcours-detail {
+  display: block;
+  margin-top: 4px;
+  padding-left: 11px;
+  border-left: 2px solid var(--bordure);
+  font-size: .86rem;
   color: var(--texte-doux);
-  font-size: .9rem;
 }
 
 /* --- Projets --- */
@@ -452,6 +449,25 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: .78rem;
   font-weight: 500;
 }
+/* Intertitre séparant les travaux clients des projets personnels. Les deux
+   ne se lisent pas de la même façon : autant le dire explicitement. */
+.groupe-projets {
+  margin: 0 0 .8em;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.projets-grille + .groupe-projets { margin-top: 3.2em; }
+
+.groupe-intro {
+  max-width: 60ch;
+  margin: -.4em 0 1.6em;
+  font-size: .94rem;
+  color: var(--texte-doux);
+}
+
 /* Contexte du projet : en entreprise, en freelance, perso. Un recruteur le
    cherche en premier — il ne lit pas un projet d'école comme un projet livré. */
 .carte-contexte {
@@ -588,7 +604,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 @media (max-width: 820px) {
   .a-propos-grille { grid-template-columns: 1fr; }
-  .a-propos-photo { max-width: 340px; }
+
 }
 
 @media (max-width: 700px) {
