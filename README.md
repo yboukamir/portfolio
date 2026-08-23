@@ -15,7 +15,9 @@ Aucune dépendance, aucun build, aucun framework.
 index.html                     Page unique : à propos, projets, compétences, contact
 404.html                       Page d'erreur
 robots.txt · sitemap.xml       Référencement
-_redirects                     Règles Netlify (fichiers de travail renvoyés en 404)
+CNAME                          Domaine servi par GitHub Pages
+.nojekyll                      Désactive Jekyll : les fichiers sont servis tels quels
+_redirects                     Hérité de Netlify, sans effet ici (conservé au cas où)
 
 css/tokens.css                 Couleurs et rythme — partagés par le site ET les outils
 css/style.css                  Styles du portfolio
@@ -121,11 +123,16 @@ un vrai message.
 
 ## Déploiement
 
-Glisser-déposer du dossier dans l'onglet *Deploys* de Netlify. Le domaine
-`boukamir.be` est chez OVH et pointe vers Netlify par un enregistrement `A`.
+Automatique : chaque poussée sur `main` publie le site via **GitHub Pages**.
+Rien à téléverser, donc aucun écart possible entre ce dépôt et ce qui est en
+ligne.
 
-⚠️ **Ne jamais basculer les serveurs de noms vers Netlify** : la messagerie
-`@boukamir.be` et l'enregistrement SPF vivent dans la zone DNS d'OVH.
+Le domaine `boukamir.be` est chez OVH. L'apex porte les quatre `A` et les quatre
+`AAAA` de GitHub Pages, `www` un `CNAME`. Le certificat est un Let's Encrypt
+délivré et renouvelé par GitHub.
+
+⚠️ **Ne jamais basculer les serveurs de noms** : la messagerie `@boukamir.be`
+et l'enregistrement SPF vivent dans la zone DNS d'OVH.
 
 ## Choix techniques
 
