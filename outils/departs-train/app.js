@@ -77,33 +77,9 @@
       });
   }
 
-  /* L'API renvoie tout en chaînes de caractères. On normalise une fois ici
-     plutôt que de faire des conversions partout dans le rendu. */
-  function normaliser(brut) {
-    var liste = (brut && brut.departures && brut.departures.departure) || [];
-    return liste.map(function (d) {
-      var infos = d.vehicleinfo || {};
-      var quai = d.platform && d.platform !== "?" ? d.platform : "";
-      return {
-        horodatage: parseInt(d.time, 10) * 1000,
-        retard:     Math.round((parseInt(d.delay, 10) || 0) / 60), // minutes
-        supprime:   d.canceled !== "0" && d.canceled !== 0,
-        destination: d.station || "",
-        quai:       quai,
-        ligne:      infos.shortname || infos.type || "",
-        type:       infos.type || ""
-      };
-    });
-  }
-
-
-  /* ========== 3. RENDU ========== */
-
-  function formaterHeure(ms) {
-    var d = new Date(ms);
-    if (isNaN(d.getTime())) return "--:--";
-    return d.toLocaleTimeString("fr-BE", { hour: "2-digit", minute: "2-digit" });
-  }
+  /* La logique métier — normalisation des réponses de l'API, libellés,
+     règles d'affichage — vit dans logique.js, couverte par tests.html. */
+  var L = DepartsLogique;
 
   function creerLigne(d) {
     var ligne = document.createElement("article");
@@ -113,11 +89,11 @@
     var heures = document.createElement("div");
     heures.className = "depart-heures";
 
-    if (d.retard > 0 && !d.supprime) {
+    if (L.afficheRetard(d)) {
       // Heure réelle en gros, heure théorique barrée en dessous.
       var reelle = document.createElement("span");
       reelle.className = "depart-heure";
-      reelle.textContent = formaterHeure(d.horodatage + d.retard * 60000);
+      reelle.textContent = L.formaterHeure(L.heureReelle(d));
 
       var retard = document.createElement("span");
       retard.className = "depart-retard";
@@ -125,7 +101,7 @@
 
       var theorique = document.createElement("span");
       theorique.className = "depart-heure decalee";
-      theorique.textContent = formaterHeure(d.horodatage);
+      theorique.textContent = L.formaterHeure(d.horodatage);
 
       heures.appendChild(reelle);
       heures.appendChild(retard);
@@ -133,7 +109,7 @@
     } else {
       var heure = document.createElement("span");
       heure.className = "depart-heure";
-      heure.textContent = formaterHeure(d.horodatage);
+      heure.textContent = L.formaterHeure(d.horodatage);
       heures.appendChild(heure);
     }
 
@@ -149,7 +125,7 @@
     if (d.ligne) {
       var ligneEl = document.createElement("div");
       ligneEl.className = "depart-ligne";
-      ligneEl.textContent = d.type === "BUS" ? d.ligne + " · bus de remplacement" : d.ligne;
+      ligneEl.textContent = L.libelleLigne(d);
       destination.appendChild(ligneEl);
     }
     if (d.supprime) {
@@ -167,7 +143,7 @@
     libelle.textContent = "Quai";
     var numero = document.createElement("span");
     numero.className = "quai-numero";
-    numero.textContent = d.quai || "—";
+    numero.textContent = L.libelleQuai(d);
     quai.appendChild(libelle);
     quai.appendChild(numero);
 
@@ -208,7 +184,7 @@
 
     interroger(gare)
       .then(function (donnees) {
-        var departs = normaliser(donnees);
+        var departs = L.normaliser(donnees);
         departsEl.textContent = "";
 
         if (departs.length === 0) {
@@ -222,7 +198,7 @@
 
         gareActuelle = gare;
         nomGareEl.textContent = " · " + (donnees.station || gare);
-        majEl.textContent = "Mis à jour à " + formaterHeure(Date.now()) +
+        majEl.textContent = "Mis à jour à " + L.formaterHeure(Date.now()) +
                             ". Rafraîchissement automatique chaque minute.";
         memoriserGare(gare);
         majRaccourcis();

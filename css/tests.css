@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Pages de tests — présentation du lanceur
+   Partagé par les pages tests.html des outils. Les couleurs viennent de
+   tokens.css, la coquille de outils.css.
+   ========================================================================== */
+
+.resume {
+  padding: 16px 20px;
+  border-radius: var(--rayon-petit);
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+.resume.ok    { background: color-mix(in srgb, var(--succes) 14%, transparent); color: var(--succes); }
+.resume.echec { background: color-mix(in srgb, var(--erreur) 12%, transparent); color: var(--erreur); }
+
+#resultats { list-style: none; margin: 0; padding: 0; }
+#resultats li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--bordure);
+  font-size: .94rem;
+}
+#resultats li:first-child { border-top: none; }
+
+/* Le libellé « OK » / « ÉCHEC » double la couleur : l'information ne doit
+   jamais reposer sur la teinte seule. */
+.puce {
+  flex: none;
+  min-width: 54px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+  text-align: center;
+}
+li.ok .puce    { background: color-mix(in srgb, var(--succes) 16%, transparent); color: var(--succes); }
+li.echec .puce { background: color-mix(in srgb, var(--erreur) 14%, transparent); color: var(--erreur); }
+
+.message {
+  flex-basis: 100%;
+  margin: 4px 0 0 66px;
+  font-size: .86rem;
+  color: var(--erreur);
+}

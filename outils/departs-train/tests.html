@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tests — Suivi de candidatures</title>
+  <title>Tests — Départs de train</title>
   <meta name="robots" content="noindex">
 
   <link rel="stylesheet" href="../../css/tokens.css">
   <link rel="stylesheet" href="../../css/outils.css">
   <link rel="stylesheet" href="../../css/tests.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
-
 </head>
 <body>
   <a class="skip-link" href="#principal">Aller au contenu</a>
@@ -18,7 +17,7 @@
   <header class="entete">
     <div class="conteneur entete-inner">
       <div>
-        <a class="retour" href="index.html">← Suivi de candidatures</a>
+        <a class="retour" href="index.html">← Départs de train</a>
         <h1>Tests</h1>
       </div>
     </div>
@@ -27,10 +26,11 @@
   <main id="principal" class="conteneur">
     <section class="bloc">
       <p class="note-donnees">
-        Ces tests vérifient <code>logique.js</code>, qui contient les règles de
-        l'outil : validation, nettoyage des données, tri, filtrage et fusion à
-        l'import. Aucune dépendance, aucune installation — la page les exécute
-        au chargement.
+        Ces tests vérifient <code>logique.js</code>, qui traduit les réponses de
+        l'API iRail en données affichables. <strong>Aucun appel réseau n'est
+        fait</strong> : les réponses sont simulées, y compris les cas rares —
+        train supprimé, quai non attribué, bus de remplacement, horodatage
+        illisible.
       </p>
 
       <div class="resume" id="resume" role="status">Exécution…</div>

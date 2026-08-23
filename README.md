@@ -18,6 +18,7 @@ _redirects                     Règles Netlify (fichiers de travail renvoyés en
 css/tokens.css                 Couleurs et rythme — partagés par le site ET les outils
 css/style.css                  Styles du portfolio
 css/outils.css                 Coquille commune aux outils
+css/tests.css                  Présentation des pages de tests
 
 js/theme.js                    Bascule clair/sombre, partagée par les trois pages
 js/script.js                   Interactions du portfolio
@@ -28,6 +29,9 @@ outils/suivi-candidatures/     Suivre ses candidatures (données locales)
   └ tests.html · tests.js      31 tests, sans dépendance
 
 outils/departs-train/          Départs de train en direct (API iRail)
+  ├ logique.js                 Traduction des réponses de l'API
+  ├ app.js                     DOM, réseau, rafraîchissement
+  └ tests.html · tests.js      27 tests, réponses simulées
 ```
 
 ## Lancer en local
@@ -49,8 +53,10 @@ sans quoi le navigateur sert un CSS périmé après chaque modification.
 
 ## Les tests
 
-L'outil de suivi de candidatures est couvert par **31 tests**, sans installation.
-Ouvre `outils/suivi-candidatures/tests.html` : ils s'exécutent au chargement.
+Les deux outils sont couverts par des tests, sans installation ni dépendance :
+**31 tests** pour le suivi de candidatures, **27** pour les départs de train.
+Ouvre la page `tests.html` de chaque outil : ils s'exécutent au chargement.
+Les tests des départs simulent les réponses de l'API — aucun appel réseau.
 
 La logique métier vit dans `logique.js` — validation, nettoyage des données, tri,
 filtrage, fusion à l'import. Des fonctions pures : pas de DOM, pas de `localStorage`,
