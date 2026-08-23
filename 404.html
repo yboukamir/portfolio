@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page introuvable — Yassine Boukamir</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/outils.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>">
+
+  <style>
+    body { display: grid; place-items: center; min-height: 100vh; background: var(--fond); }
+    .erreur-404 { max-width: 460px; padding: 24px; text-align: center; }
+    .erreur-404 .code {
+      font-size: clamp(3rem, 12vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent);
+    }
+    .erreur-404 h1 { margin: .4em 0 .3em; font-size: 1.5rem; font-weight: 700; }
+    .erreur-404 p { color: var(--texte-doux); }
+  </style>
+</head>
+<body>
+  <main class="erreur-404">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>Cette page n'existe pas</h1>
+    <p>Le lien est peut-être erroné, ou la page a été déplacée.</p>
+    <p><a class="btn btn-primaire" href="/">Retour à l'accueil</a></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Fichiers de travail qui ne doivent pas être lisibles publiquement.
+# Le « ! » force la règle : sans lui, Netlify sert le fichier existant et
+# ignore la redirection.
+#
+# C'est une ceinture de sécurité, pas une protection : le meilleur réflexe
+# reste de ne pas téléverser ces fichiers du tout.
+
+/MES-INFOS.md      /404.html  404!
+/README.md         /404.html  404!
+/assets/LISEZ-MOI.txt  /404.html  404!
+/.claude/*         /404.html  404!
+/CLAUDE.md         /404.html  404!

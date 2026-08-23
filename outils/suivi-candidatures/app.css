@@ -1,0 +1,150 @@
+/* ==========================================================================
+   Suivi de candidatures — styles spécifiques
+   La coquille (mise en page, en-tête, boutons, champs) vient de
+   ../../css/outils.css ; les couleurs de ../../css/tokens.css.
+   ========================================================================== */
+
+/* ========== FORMULAIRE ========== */
+
+.grille-champs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-block: 20px;
+}
+.champ-large { grid-column: 1 / -1; }
+
+.actions-formulaire { display: flex; flex-wrap: wrap; gap: 10px; }
+
+
+/* ========== STATISTIQUES ========== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat {
+  padding: 14px 16px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-petit);
+  background: var(--fond-carte);
+}
+.stat-nombre { display: block; font-size: 1.5rem; font-weight: 800; line-height: 1.1; }
+.stat-libelle {
+  display: block;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+
+/* ========== FILTRES ========== */
+
+.filtres { display: flex; flex-wrap: wrap; gap: 6px; }
+.filtre {
+  padding: 6px 13px;
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  background: var(--fond);
+  color: var(--texte-doux);
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.filtre:hover { border-color: var(--texte-doux); }
+.filtre[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contraste);
+}
+
+
+/* ========== LISTE ========== */
+
+.candidature {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--bordure);
+}
+.candidature:first-child { border-top: none; padding-top: 0; }
+
+.candidature-corps { flex: 1 1 240px; min-width: 0; }
+.candidature-titre { margin: 0 0 2px; font-size: 1.02rem; font-weight: 700; }
+.candidature-entreprise { color: var(--texte-doux); font-size: .92rem; }
+.candidature-notes {
+  margin: 8px 0 0;
+  font-size: .88rem;
+  color: var(--texte-doux);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.candidature-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: .84rem;
+  color: var(--texte-doux);
+}
+
+.candidature-actions { display: flex; gap: 6px; }
+.btn-mini {
+  padding: 5px 11px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-petit);
+  background: var(--fond);
+  color: var(--texte-doux);
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-mini:hover { color: var(--texte); border-color: var(--texte-doux); }
+.btn-mini.danger:hover { color: var(--erreur); border-color: var(--erreur); }
+
+/* Pastille de statut. Chaque statut a sa teinte, mais le libellé est toujours
+   écrit : on ne code jamais l'information par la couleur seule. */
+.pastille {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.pastille[data-statut="a-postuler"] { background: color-mix(in srgb, var(--texte-doux) 16%, transparent); color: var(--texte); }
+.pastille[data-statut="envoyee"]    { background: color-mix(in srgb, var(--accent) 16%, transparent);     color: var(--accent); }
+.pastille[data-statut="relancee"]   { background: color-mix(in srgb, #b45309 18%, transparent);           color: #b45309; }
+.pastille[data-statut="entretien"]  { background: color-mix(in srgb, #6d28d9 16%, transparent);           color: #6d28d9; }
+.pastille[data-statut="offre"]      { background: color-mix(in srgb, var(--succes) 16%, transparent);     color: var(--succes); }
+.pastille[data-statut="refus"]      { background: color-mix(in srgb, var(--erreur) 14%, transparent);     color: var(--erreur); }
+
+:root[data-theme="dark"] .pastille[data-statut="relancee"]  { color: #fbbf24; }
+:root[data-theme="dark"] .pastille[data-statut="entretien"] { color: #c4b5fd; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pastille[data-statut="relancee"]  { color: #fbbf24; }
+  :root:not([data-theme="light"]) .pastille[data-statut="entretien"] { color: #c4b5fd; }
+}
+
+
+/* ========== DONNÉES ========== */
+
+.bloc-donnees .note-donnees { font-size: .9rem; color: var(--texte-doux); }
+.actions-donnees { display: flex; flex-wrap: wrap; gap: 10px; }
+
+
+@media (max-width: 560px) {
+  .candidature-actions { width: 100%; }
+  .actions-formulaire .btn, .actions-donnees .btn { flex: 1 1 auto; }
+}

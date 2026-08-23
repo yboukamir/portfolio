@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Coquille commune aux outils de /outils
+   Mise en page, en-tête, boutons et champs. Les couleurs viennent de
+   tokens.css. Chaque outil ajoute ensuite sa propre feuille de style.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Un display explicite (flex, grid…) écrase l'attribut hidden. On le rétablit,
+   sinon les éléments masqués par le script restent visibles. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: var(--police);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--texte);
+  background: var(--fond-alt);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { line-height: 1.2; letter-spacing: -.02em; margin: 0; }
+p { margin: 0 0 1em; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.conteneur {
+  width: 100%;
+  max-width: 940px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-contraste);
+  padding: 10px 18px;
+  border-radius: var(--rayon-petit);
+}
+.skip-link:focus { left: 16px; }
+
+
+/* ========== EN-TÊTE ========== */
+
+.entete {
+  background: var(--fond);
+  border-bottom: 1px solid var(--bordure);
+}
+.entete-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 22px;
+}
+.entete h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; }
+
+.retour {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+.retour:hover { color: var(--accent); text-decoration: none; }
+
+.btn-icone {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-petit);
+  background: var(--fond-carte);
+  color: var(--texte);
+  cursor: pointer;
+}
+.btn-icone:hover { background: var(--fond-alt); border-color: var(--texte-doux); }
+
+.icone-lune   { display: block; }
+.icone-soleil { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icone-lune   { display: none; }
+  :root:not([data-theme="light"]) .icone-soleil { display: block; }
+}
+:root[data-theme="dark"] .icone-lune   { display: none; }
+:root[data-theme="dark"] .icone-soleil { display: block; }
+:root[data-theme="light"] .icone-lune   { display: block; }
+:root[data-theme="light"] .icone-soleil { display: none; }
+
+
+/* ========== BLOCS ========== */
+
+main { padding-block: 28px 60px; }
+
+.bloc {
+  margin-bottom: 24px;
+  padding: 26px 24px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--fond-carte);
+}
+.bloc-titre { font-size: 1.15rem; font-weight: 700; }
+
+.bloc-entete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+
+/* ========== CHAMPS ========== */
+
+.champ { display: grid; gap: 6px; }
+.champ label { font-size: .88rem; font-weight: 600; }
+
+.champ input,
+.champ select,
+.champ textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-petit);
+  background: var(--fond);
+  color: var(--texte);
+  font-family: inherit;
+  font-size: .96rem;
+  resize: vertical;
+}
+.champ input:focus,
+.champ select:focus,
+.champ textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.champ.invalide input { border-color: var(--erreur); }
+
+.erreur {
+  min-height: 1.05em;
+  font-size: .82rem;
+  color: var(--erreur);
+}
+
+
+/* ========== BOUTONS ========== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--rayon-petit);
+  font-family: inherit;
+  font-size: .94rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn:disabled { opacity: .6; cursor: wait; }
+
+.btn-primaire {
+  background: var(--accent);
+  color: var(--accent-contraste);
+}
+.btn-primaire:hover:not(:disabled) { background: var(--accent-survol); }
+
+.btn-secondaire {
+  background: var(--fond);
+  color: var(--texte);
+  border-color: var(--bordure);
+}
+.btn-secondaire:hover:not(:disabled) { border-color: var(--texte-doux); background: var(--fond-alt); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--erreur);
+  border-color: color-mix(in srgb, var(--erreur) 40%, transparent);
+}
+.btn-danger:hover { background: color-mix(in srgb, var(--erreur) 10%, transparent); }
+
+
+/* ========== MESSAGES ========== */
+
+.form-note { min-height: 1.3em; margin: 14px 0 0; font-size: .88rem; color: var(--texte-doux); }
+.form-note.succes { color: var(--succes); font-weight: 600; }
+.form-note.echec  { color: var(--erreur); font-weight: 600; }
+
+.vide {
+  margin: 0;
+  padding: 26px 0;
+  text-align: center;
+  color: var(--texte-doux);
+}
+
+
+/* ========== PIED ========== */
+
+.pied {
+  padding-block: 24px;
+  border-top: 1px solid var(--bordure);
+  background: var(--fond);
+}
+.pied p { margin: 0; font-size: .86rem; color: var(--texte-doux); }
+
+
+@media (max-width: 560px) {
+  .entete-inner { align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

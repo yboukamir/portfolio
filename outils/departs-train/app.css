@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Départs de train — styles spécifiques
+   La coquille vient de ../../css/outils.css, les couleurs de tokens.css.
+   ========================================================================== */
+
+/* ========== CHOIX DE LA GARE ========== */
+
+.formulaire-gare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin-block: 18px;
+}
+.formulaire-gare .champ { flex: 1 1 240px; }
+.formulaire-gare .btn { margin-top: 25px; } /* aligné sur le bas du champ */
+
+.raccourcis-titre {
+  margin: 0 0 8px;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.raccourcis { display: flex; flex-wrap: wrap; gap: 6px; }
+.raccourci {
+  padding: 6px 13px;
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  background: var(--fond);
+  color: var(--texte-doux);
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.raccourci:hover { border-color: var(--texte-doux); color: var(--texte); }
+.raccourci[aria-current="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contraste);
+}
+
+
+/* ========== BANDEAU DE RAFRAÎCHISSEMENT ========== */
+
+.controles-rafraichissement { display: flex; align-items: center; gap: 10px; }
+.btn-compact { padding: 7px 14px; font-size: .86rem; }
+
+.compte-a-rebours {
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--texte-doux);
+}
+
+#nom-gare { color: var(--texte-doux); font-weight: 500; }
+
+
+/* ========== ÉTATS ========== */
+
+.etat { margin-bottom: 4px; font-size: .92rem; color: var(--texte-doux); }
+.etat:empty { display: none; }
+.etat.echec { color: var(--erreur); font-weight: 600; }
+
+/* Squelette affiché pendant le chargement : la page ne saute pas quand les
+   vraies lignes arrivent. */
+.squelette {
+  height: 58px;
+  margin-bottom: 6px;
+  border-radius: var(--rayon-petit);
+  background: linear-gradient(
+    90deg,
+    var(--fond-alt) 25%,
+    color-mix(in srgb, var(--texte-doux) 12%, var(--fond-alt)) 50%,
+    var(--fond-alt) 75%
+  );
+  background-size: 300% 100%;
+  animation: pulsation 1.4s ease-in-out infinite;
+}
+@keyframes pulsation {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+
+/* ========== LISTE DES DÉPARTS ========== */
+
+.depart {
+  display: grid;
+  grid-template-columns: 74px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 0;
+  border-top: 1px solid var(--bordure);
+}
+.depart:first-child { border-top: none; }
+
+.depart-heures { line-height: 1.25; }
+.depart-heure {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.depart-retard {
+  display: block;
+  font-size: .8rem;
+  font-weight: 700;
+  color: #b45309;
+}
+:root[data-theme="dark"] .depart-retard { color: #fbbf24; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .depart-retard { color: #fbbf24; }
+}
+
+/* Heure théorique barrée quand il y a du retard : on montre les deux, sinon
+   on ne sait pas si « 14:32 » est l'horaire prévu ou l'horaire réel. */
+.depart-heure.decalee {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+  text-decoration: line-through;
+}
+
+.depart-destination { min-width: 0; }
+.depart-vers {
+  font-size: 1.02rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.depart-ligne {
+  margin-top: 2px;
+  font-size: .82rem;
+  color: var(--texte-doux);
+}
+
+.depart-quai { text-align: right; }
+.quai-libelle {
+  display: block;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.quai-numero { display: block; font-size: 1.1rem; font-weight: 700; }
+
+/* Départ supprimé : couleur ET texte ET rayure. Jamais la couleur seule. */
+.depart.supprime .depart-heure,
+.depart.supprime .depart-vers { text-decoration: line-through; opacity: .65; }
+.etiquette-supprime {
+  display: inline-block;
+  margin-top: 3px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--erreur) 14%, transparent);
+  color: var(--erreur);
+  font-size: .74rem;
+  font-weight: 700;
+}
+
+.maj {
+  margin: 16px 0 0;
+  font-size: .8rem;
+  color: var(--texte-doux);
+}
+.maj:empty { display: none; }
+
+
+/* ========== SOURCE ========== */
+
+.bloc-source p { font-size: .9rem; color: var(--texte-doux); }
+.bloc-source p:last-child { margin-bottom: 0; }
+.avertissement {
+  padding: 11px 14px;
+  border-left: 3px solid var(--bordure);
+  background: var(--fond-alt);
+  border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
+}
+
+
+@media (max-width: 520px) {
+  .depart { grid-template-columns: 64px 1fr auto; gap: 10px; }
+  .formulaire-gare .btn { margin-top: 0; width: 100%; }
+}

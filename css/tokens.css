@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Mon site — jetons de design partagés
+   Couleurs, typographie et rythme. Importé par le portfolio ET par les outils
+   du dossier /outils, pour qu'ils restent visuellement cohérents.
+   ========================================================================== */
+/* ========== 1. VARIABLES ========== */
+/* Change les couleurs ici : tout le site suit automatiquement.
+   --accent sert aussi pour du petit texte (liens, intitulés de section) : garde
+   un rapport de contraste d'au moins 4,5:1 avec --fond. Vérifie sur
+   webaim.org/resources/contrastchecker si tu changes la teinte.
+   --accent-survol fonce en thème clair et éclaircit en sombre : dans les deux
+   cas le bouton reste lisible au survol.
+   --erreur et --succes sont volontairement éloignés de --accent sur la roue
+   chromatique (rouge 0°, vert 105°, teal 175°), pour que les messages du
+   formulaire restent identifiables, y compris en cas de daltonisme. */
+
+:root {
+  /* Couleurs — thème clair */
+  --fond:            #ffffff;
+  --fond-alt:        #f6f7f9;
+  --fond-carte:      #ffffff;
+  --texte:           #16181d;
+  --texte-doux:      #5b616e;
+  --bordure:         #e3e6ea;
+  --accent:          #0f766e;
+  --accent-survol:   #115e59;
+  --accent-contraste:#ffffff;
+  --erreur:          #b91c1c;
+  --succes:          #367a1f;
+  --ombre:           0 1px 2px rgba(16, 18, 27, .04), 0 8px 24px rgba(16, 18, 27, .06);
+  --ombre-forte:     0 2px 4px rgba(16, 18, 27, .06), 0 16px 40px rgba(16, 18, 27, .12);
+
+  /* Typographie */
+  --police: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Rythme */
+  --largeur-max: 1120px;
+  --rayon:       14px;
+  --rayon-petit: 8px;
+  --transition:  200ms cubic-bezier(.2, .7, .3, 1);
+}
+
+/* Thème sombre — suit le réglage du système... */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond:            #0f1115;
+    --fond-alt:        #14171d;
+    --fond-carte:      #181c23;
+    --texte:           #eceef2;
+    --texte-doux:      #a0a7b4;
+    --bordure:         #262b34;
+    --accent:          #2dd4bf;
+    --accent-survol:   #5eead4;
+    --accent-contraste:#12141a;
+    --erreur:          #f87171;
+    --succes:          #4bab2b;
+    --ombre:           0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    --ombre-forte:     0 2px 4px rgba(0, 0, 0, .4), 0 16px 40px rgba(0, 0, 0, .5);
+  }
+}
+
+/* ...ou du choix explicite fait avec le bouton. */
+:root[data-theme="dark"] {
+  --fond:            #0f1115;
+  --fond-alt:        #14171d;
+  --fond-carte:      #181c23;
+  --texte:           #eceef2;
+  --texte-doux:      #a0a7b4;
+  --bordure:         #262b34;
+  --accent:          #2dd4bf;
+  --accent-survol:   #5eead4;
+  --accent-contraste:#12141a;
+  --erreur:          #f87171;
+  --succes:          #4bab2b;
+  --ombre:           0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  --ombre-forte:     0 2px 4px rgba(0, 0, 0, .4), 0 16px 40px rgba(0, 0, 0, .5);
+}

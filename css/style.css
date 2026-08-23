@@ -1,0 +1,635 @@
+/* ==========================================================================
+   Mon site — styles du portfolio
+   Les couleurs et le rythme sont dans tokens.css, partagé avec les outils.
+   Organisation : 1. Base · 2. Composants · 3. Sections · 4. Responsive
+                  5. Animations
+   ========================================================================== */
+
+
+/* ========== 2. BASE ========== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* pour que l'en-tête fixe ne masque pas les titres */
+}
+
+body {
+  margin: 0;
+  font-family: var(--police);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--texte);
+  background: var(--fond);
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+}
+
+h1, h2, h3 { line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .5em; }
+h1 { font-size: clamp(2.6rem, 7vw, 4.5rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.75rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 650; }
+p  { margin: 0 0 1.1em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.conteneur {
+  width: 100%;
+  max-width: var(--largeur-max);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+.conteneur-etroit { max-width: 680px; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 12px;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-contraste);
+  padding: 10px 18px;
+  border-radius: var(--rayon-petit);
+}
+.skip-link:focus { left: 16px; }
+
+
+/* ========== 3. COMPOSANTS ========== */
+
+/* --- En-tête --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--fond) 82%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition), background var(--transition);
+}
+.site-header.defile { border-bottom-color: var(--bordure); }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 72px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -.03em;
+  color: var(--texte);
+}
+.logo span { color: var(--accent); }
+.logo:hover { text-decoration: none; }
+
+.nav ul {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav a {
+  display: block;
+  padding: 8px 14px;
+  border-radius: var(--rayon-petit);
+  color: var(--texte-doux);
+  font-size: .95rem;
+  font-weight: 500;
+  transition: color var(--transition), background var(--transition);
+}
+.nav a:hover,
+.nav a.actif {
+  color: var(--texte);
+  background: var(--fond-alt);
+  text-decoration: none;
+}
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+
+.btn-icone {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-petit);
+  background: var(--fond-carte);
+  color: var(--texte);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-icone:hover { background: var(--fond-alt); border-color: var(--texte-doux); }
+
+/* Le soleil s'affiche en thème sombre (« passer en clair ») et inversement. */
+.icone-lune   { display: block; }
+.icone-soleil { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icone-lune   { display: none; }
+  :root:not([data-theme="light"]) .icone-soleil { display: block; }
+}
+:root[data-theme="dark"] .icone-lune   { display: none; }
+:root[data-theme="dark"] .icone-soleil { display: block; }
+:root[data-theme="light"] .icone-lune   { display: block; }
+:root[data-theme="light"] .icone-soleil { display: none; }
+
+/* Menu burger (mobile) */
+.burger { display: none; flex-direction: column; gap: 4px; }
+.burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--texte);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* --- Boutons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--rayon-petit);
+  font-size: .98rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition),
+              border-color var(--transition), box-shadow var(--transition);
+}
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: .6; cursor: wait; transform: none; }
+.btn-large { padding: 14px 28px; width: 100%; }
+
+.btn-primaire {
+  background: var(--accent);
+  color: var(--accent-contraste);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.btn-primaire:hover { background: var(--accent-survol); }
+
+.btn-secondaire {
+  background: transparent;
+  color: var(--texte);
+  border-color: var(--bordure);
+}
+
+.btn-secondaire:hover { border-color: var(--texte-doux); background: var(--fond-alt); }
+
+/* --- Lien fléché --- */
+.lien-fleche {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: .95rem;
+}
+.lien-fleche::after {
+  content: "→";
+  transition: transform var(--transition);
+}
+.lien-fleche:hover { text-decoration: none; }
+.lien-fleche:hover::after { transform: translateX(4px); }
+
+
+/* ========== 4. SECTIONS ========== */
+
+.section { padding: clamp(64px, 10vw, 112px) 0; }
+.section-alt { background: var(--fond-alt); }
+
+.section-kicker {
+  margin: 0 0 .4em;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.section-titre { margin-bottom: 1.4em; }
+
+/* --- Hero --- */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(88vh, 780px);
+  overflow: hidden;
+}
+.hero-inner { position: relative; z-index: 1; }
+
+.hero-fond {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 55% at 15% 20%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(50% 50% at 85% 75%, color-mix(in srgb, var(--accent-survol) 18%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-kicker {
+  margin: 0 0 .3em;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+.hero-titre { margin-bottom: .3em; }
+.hero-sous-titre {
+  max-width: 620px;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: var(--texte-doux);
+  margin-bottom: 1.5em;
+}
+.hero-sous-titre strong { color: var(--texte); font-weight: 600; }
+/* Ligne de disponibilité : ce qu'un recruteur cherche en premier —
+   est-ce que la personne cherche, et où se trouve-t-elle. */
+.hero-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 1.5em;
+  padding: 7px 15px;
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  background: var(--fond-carte);
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+.point-dispo {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--succes);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--succes) 25%, transparent);
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* --- À propos --- */
+.a-propos-grille {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(32px, 6vw, 72px);
+  align-items: start;
+}
+.a-propos-texte p { color: var(--texte-doux); }
+
+/* Repère visuel pour le contenu qui reste à écrire : impossible de publier
+   le site sans le voir. Supprime la classe une fois le texte rédigé. */
+.a-completer {
+  padding: 14px 16px;
+  border: 2px dashed var(--erreur);
+  border-radius: var(--rayon-petit);
+  color: var(--erreur) !important;
+  font-size: .92rem;
+}
+
+.competences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 1.8em 0 0;
+  padding: 0;
+}
+.competences li {
+  padding: 6px 14px;
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  background: var(--fond-carte);
+  font-size: .88rem;
+  font-weight: 500;
+}
+
+/* --- Parcours daté --- */
+.parcours { margin-top: 2.6em; }
+.parcours h3 {
+  margin-bottom: .9em;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+.parcours-liste {
+  margin: 0;
+  padding: 0 0 0 22px;
+  list-style: none;
+  border-left: 2px solid var(--bordure);
+}
+.parcours-liste li {
+  position: relative;
+  padding-bottom: 22px;
+}
+.parcours-liste li:last-child { padding-bottom: 0; }
+
+/* Le point sur la ligne de temps. */
+.parcours-liste li::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 7px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.parcours-dates {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.parcours-poste {
+  display: block;
+  font-weight: 600;
+  color: var(--texte);
+}
+.parcours-lieu {
+  display: block;
+  font-size: .92rem;
+  color: var(--texte-doux);
+}
+
+.photo-cadre {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--fond-alt);
+  overflow: hidden;
+  box-shadow: var(--ombre);
+}
+.photo-cadre img { width: 100%; height: 100%; object-fit: cover; }
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--texte-doux);
+  font-size: .9rem;
+}
+
+/* --- Projets --- */
+.projets-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.carte-projet {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--fond-carte);
+  overflow: hidden;
+  box-shadow: var(--ombre);
+  transition: transform var(--transition), box-shadow var(--transition),
+              border-color var(--transition);
+}
+.carte-projet:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ombre-forte);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--bordure));
+}
+
+.carte-visuel {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 22%, var(--fond-alt)),
+      color-mix(in srgb, var(--accent-survol) 10%, var(--fond-alt)));
+  border-bottom: 1px solid var(--bordure);
+}
+.carte-visuel span {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: color-mix(in srgb, var(--accent) 70%, var(--texte));
+  opacity: .55;
+}
+
+.carte-corps { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.carte-corps p { color: var(--texte-doux); font-size: .96rem; }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+}
+.tags li {
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--fond-alt);
+  color: var(--texte-doux);
+  font-size: .78rem;
+  font-weight: 500;
+}
+/* Contexte du projet : en entreprise, en freelance, perso. Un recruteur le
+   cherche en premier — il ne lit pas un projet d'école comme un projet livré. */
+.carte-contexte {
+  margin-bottom: .5em;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.carte-liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: auto;
+}
+
+/* Mention sans lien, quand le projet n'a pas d'URL à montrer
+   (outil interne, sous NDA, ou page en cours de lecture). */
+.lien-inerte {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+/* --- Compétences --- */
+.competences-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.groupe-competences {
+  padding: 26px 24px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--fond-carte);
+}
+.groupe-competences h3 {
+  margin-bottom: .9em;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.groupe-competences .competences { margin: 0; }
+
+
+/* --- Contact --- */
+.contact-intro { color: var(--texte-doux); margin-bottom: 2em; }
+
+.formulaire { display: grid; gap: 20px; }
+
+/* Piège à robots : jamais visible, jamais annoncé aux lecteurs d'écran. */
+.champ-piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.champ { display: grid; gap: 7px; }
+.champ label { font-size: .92rem; font-weight: 600; }
+
+.champ input,
+.champ textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon-petit);
+  background: var(--fond-carte);
+  color: var(--texte);
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.champ input:focus,
+.champ textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.champ.invalide input,
+.champ.invalide textarea { border-color: var(--erreur); }
+
+.erreur {
+  min-height: 1.1em;
+  color: var(--erreur);
+  font-size: .85rem;
+}
+
+.form-note {
+  min-height: 1.4em;
+  margin: 0;
+  font-size: .92rem;
+  color: var(--texte-doux);
+  text-align: center;
+}
+.form-note.succes { color: var(--succes); font-weight: 600; }
+.form-note.echec  { color: var(--erreur); font-weight: 600; }
+
+.contact-secours {
+  margin: 34px 0 0;
+  padding-top: 26px;
+  border-top: 1px solid var(--bordure);
+  text-align: center;
+  font-size: .94rem;
+  color: var(--texte-doux);
+}
+
+/* --- Pied de page --- */
+.site-footer {
+  padding: 36px 0;
+  border-top: 1px solid var(--bordure);
+  background: var(--fond);
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-inner p { margin: 0; color: var(--texte-doux); font-size: .9rem; }
+
+.reseaux {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.reseaux a { color: var(--texte-doux); font-size: .9rem; font-weight: 500; }
+.reseaux a:hover { color: var(--accent); }
+
+
+/* ========== 5. RESPONSIVE ========== */
+
+@media (max-width: 820px) {
+  .a-propos-grille { grid-template-columns: 1fr; }
+  .a-propos-photo { max-width: 340px; }
+}
+
+@media (max-width: 700px) {
+  .burger { display: flex; }
+
+  .nav {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    display: none;
+    padding: 12px 24px 20px;
+    background: var(--fond);
+    border-bottom: 1px solid var(--bordure);
+    box-shadow: var(--ombre);
+  }
+  .nav.ouvert { display: block; }
+  .nav ul { flex-direction: column; gap: 2px; }
+  .nav a { padding: 12px 14px; }
+
+  .hero { min-height: 78vh; }
+  .hero-actions .btn { flex: 1 1 auto; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+
+
+/* ========== 6. ANIMATIONS ========== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(.2, .7, .3, 1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* Respecte le réglage système « réduire les animations ». */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

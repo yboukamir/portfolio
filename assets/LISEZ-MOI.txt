@@ -1,0 +1,7 @@
+Dépose ici tes fichiers : photo de profil, captures de projets.
+
+Fichier attendu par le site :
+
+  photo.jpg    Portrait pour la section « À propos ». Il faut aussi
+               décommenter la balise <img> dans index.html
+               (cherche « Ta photo ici »).

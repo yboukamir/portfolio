@@ -1,0 +1,12 @@
+# Notes de travail et contexte : personnels, à ne pas publier.
+# Ils voyagent d'une machine à l'autre à la main, pas par le dépôt.
+MES-INFOS.md
+CLAUDE.md
+
+# Serveur de développement local, spécifique à Windows.
+.claude/
+
+# Poussières système
+.DS_Store
+Thumbs.db
+desktop.ini
