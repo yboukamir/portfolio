@@ -200,6 +200,12 @@
       var erreur = L.validerChamp(nom, input.value);
       input.closest(".champ").classList.toggle("invalide", erreur !== "");
       $("erreur-" + nom).textContent = erreur;
+
+      /* La bordure rouge ne dit rien à un lecteur d'écran : aria-invalid le
+         signale, aria-describedby (dans le HTML) fait lire le message. */
+      if (erreur !== "") input.setAttribute("aria-invalid", "true");
+      else input.removeAttribute("aria-invalid");
+
       if (erreur !== "") ok = false;
     });
 

@@ -209,7 +209,7 @@
               </ul>
               <div class="carte-liens">
                 <a class="lien-fleche" href="https://orientalbeaute.be"
-                   target="_blank" rel="noopener noreferrer">Voir le site</a>
+                   target="_blank" rel="noopener noreferrer">Voir le site<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -230,7 +230,7 @@
               </ul>
               <div class="carte-liens">
                 <a class="lien-fleche" href="https://pauseplaisir.be"
-                   target="_blank" rel="noopener noreferrer">Voir le site</a>
+                   target="_blank" rel="noopener noreferrer">Voir le site<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -251,7 +251,7 @@
               </ul>
               <div class="carte-liens">
                 <a class="lien-fleche" href="https://nexilios.com"
-                   target="_blank" rel="noopener noreferrer">Voir le site</a>
+                   target="_blank" rel="noopener noreferrer">Voir le site<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -272,7 +272,7 @@
               </ul>
               <div class="carte-liens">
                 <a class="lien-fleche" href="https://tjeditions.com"
-                   target="_blank" rel="noopener noreferrer">Voir le site</a>
+                   target="_blank" rel="noopener noreferrer">Voir le site<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -292,7 +292,7 @@
               </ul>
               <div class="carte-liens">
                 <a class="lien-fleche" href="https://bureautiquepro.fr"
-                   target="_blank" rel="noopener noreferrer">Voir le site</a>
+                   target="_blank" rel="noopener noreferrer">Voir le site<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -313,7 +313,7 @@
               </ul>
               <div class="carte-liens">
                 <a class="lien-fleche" href="https://basin.be"
-                   target="_blank" rel="noopener noreferrer">Voir le site</a>
+                   target="_blank" rel="noopener noreferrer">Voir le site<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -344,7 +344,7 @@
               <div class="carte-liens">
                 <span class="lien-inerte">Vous y êtes</span>
                 <a class="lien-fleche" href="https://github.com/yboukamir/portfolio"
-                   target="_blank" rel="noopener noreferrer">Voir le code</a>
+                   target="_blank" rel="noopener noreferrer">Voir le code<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -369,7 +369,7 @@
                 <a class="lien-fleche" href="outils/suivi-candidatures/tests.html">Voir les tests</a>
                 <a class="lien-fleche"
                    href="https://github.com/yboukamir/portfolio/tree/main/outils/suivi-candidatures"
-                   target="_blank" rel="noopener noreferrer">Voir le code</a>
+                   target="_blank" rel="noopener noreferrer">Voir le code<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -394,7 +394,7 @@
                 <a class="lien-fleche" href="outils/departs-train/tests.html">Voir les tests</a>
                 <a class="lien-fleche"
                    href="https://github.com/yboukamir/portfolio/tree/main/outils/departs-train"
-                   target="_blank" rel="noopener noreferrer">Voir le code</a>
+                   target="_blank" rel="noopener noreferrer">Voir le code<span class="hors-ecran"> (nouvel onglet)</span></a>
               </div>
             </div>
           </article>
@@ -506,20 +506,20 @@
 
           <div class="champ">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" required autocomplete="name">
-            <span class="erreur" data-erreur-pour="nom"></span>
+            <input type="text" id="nom" name="nom" required autocomplete="name" aria-describedby="erreur-nom">
+            <span class="erreur" id="erreur-nom" data-erreur-pour="nom"></span>
           </div>
 
           <div class="champ">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
-            <span class="erreur" data-erreur-pour="email"></span>
+            <input type="email" id="email" name="email" required autocomplete="email" aria-describedby="erreur-email">
+            <span class="erreur" id="erreur-email" data-erreur-pour="email"></span>
           </div>
 
           <div class="champ">
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-            <span class="erreur" data-erreur-pour="message"></span>
+            <textarea id="message" name="message" rows="5" required aria-describedby="erreur-message"></textarea>
+            <span class="erreur" id="erreur-message" data-erreur-pour="message"></span>
           </div>
 
           <button class="btn btn-primaire btn-large" type="submit">Envoyer le message</button>
@@ -531,7 +531,7 @@
         <p class="contact-secours reveal">
           Ou retrouve-moi sur
           <a href="https://www.linkedin.com/in/yboukamir/"
-             target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+             target="_blank" rel="noopener noreferrer">LinkedIn<span class="hors-ecran"> (nouvel onglet)</span></a>.
         </p>
 
       </div>
@@ -545,11 +545,11 @@
       <ul class="reseaux">
         <li>
           <a href="https://github.com/yboukamir"
-             target="_blank" rel="noopener noreferrer">GitHub</a>
+             target="_blank" rel="noopener noreferrer">GitHub<span class="hors-ecran"> (nouvel onglet)</span></a>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/yboukamir/"
-             target="_blank" rel="noopener noreferrer">LinkedIn</a>
+             target="_blank" rel="noopener noreferrer">LinkedIn<span class="hors-ecran"> (nouvel onglet)</span></a>
         </li>
       </ul>
     </div>

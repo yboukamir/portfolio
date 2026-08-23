@@ -141,6 +141,13 @@
 
     champ.classList.toggle("invalide", Boolean(erreur));
     if (messageErreur) messageErreur.textContent = erreur;
+
+    /* La bordure rouge ne dit rien à un lecteur d'écran. aria-invalid signale
+       l'erreur, et aria-describedby (posé dans le HTML) fait lire le message
+       au moment où l'utilisateur atteint le champ. */
+    if (erreur) input.setAttribute("aria-invalid", "true");
+    else input.removeAttribute("aria-invalid");
+
     return !erreur;
   }
 

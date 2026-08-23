@@ -306,10 +306,12 @@
 
     if (!gare) {
       erreurGareEl.textContent = "Indique une gare, ou choisis un raccourci.";
+      champGare.setAttribute("aria-invalid", "true");
       champGare.focus();
       return;
     }
     erreurGareEl.textContent = "";
+    champGare.removeAttribute("aria-invalid");
     charger(gare, false);
   });
 

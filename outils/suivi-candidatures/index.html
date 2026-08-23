@@ -50,13 +50,13 @@
         <div class="grille-champs">
           <div class="champ">
             <label for="entreprise">Entreprise <span aria-hidden="true">*</span></label>
-            <input type="text" id="entreprise" required autocomplete="organization">
+            <input type="text" id="entreprise" required autocomplete="organization" aria-describedby="erreur-entreprise">
             <span class="erreur" id="erreur-entreprise"></span>
           </div>
 
           <div class="champ">
             <label for="poste">Poste <span aria-hidden="true">*</span></label>
-            <input type="text" id="poste" required>
+            <input type="text" id="poste" required aria-describedby="erreur-poste">
             <span class="erreur" id="erreur-poste"></span>
           </div>
 
@@ -79,7 +79,7 @@
 
           <div class="champ champ-large">
             <label for="lien">Lien vers l'annonce</label>
-            <input type="url" id="lien" placeholder="https://…">
+            <input type="url" id="lien" placeholder="https://…" aria-describedby="erreur-lien">
             <span class="erreur" id="erreur-lien"></span>
           </div>
 

@@ -134,7 +134,9 @@ Glisser-déposer du dossier dans l'onglet *Deploys* de Netlify. Le domaine
 - **Le DOM se construit avec `createElement` et `textContent`**, jamais par
   concaténation de HTML : les données viennent de saisies utilisateur.
 - **Accessibilité** : `aria-live` sur les contenus qui changent seuls, `aria-pressed`
-  sur les filtres, aucune information portée par la couleur seule,
+  sur les filtres, `aria-invalid` et `aria-describedby` reliant chaque message
+  d'erreur à son champ, mention « nouvel onglet » pour les liens qui en ouvrent
+  un, aucune information portée par la couleur seule,
   `prefers-reduced-motion` respecté.
 - **Chaque cas d'erreur a son message.** Pas de « une erreur est survenue » unique :
   l'outil des trains distingue gare inconnue, API trop lente et réseau coupé, parce
