@@ -5,6 +5,8 @@ Aucune dépendance, aucun build, aucun framework.
 
 **En ligne : [boukamir.be](https://boukamir.be)**
 
+[![Tests](https://github.com/yboukamir/portfolio/actions/workflows/tests.yml/badge.svg)](https://github.com/yboukamir/portfolio/actions/workflows/tests.yml)
+
 ---
 
 ## Structure
@@ -25,13 +27,18 @@ js/script.js                   Interactions du portfolio
 
 outils/suivi-candidatures/     Suivre ses candidatures (données locales)
   ├ logique.js                 Règles métier — fonctions pures
+  ├ cas-de-tests.js            Les 31 cas, sans DOM ni Node
   ├ app.js                     DOM et stockage
   └ tests.html · tests.js      31 tests, sans dépendance
 
 outils/departs-train/          Départs de train en direct (API iRail)
   ├ logique.js                 Traduction des réponses de l'API
+  ├ cas-de-tests.js            Les 27 cas, réponses simulées
   ├ app.js                     DOM, réseau, rafraîchissement
   └ tests.html · tests.js      27 tests, réponses simulées
+
+outils/executer-tests.js       Lance les 58 cas en ligne de commande
+.github/workflows/tests.yml    Exécution automatique à chaque poussée
 ```
 
 ## Lancer en local
@@ -63,7 +70,19 @@ filtrage, fusion à l'import. Des fonctions pures : pas de DOM, pas de `localSto
 même résultat pour les mêmes entrées. `app.js` les appelle plutôt que d'en garder
 une copie, donc les tests portent bien sur le code qui tourne réellement.
 
-**Si tu modifies `logique.js`, relance la page de tests.**
+**Si tu modifies `logique.js`, relance la page de tests.** Ils tournent aussi
+automatiquement à chaque poussée sur GitHub, via `.github/workflows/tests.yml` —
+voir le badge en haut de ce fichier.
+
+En ligne de commande, si tu as Node :
+
+```bash
+node outils/executer-tests.js
+```
+
+Les cas de test vivent dans `cas-de-tests.js`, sans DOM ni Node : le même fichier
+sert à la page HTML et au lanceur en ligne de commande. Il n'y a donc qu'une seule
+source de vérité.
 
 Pour vérifier que les tests protègent vraiment : casse volontairement une fonction
 et recharge la page. Le test correspondant doit passer au rouge. Un test qui ne

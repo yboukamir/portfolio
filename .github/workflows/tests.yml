@@ -1,0 +1,22 @@
+# Lance les tests à chaque poussée et à chaque pull request.
+# Node est déjà présent sur les machines de GitHub : rien à installer, et
+# rien à installer non plus sur la machine de Yassine.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  tests:
+    name: Suivi de candidatures et départs de train
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Exécuter les tests
+        run: node outils/executer-tests.js

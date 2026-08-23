@@ -141,3 +141,9 @@ var SuiviLogique = (function () {
     fusionnerImport: fusionnerImport
   };
 })();
+
+/* Utilisable dans le navigateur (variable globale) comme en ligne de commande
+   (require), pour que les mêmes tests tournent dans les deux environnements. */
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = SuiviLogique;
+}
