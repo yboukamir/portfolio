@@ -15,22 +15,10 @@
 
   var CLE_STOCKAGE = "suivi-candidatures";
 
-  // L'ordre définit celui des filtres et des statistiques.
-  var STATUTS = [
-    { code: "a-postuler", libelle: "À postuler" },
-    { code: "envoyee",    libelle: "Envoyée" },
-    { code: "relancee",   libelle: "Relancée" },
-    { code: "entretien",  libelle: "Entretien" },
-    { code: "offre",      libelle: "Offre" },
-    { code: "refus",      libelle: "Refus" }
-  ];
-
-  function libelleStatut(code) {
-    for (var i = 0; i < STATUTS.length; i++) {
-      if (STATUTS[i].code === code) return STATUTS[i].libelle;
-    }
-    return code;
-  }
+  /* Toute la logique métier vit dans logique.js, testée par tests.html.
+     Ce fichier ne s'occupe que du DOM et du stockage. */
+  var L = SuiviLogique;
+  var STATUTS = L.STATUTS;
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -55,7 +43,7 @@
     try {
       var brut = localStorage.getItem(CLE_STOCKAGE);
       var donnees = brut ? JSON.parse(brut) : [];
-      return Array.isArray(donnees) ? donnees.filter(estValide) : [];
+      return Array.isArray(donnees) ? donnees.filter(L.estValide) : [];
     } catch (e) {
       // Données corrompues ou localStorage indisponible : on repart à vide
       // plutôt que de casser la page.
@@ -73,39 +61,8 @@
     }
   }
 
-  /* Garde-fou à la lecture : un fichier importé peut contenir n'importe quoi. */
-  function estValide(c) {
-    return c && typeof c === "object" &&
-           typeof c.entreprise === "string" && c.entreprise.trim() !== "" &&
-           typeof c.poste === "string" && c.poste.trim() !== "";
-  }
-
-  function nettoyer(c) {
-    var codes = STATUTS.map(function (s) { return s.code; });
-    return {
-      id:         String(c.id || creerId()),
-      entreprise: String(c.entreprise).trim().slice(0, 120),
-      poste:      String(c.poste).trim().slice(0, 120),
-      date:       typeof c.date === "string" ? c.date.slice(0, 10) : "",
-      statut:     codes.indexOf(c.statut) !== -1 ? c.statut : "envoyee",
-      lien:       typeof c.lien === "string" ? c.lien.trim().slice(0, 500) : "",
-      notes:      typeof c.notes === "string" ? c.notes.trim().slice(0, 2000) : ""
-    };
-  }
-
-  function creerId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-  }
-
 
   /* ========== 3. RENDU ========== */
-
-  function formaterDate(iso) {
-    if (!iso) return "";
-    var d = new Date(iso + "T00:00:00");
-    if (isNaN(d.getTime())) return "";
-    return d.toLocaleDateString("fr-BE", { day: "numeric", month: "short", year: "numeric" });
-  }
 
   /* On construit le DOM par createElement plutôt qu'en concaténant du HTML :
      le nom d'une entreprise peut contenir n'importe quel caractère. */
@@ -116,7 +73,7 @@
     var pastille = document.createElement("span");
     pastille.className = "pastille";
     pastille.setAttribute("data-statut", c.statut);
-    pastille.textContent = libelleStatut(c.statut);
+    pastille.textContent = L.libelleStatut(c.statut);
 
     var corps = document.createElement("div");
     corps.className = "candidature-corps";
@@ -144,7 +101,7 @@
 
     if (c.date) {
       var dateEl = document.createElement("span");
-      dateEl.textContent = formaterDate(c.date);
+      dateEl.textContent = L.formaterDate(c.date);
       meta.appendChild(dateEl);
     }
     if (c.lien) {
@@ -184,17 +141,7 @@
   }
 
   function afficher() {
-    var visibles = candidatures.filter(function (c) {
-      return filtreActif === "toutes" || c.statut === filtreActif;
-    });
-
-    // Les plus récentes d'abord ; celles sans date passent à la fin.
-    visibles.sort(function (a, b) {
-      if (!a.date && !b.date) return 0;
-      if (!a.date) return 1;
-      if (!b.date) return -1;
-      return b.date.localeCompare(a.date);
-    });
+    var visibles = L.trier(L.filtrer(candidatures, filtreActif));
 
     listeEl.textContent = "";
     visibles.forEach(function (c) { listeEl.appendChild(creerLigne(c)); });
@@ -244,25 +191,17 @@
 
   /* ========== 4. FORMULAIRE ========== */
 
+  /* Les règles vivent dans logique.js ; ici on ne fait qu'afficher leur verdict. */
   function validerFormulaire() {
     var ok = true;
 
-    [["entreprise", "L'entreprise est obligatoire."],
-     ["poste", "L'intitulé du poste est obligatoire."]].forEach(function (paire) {
-      var input = $(paire[0]);
-      var vide = input.value.trim() === "";
-      input.closest(".champ").classList.toggle("invalide", vide);
-      $("erreur-" + paire[0]).textContent = vide ? paire[1] : "";
-      if (vide) ok = false;
+    ["entreprise", "poste", "lien"].forEach(function (nom) {
+      var input = $(nom);
+      var erreur = L.validerChamp(nom, input.value);
+      input.closest(".champ").classList.toggle("invalide", erreur !== "");
+      $("erreur-" + nom).textContent = erreur;
+      if (erreur !== "") ok = false;
     });
-
-    // Un lien mal formé ferait un lien mort dans la liste : on le refuse ici.
-    var lien = $("lien");
-    var valeurLien = lien.value.trim();
-    var lienInvalide = valeurLien !== "" && !/^https?:\/\/.+/i.test(valeurLien);
-    lien.closest(".champ").classList.toggle("invalide", lienInvalide);
-    $("erreur-lien").textContent = lienInvalide ? "Le lien doit commencer par http:// ou https://" : "";
-    if (lienInvalide) ok = false;
 
     return ok;
   }
@@ -320,7 +259,7 @@
       return;
     }
 
-    var donnee = nettoyer({
+    var donnee = L.nettoyer({
       id:         $("identifiant").value,
       entreprise: $("entreprise").value,
       poste:      $("poste").value,
@@ -411,22 +350,17 @@
         var donnees = JSON.parse(lecteur.result);
         if (!Array.isArray(donnees)) throw new Error("format");
 
-        var valides = donnees.filter(estValide).map(nettoyer);
-        if (valides.length === 0) {
+        var fusion = L.fusionnerImport(candidatures, donnees);
+        if (fusion.ajoutees === 0 && fusion.ignorees === 0) {
           afficherNote("Aucune candidature exploitable dans ce fichier.", "echec");
           return;
         }
 
-        // Fusion plutôt que remplacement : importer ne doit jamais faire
-        // perdre ce qui est déjà là. Les identifiants déjà connus sont ignorés.
-        var connus = candidatures.map(function (c) { return c.id; });
-        var nouvelles = valides.filter(function (c) { return connus.indexOf(c.id) === -1; });
-
-        candidatures = candidatures.concat(nouvelles);
+        candidatures = fusion.liste;
         enregistrer();
         afficher();
-        afficherNote(nouvelles.length + " candidature(s) importée(s), " +
-                     (valides.length - nouvelles.length) + " déjà présente(s).", "succes");
+        afficherNote(fusion.ajoutees + " candidature(s) importée(s), " +
+                     fusion.ignorees + " déjà présente(s).", "succes");
       } catch (e) {
         afficherNote("Fichier illisible : il doit s'agir d'un export JSON de cet outil.", "echec");
       } finally {
@@ -458,7 +392,7 @@
 
   /* ========== 7. DÉMARRAGE ========== */
 
-  candidatures = charger().map(nettoyer);
+  candidatures = charger().map(function (c) { return L.nettoyer(c); });
   construireFiltres();
   reinitialiser();
   afficher();

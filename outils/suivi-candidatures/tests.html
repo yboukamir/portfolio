@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests — Suivi de candidatures</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/outils.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+
+  <style>
+    .resume {
+      padding: 16px 20px;
+      border-radius: var(--rayon-petit);
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .resume.ok    { background: color-mix(in srgb, var(--succes) 14%, transparent); color: var(--succes); }
+    .resume.echec { background: color-mix(in srgb, var(--erreur) 12%, transparent); color: var(--erreur); }
+
+    #resultats { list-style: none; margin: 0; padding: 0; }
+    #resultats li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 12px;
+      padding: 9px 0;
+      border-top: 1px solid var(--bordure);
+      font-size: .94rem;
+    }
+    #resultats li:first-child { border-top: none; }
+
+    .puce {
+      flex: none;
+      min-width: 54px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    li.ok .puce    { background: color-mix(in srgb, var(--succes) 16%, transparent); color: var(--succes); }
+    li.echec .puce { background: color-mix(in srgb, var(--erreur) 14%, transparent); color: var(--erreur); }
+
+    .message {
+      flex-basis: 100%;
+      margin: 4px 0 0 66px;
+      font-size: .86rem;
+      color: var(--erreur);
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#principal">Aller au contenu</a>
+
+  <header class="entete">
+    <div class="conteneur entete-inner">
+      <div>
+        <a class="retour" href="index.html">← Suivi de candidatures</a>
+        <h1>Tests</h1>
+      </div>
+    </div>
+  </header>
+
+  <main id="principal" class="conteneur">
+    <section class="bloc">
+      <p class="note-donnees">
+        Ces tests vérifient <code>logique.js</code>, qui contient les règles de
+        l'outil : validation, nettoyage des données, tri, filtrage et fusion à
+        l'import. Aucune dépendance, aucune installation — la page les exécute
+        au chargement.
+      </p>
+
+      <div class="resume" id="resume" role="status">Exécution…</div>
+      <ul id="resultats"></ul>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <p>Construit par Yassine Boukamir · <a href="../../index.html">Retour au portfolio</a></p>
+    </div>
+  </footer>
+
+  <script src="logique.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>

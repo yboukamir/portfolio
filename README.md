@@ -1,119 +1,120 @@
-# Mon site
+# Portfolio — Yassine Boukamir
 
-Site vitrine / portfolio en HTML, CSS et JavaScript purs. **Aucune installation, aucun build** :
-double-clique sur `index.html` et le site s'ouvre dans ton navigateur.
+Site vitrine et deux outils web, en **HTML, CSS et JavaScript purs**.
+Aucune dépendance, aucun build, aucun framework.
+
+**En ligne : [boukamir.be](https://boukamir.be)**
+
+---
 
 ## Structure
 
 ```
-Mon site/
-├─ index.html        ← tout le contenu et le texte du site
-├─ css/style.css     ← toute l'apparence (couleurs, tailles, espacements)
-├─ js/script.js      ← les interactions (menu, thème, formulaire)
-├─ assets/           ← tes images (photo, captures de projets)
-└─ README.md         ← ce fichier
+index.html                     Page unique : à propos, projets, compétences, contact
+404.html                       Page d'erreur
+robots.txt · sitemap.xml       Référencement
+_redirects                     Règles Netlify (fichiers de travail renvoyés en 404)
+
+css/tokens.css                 Couleurs et rythme — partagés par le site ET les outils
+css/style.css                  Styles du portfolio
+css/outils.css                 Coquille commune aux outils
+
+js/theme.js                    Bascule clair/sombre, partagée par les trois pages
+js/script.js                   Interactions du portfolio
+
+outils/suivi-candidatures/     Suivre ses candidatures (données locales)
+  ├ logique.js                 Règles métier — fonctions pures
+  ├ app.js                     DOM et stockage
+  └ tests.html · tests.js      31 tests, sans dépendance
+
+outils/departs-train/          Départs de train en direct (API iRail)
 ```
 
-## Voir le site en local
+## Lancer en local
 
-Le plus simple : double-clique sur `index.html`.
-
-Certaines fonctions (polices distantes, futures requêtes réseau) se comportent mieux via un vrai
-serveur. Un petit serveur sans dépendance est fourni — lance-le depuis le dossier du site :
+Un serveur sans dépendance est fourni :
 
 ```bash
 powershell -NoProfile -ExecutionPolicy Bypass -File .claude/serve.ps1
 ```
 
-Puis ouvre <http://localhost:5500>. `Ctrl+C` dans la fenêtre pour l'arrêter.
-
-## Par où commencer
-
-Tout ce qu'il y a à personnaliser est marqué par un texte évident (`Ton Nom`, `Nom du projet`,
-`ton@email.com`). Dans l'ordre :
-
-1. **`index.html`** — remplace `Ton Nom` partout (titre de l'onglet, logo, hero, pied de page),
-   écris ton texte « À propos », tes 3 projets, ton email et tes liens de réseaux sociaux.
-2. **Ta photo** — dépose l'image dans `assets/`, puis dans `index.html` remplace le bloc
-   `<span class="photo-placeholder">…</span>` par
-   `<img src="assets/photo.jpg" alt="Portrait de Ton Nom">`.
-3. **Les couleurs** — dans `css/style.css`, tout est en haut, section 1.
-   Changer `--accent` suffit à retoner tout le site. Attention : il y a **trois**
-   endroits à modifier (thème clair, puis les deux blocs du thème sombre — celui
-   du `@media` et celui du `[data-theme="dark"]`, qui doivent rester identiques).
-
-   `--accent` sert aussi pour du petit texte (liens, intitulés de section) : vise
-   au moins **4,5:1** de contraste avec le fond, sinon le texte devient dur à lire.
-   Vérifie sur [contrastchecker](https://webaim.org/resources/contrastchecker/).
-   Le teal actuel est à 5,5:1 en clair et 10,2:1 en sombre.
-
-   `--erreur` et `--succes` (messages du formulaire) suivent la même règle et sont
-   choisis loin de `--accent` sur la roue chromatique : rouge 0°, vert 105°,
-   teal 175°. Si tu changes `--accent` pour une teinte chaude, décale le rouge
-   d'erreur vers un cramoisi (~340°) pour garder l'écart.
-
-## Ce qui marche déjà
-
-- Responsive (mobile, tablette, ordinateur) avec menu burger
-- Thème clair / sombre : suit le réglage du système, et le bouton mémorise le choix
-- Apparition des éléments au défilement, désactivée si le système demande moins d'animations
-- Lien de navigation surligné selon la section visible
-- Accessibilité : lien d'évitement, contours de focus visibles, HTML sémantique, labels de formulaire
-- Validation du formulaire de contact
-
-## Le formulaire de contact (Formspree)
-
-Le site n'affiche aucune adresse email — choix délibéré : une adresse en clair se fait
-aspirer par les robots à spam. Le formulaire est donc **le seul moyen de te joindre**
-depuis le site (avec LinkedIn en secours, en pied de page).
-
-Il poste vers **Formspree**, qui fait suivre les messages par mail. L'adresse de
-destination est configurée dans ton compte Formspree : elle n'apparaît **nulle part**
-dans le code, donc elle n'est pas récoltable.
-
-- l'attribut `action` du `<form>` porte l'endpoint `https://formspree.io/f/mljrvvkd` ;
-- `js/script.js` (section 6) poste en `fetch` avec l'en-tête `Accept: application/json`,
-  pour que Formspree réponde en JSON au lieu de rediriger vers sa page de remerciement —
-  le visiteur reste sur ta page et voit ton propre message ;
-- un champ caché `_subject` fixe l'objet du mail (« Nouveau message depuis ton
-  portfolio ») ; le champ `email` du visiteur sert d'adresse de réponse, tu peux donc
-  répondre directement au mail ;
-- un champ-piège nommé `_gotcha`, invisible et hors du parcours clavier, fait rejeter
-  les envois de robots. Le nom est imposé par Formspree.
-
-**Pour changer l'adresse de réception** : dans ton compte Formspree, pas dans le code.
-
-**Le quota gratuit est de 50 messages par mois.** Large pour un portfolio, mais si tu
-approches la limite, Formspree t'avertit.
-
-### Attention en local
-
-Contrairement à l'ancien montage Netlify Forms, Formspree fonctionne aussi depuis
-`localhost`. Un test depuis ton ordinateur **envoie donc un vrai message** dans ta boîte.
-
-### Pourquoi pas Netlify Forms
-
-Le site a d'abord utilisé Netlify Forms, qui enregistrait bien les messages. Mais les
-**notifications par mail sont passées en offre payante** : les messages arrivaient dans
-le tableau de bord sans que rien ne prévienne. Inutilisable pour une recherche d'emploi.
-## Mettre le site en ligne (gratuit)
-
-**Netlify Drop** — le plus rapide : va sur [app.netlify.com/drop](https://app.netlify.com/drop)
-et glisse le dossier `Mon site` dans la page. Le site est en ligne en quelques secondes.
-
-**GitHub Pages** — désormais possible : depuis le passage à Formspree, le formulaire
-fonctionne quel que soit l'hébergeur. Si tu veux un historique des versions :
-
+Sur macOS ou Linux :
 
 ```bash
-git init && git add . && git commit -m "Première version du site"
+python3 -m http.server 5500
 ```
 
-Puis crée un dépôt sur GitHub, pousse le code, et dans *Settings → Pages* choisis la branche
-`main`. Le site sera sur `https://ton-pseudo.github.io/nom-du-depot/`.
+Puis <http://localhost:5500>. Le serveur PowerShell envoie `Cache-Control: no-store`,
+sans quoi le navigateur sert un CSS périmé après chaque modification.
 
-## À faire ensuite (idées)
+## Les tests
 
-- Une page par projet, au lieu du lien `#`
-- Une vraie favicon et une image de partage (Open Graph) dans `assets/`
-- Un `sitemap.xml` et un `robots.txt` pour le référencement
+L'outil de suivi de candidatures est couvert par **31 tests**, sans installation.
+Ouvre `outils/suivi-candidatures/tests.html` : ils s'exécutent au chargement.
+
+La logique métier vit dans `logique.js` — validation, nettoyage des données, tri,
+filtrage, fusion à l'import. Des fonctions pures : pas de DOM, pas de `localStorage`,
+même résultat pour les mêmes entrées. `app.js` les appelle plutôt que d'en garder
+une copie, donc les tests portent bien sur le code qui tourne réellement.
+
+**Si tu modifies `logique.js`, relance la page de tests.**
+
+Pour vérifier que les tests protègent vraiment : casse volontairement une fonction
+et recharge la page. Le test correspondant doit passer au rouge. Un test qui ne
+devient jamais rouge ne protège de rien — c'est ainsi qu'un défaut a été trouvé
+dans le test du tri, qui n'éprouvait qu'un seul ordre d'entrée.
+
+## Les couleurs
+
+Tout est dans `css/tokens.css`. Changer `--accent` suffit à retoner le site et les
+outils — mais il y a **trois blocs** à modifier : le thème clair, puis les deux du
+thème sombre (`@media` et `[data-theme="dark"]`), qui doivent rester identiques.
+
+`--accent` sert aussi pour du petit texte. Vise au moins **4,5:1** de contraste avec
+le fond — le teal actuel est à 5,5:1 en clair et 10,2:1 en sombre. Vérifie sur
+[contrastchecker](https://webaim.org/resources/contrastchecker/).
+
+`--erreur` et `--succes` sont volontairement éloignés de `--accent` sur la roue
+chromatique — rouge 0°, vert 105°, teal 175° — pour que les messages du formulaire
+restent distinguables, y compris en cas de daltonisme.
+
+## Le formulaire de contact
+
+Aucune adresse email n'est affichée sur le site : une adresse en clair se fait
+aspirer par les robots à spam. Le formulaire poste vers **Formspree**, qui fait
+suivre par mail ; l'adresse de réception est configurée chez eux, jamais dans le code.
+
+- `action` porte l'endpoint Formspree ;
+- `js/script.js` poste en `fetch` avec `Accept: application/json`, pour que Formspree
+  réponde en JSON au lieu de rediriger — le visiteur reste sur la page ;
+- un champ caché `_subject` fixe l'objet du mail ;
+- un champ-piège `_gotcha`, invisible et hors du parcours clavier, fait rejeter les
+  envois de robots.
+
+⚠️ **Formspree fonctionne aussi depuis `localhost`** : tester le formulaire envoie
+un vrai message.
+
+## Déploiement
+
+Glisser-déposer du dossier dans l'onglet *Deploys* de Netlify. Le domaine
+`boukamir.be` est chez OVH et pointe vers Netlify par un enregistrement `A`.
+
+⚠️ **Ne jamais basculer les serveurs de noms vers Netlify** : la messagerie
+`@boukamir.be` et l'enregistrement SPF vivent dans la zone DNS d'OVH.
+
+## Choix techniques
+
+- **Pas de framework.** Un portfolio et deux outils de cette taille n'en ont pas
+  besoin ; l'absence de build rend le projet lisible et déployable tel quel.
+- **Le DOM se construit avec `createElement` et `textContent`**, jamais par
+  concaténation de HTML : les données viennent de saisies utilisateur.
+- **Accessibilité** : `aria-live` sur les contenus qui changent seuls, `aria-pressed`
+  sur les filtres, aucune information portée par la couleur seule,
+  `prefers-reduced-motion` respecté.
+- **Chaque cas d'erreur a son message.** Pas de « une erreur est survenue » unique :
+  l'outil des trains distingue gare inconnue, API trop lente et réseau coupé, parce
+  que l'utilisateur n'y répond pas de la même façon.
+- **Tout est en français** — classes, variables, fonctions, commentaires.
+- **Les commentaires expliquent pourquoi, pas quoi.** Beaucoup documentent un piège
+  précis : l'attribut `hidden` écrasé par `display:flex`, le cache du navigateur sur
+  le CSS, les champs techniques exclus de la validation.
