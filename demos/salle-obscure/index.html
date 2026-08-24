@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salle Obscure — démonstration · Yassine Boukamir</title>
+<meta name="description" content="Démonstration d'interface : cinéma indépendant fictif, choix du film et de la séance, plan de salle interactif et billet récapitulatif. HTML, CSS et JavaScript, sans dépendance.">
+<link rel="canonical" href="https://boukamir.be/demos/salle-obscure/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Literata:ital,opsz,wght@0,18..144,400;0,18..144,500;0,18..144,600;1,18..144,400&family=Space+Mono:wght@400;700&display=swap">
+
+<style>
+  :root {
+    --bg: #EEF0EF;
+    --surface: #FFFFFF;
+    --surface-2: #E2E6E4;
+    --ink: #14151A;
+    --ink-soft: #5B6063;
+    --line: #D4D9D6;
+
+    --accent: #B8862E;
+    --accent-soft: #F3E4C8;
+    --accent-ink: #24190A;
+
+    --warn: #A9463C;
+    --warn-soft: #F2DFDC;
+
+    --seat-taken: #C7CBC8;
+    --shadow: 0 1px 2px rgba(20,21,26,.05), 0 10px 24px rgba(20,21,26,.06);
+
+    /* Marquee is a fixed lit-sign motif — deliberately constant across themes, not the flipping --ink/--bg tokens */
+    --marquee-bg: #121319;
+    --marquee-ink: #F4EEDF;
+    --marquee-soft: #C8C2B2;
+    --marquee-gold: #D8B978;
+
+    --font-display: 'Bebas Neue', 'Oswald', 'Arial Narrow', sans-serif;
+    --font-body: 'Literata', Georgia, 'Times New Roman', serif;
+    --font-mono: 'Space Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1013;
+      --surface: #17191D;
+      --surface-2: #1F2227;
+      --ink: #ECEAE3;
+      --ink-soft: #9A9D9F;
+      --line: #2B2E33;
+
+      --accent: #E3A83F;
+      --accent-soft: #3A2C12;
+      --accent-ink: #1B1204;
+
+      --warn: #E2776B;
+      --warn-soft: #3A211D;
+
+      --seat-taken: #2B2E33;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 24px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1013;
+    --surface: #17191D;
+    --surface-2: #1F2227;
+    --ink: #ECEAE3;
+    --ink-soft: #9A9D9F;
+    --line: #2B2E33;
+
+    --accent: #E3A83F;
+    --accent-soft: #3A2C12;
+    --accent-ink: #1B1204;
+
+    --warn: #E2776B;
+    --warn-soft: #3A211D;
+
+    --seat-taken: #2B2E33;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 24px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); font-size: 17px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+
+  a { color: inherit; }
+  button { font-family: inherit; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px 100px; }
+  @media (max-width: 640px) { .wrap { padding: 0 16px 80px; } }
+
+  /* ---------------- Marquee header ---------------- */
+  .marquee {
+    background:
+      radial-gradient(120% 180% at 50% -40%, rgba(184,134,46,.16), transparent 60%),
+      var(--marquee-bg);
+    color: var(--marquee-ink);
+    padding: 64px 28px 46px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .marquee::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(90deg, rgba(244,238,223,.05) 0 2px, transparent 2px 34px);
+    pointer-events: none;
+  }
+  .marquee-inner { position: relative; max-width: 1080px; margin: 0 auto; }
+  .marquee-eyebrow {
+    font-family: var(--font-mono); font-size: .72rem; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--marquee-gold); margin: 0 0 14px;
+  }
+  .marquee h1 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(3.2rem, 9vw, 6rem); letter-spacing: .04em;
+    margin: 0; line-height: .92; text-wrap: balance;
+    color: var(--marquee-ink);
+    text-shadow: 0 0 34px rgba(227,168,63,.35);
+  }
+  .marquee p.tag {
+    font-family: var(--font-body); font-style: italic; color: var(--marquee-soft);
+    max-width: 46ch; margin: 18px auto 0; font-size: 1.05rem;
+  }
+
+  /* ---------------- Steps rail ---------------- */
+  .steps {
+    display: flex; justify-content: center; gap: 6px;
+    margin: 30px 0 40px; flex-wrap: wrap;
+  }
+  .step {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .04em;
+    color: var(--ink-soft); padding: 7px 14px 7px 10px;
+    border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+    transition: color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .step .num {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: .68rem; background: var(--surface-2); color: var(--ink-soft);
+  }
+  .step.is-active { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+  .step.is-active .num { background: rgba(0,0,0,.18); color: inherit; }
+  .step.is-done { color: var(--ink); border-color: var(--accent); }
+  .step.is-done .num { background: var(--accent-soft); color: var(--accent-ink); }
+
+  /* ---------------- Section titles ---------------- */
+  .section-title {
+    font-family: var(--font-mono); font-size: .78rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+    margin: 0 0 18px; display: flex; align-items: baseline; gap: 10px;
+  }
+  .section-title .count { color: var(--accent); }
+
+  section.block { padding-top: 54px; }
+
+  /* ---------------- Film strip ---------------- */
+  .film-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  @media (max-width: 760px) { .film-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .film-grid { grid-template-columns: 1fr; } }
+
+  .film-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+    overflow: hidden; cursor: pointer; text-align: left; padding: 0;
+    box-shadow: var(--shadow); transition: transform .15s ease, border-color .15s ease;
+    display: flex; flex-direction: column;
+  }
+  .film-card:hover { transform: translateY(-3px); }
+  .film-card.is-selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+  .film-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .poster {
+    aspect-ratio: 2 / 3; position: relative; display: flex; align-items: flex-end;
+    padding: 14px; color: #F4EEDF;
+  }
+  .poster .genre-tag {
+    font-family: var(--font-mono); font-size: .64rem; letter-spacing: .1em;
+    text-transform: uppercase; background: rgba(0,0,0,.32); padding: 4px 8px;
+    border-radius: 3px; backdrop-filter: blur(2px);
+  }
+  .poster-drame { background: radial-gradient(120% 100% at 20% 0%, #3E5A66, #16232A 70%); }
+  .poster-scifi { background: radial-gradient(120% 100% at 80% 0%, #5A4E8C, #191529 70%); }
+  .poster-anim  { background: radial-gradient(120% 100% at 30% 100%, #E0836A, #2C4A46 75%); }
+  .poster-romcom{ background: radial-gradient(120% 100% at 70% 0%, #C97D93, #2A1E28 75%); }
+  .poster-thriller{ background: radial-gradient(120% 100% at 50% 100%, #7A2A28, #150B0B 70%); }
+  .poster-aventure{ background: radial-gradient(120% 100% at 20% 20%, #9C8A3E, #24261A 75%); }
+
+  .film-meta { padding: 14px 16px 16px; }
+  .film-title {
+    font-family: var(--font-display); font-size: 1.5rem; letter-spacing: .01em;
+    margin: 0 0 4px; line-height: 1;
+  }
+  .film-sub {
+    font-family: var(--font-mono); font-size: .72rem; color: var(--ink-soft);
+    letter-spacing: .03em; margin: 0 0 8px;
+  }
+  .film-syn { font-size: .88rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+  /* ---------------- Showtimes ---------------- */
+  .showtime-panel {
+    margin-top: 18px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 4px; padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .showtime-panel h3 {
+    font-family: var(--font-display); font-weight: 400; font-size: 1.7rem;
+    letter-spacing: .01em; margin: 0 0 4px;
+  }
+  .showtime-panel .sub { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-soft); margin: 0 0 16px; }
+  .times { display: flex; flex-wrap: wrap; gap: 10px; }
+  .time-pill {
+    font-family: var(--font-mono); font-size: .92rem; font-weight: 700;
+    padding: 10px 18px; border-radius: 3px; border: 1px solid var(--line);
+    background: var(--surface-2); color: var(--ink); cursor: pointer;
+    font-variant-numeric: tabular-nums;
+  }
+  .time-pill:hover:not(:disabled) { border-color: var(--accent); }
+  .time-pill.is-selected { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .time-pill:disabled { color: var(--ink-soft); cursor: not-allowed; text-decoration: line-through; opacity: .6; }
+
+  /* ---------------- Seat map ---------------- */
+  .seat-panel { margin-top: 18px; }
+  .screen-bar {
+    height: 8px; border-radius: 100px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 26px 2px color-mix(in srgb, var(--accent) 55%, transparent);
+    margin: 0 auto 6px; max-width: 82%;
+  }
+  .screen-label {
+    text-align: center; font-family: var(--font-mono); font-size: .68rem;
+    letter-spacing: .3em; text-transform: uppercase; color: var(--ink-soft);
+    margin: 0 0 26px;
+  }
+  .rows { display: flex; flex-direction: column; gap: 9px; align-items: center; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .row-label {
+    font-family: var(--font-mono); font-size: .72rem; color: var(--ink-soft);
+    width: 16px; text-align: center;
+  }
+  .seats { display: flex; gap: 6px; }
+  .seat {
+    width: 22px; height: 20px; border-radius: 4px 4px 2px 2px;
+    border: 1px solid var(--line); background: var(--surface-2);
+    cursor: pointer; padding: 0; position: relative;
+  }
+  .seat:hover:not(:disabled) { border-color: var(--accent); }
+  .seat.is-selected { background: var(--accent); border-color: var(--accent); }
+  .seat.is-taken { background: var(--seat-taken); border-color: var(--seat-taken); cursor: not-allowed; }
+  .seat.is-confort { border-bottom: 2px solid var(--accent); }
+  .seat:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .aisle { width: 16px; }
+
+  .legend {
+    display: flex; justify-content: center; gap: 22px; flex-wrap: wrap;
+    margin-top: 26px; font-family: var(--font-mono); font-size: .72rem; color: var(--ink-soft);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { width: 14px; height: 13px; border-radius: 3px 3px 1px 1px; border: 1px solid var(--line); display: inline-block; }
+  .legend i.free { background: var(--surface-2); }
+  .legend i.confort { background: var(--surface-2); border-bottom: 2px solid var(--accent); }
+  .legend i.sel { background: var(--accent); border-color: var(--accent); }
+  .legend i.taken { background: var(--seat-taken); border-color: var(--seat-taken); }
+
+  /* ---------------- Summary / ticket stub ---------------- */
+  .summary-wrap { margin-top: 22px; display: flex; justify-content: center; }
+  .ticket {
+    width: 100%; max-width: 460px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
+  }
+  .ticket-main { padding: 22px 24px 18px; }
+  .ticket-film { font-family: var(--font-display); font-size: 1.9rem; margin: 0 0 2px; line-height: 1; }
+  .ticket-when { font-family: var(--font-mono); font-size: .8rem; color: var(--ink-soft); margin: 0 0 16px; }
+  .ticket-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: .92rem; padding: 7px 0; border-top: 1px dashed var(--line);
+  }
+  .ticket-row:first-of-type { border-top: none; }
+  .ticket-row .val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .ticket-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--line);
+    font-family: var(--font-display); font-size: 1.5rem;
+  }
+  .ticket-total .amount { font-family: var(--font-mono); font-size: 1.3rem; }
+  .ticket-stub {
+    border-top: 2px dashed var(--line); position: relative;
+    padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
+    background: var(--surface-2);
+  }
+  .ticket-stub::before, .ticket-stub::after {
+    content: ""; position: absolute; top: -10px; width: 20px; height: 20px;
+    border-radius: 50%; background: var(--bg);
+  }
+  .ticket-stub::before { left: -10px; }
+  .ticket-stub::after { right: -10px; }
+  .ticket-code { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-soft); letter-spacing: .05em; }
+
+  .btn {
+    font-family: var(--font-mono); font-size: .82rem; font-weight: 700;
+    letter-spacing: .04em; text-transform: uppercase; border-radius: 3px;
+    padding: 12px 20px; border: none; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink);
+  }
+  .btn:disabled { background: var(--surface-2); color: var(--ink-soft); cursor: not-allowed; }
+  .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+
+  .empty-note {
+    text-align: center; font-size: .9rem; color: var(--ink-soft);
+    padding: 30px 20px; border: 1px dashed var(--line); border-radius: 4px;
+    background: var(--surface);
+  }
+
+  /* ---------------- Confirmation ---------------- */
+  .confirm-wrap { display: flex; justify-content: center; margin-top: 18px; }
+  .confirm { text-align: center; max-width: 460px; }
+  .confirm .glow {
+    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 8px;
+  }
+  .confirm h3 { font-family: var(--font-display); font-weight: 400; font-size: 2rem; margin: 0 0 10px; }
+  .confirm p { color: var(--ink-soft); font-size: .95rem; }
+
+  .footnote {
+    margin-top: 60px; font-size: .82rem; color: var(--ink-soft);
+    border-top: 1px solid var(--line); padding-top: 18px; text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .film-card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="marquee">
+  <div class="marquee-inner">
+    <p class="marquee-eyebrow">Ce soir &amp; cette semaine</p>
+    <h1>Salle Obscure</h1>
+    <p class="tag">Un cinéma indépendant d'un seul écran, où le programme change chaque semaine et où l'on choisit encore sa place à la main.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="steps" id="steps"></div>
+
+  <section class="block" id="section-films">
+    <p class="section-title">À l'affiche <span class="count" id="film-count"></span></p>
+    <div class="film-grid" id="film-grid"></div>
+  </section>
+
+  <section class="block" id="section-showtime" hidden>
+    <p class="section-title">Séance</p>
+    <div class="showtime-panel" id="showtime-panel"></div>
+  </section>
+
+  <section class="block" id="section-seats" hidden>
+    <p class="section-title">Vos places</p>
+    <div class="seat-panel" id="seat-panel"></div>
+    <div class="summary-wrap" id="summary-wrap"></div>
+  </section>
+
+  <section class="block" id="section-confirm" hidden>
+    <div class="confirm-wrap" id="confirm-wrap"></div>
+  </section>
+
+  <p class="footnote">Salle Obscure est un cinéma fictif, imaginé à titre de démonstration — aucune place n'est réellement réservée ni facturée.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var FILMS = [
+    {
+      id: "traversee", title: "La Traversée des Heures", genre: "Drame",
+      duration: "1h58", poster: "poster-drame",
+      synopsis: "Une infirmière de nuit et un veilleur de gare recomposent, quart après quart, ce qu'il reste d'une vie commune.",
+      showtimes: [
+        { time: "14:15", full: false },
+        { time: "17:00", full: false },
+        { time: "20:30", full: true }
+      ]
+    },
+    {
+      id: "sillage", title: "Sillage", genre: "Science-fiction",
+      duration: "2h10", poster: "poster-scifi",
+      synopsis: "Le dernier vaisseau-arche perd un moteur par génération. L'équipage doit choisir quel souvenir collectif sacrifier pour tenir encore cent ans.",
+      showtimes: [
+        { time: "15:00", full: false },
+        { time: "18:30", full: false },
+        { time: "21:15", full: false }
+      ]
+    },
+    {
+      id: "bruitdesfeuilles", title: "Le Bruit des Feuilles", genre: "Animation",
+      duration: "1h32", poster: "poster-anim",
+      synopsis: "Un renard facteur traverse quatre saisons de forêt pour livrer une lettre qu'il n'ose pas ouvrir.",
+      showtimes: [
+        { time: "13:45", full: false },
+        { time: "16:15", full: false }
+      ]
+    },
+    {
+      id: "nocturne", title: "Nocturne à Deux", genre: "Comédie romantique",
+      duration: "1h45", poster: "poster-romcom",
+      synopsis: "Deux libraires de nuit, rivaux depuis dix ans, se retrouvent enfermés dans le même wagon jusqu'au terminus.",
+      showtimes: [
+        { time: "17:45", full: false },
+        { time: "20:15", full: false }
+      ]
+    },
+    {
+      id: "frontiererouge", title: "Frontière Rouge", genre: "Thriller",
+      duration: "2h05", poster: "poster-thriller",
+      synopsis: "Une traductrice découvre que le document qu'elle vient de traduire n'aurait jamais dû exister.",
+      showtimes: [
+        { time: "14:45", full: false },
+        { time: "19:00", full: true },
+        { time: "21:45", full: false }
+      ]
+    },
+    {
+      id: "vagabondes", title: "Les Vagabondes", genre: "Aventure",
+      duration: "1h50", poster: "poster-aventure",
+      synopsis: "Trois sœurs héritent d'une carte incomplète et d'une camionnette qui ne démarre qu'en descente.",
+      showtimes: [
+        { time: "13:30", full: false },
+        { time: "16:00", full: false },
+        { time: "18:45", full: false }
+      ]
+    }
+  ];
+
+  var ROWS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  var SEATS_PER_ROW = 10;
+  var CONFORT_ROWS = ["E", "F", "G", "H"];
+  var PRICE_STANDARD = 9.5;
+  var PRICE_CONFORT = 11.5;
+  var MAX_SEATS = 8;
+
+  var state = {
+    filmId: null,
+    time: null,
+    selectedSeats: {},   // seatId -> true
+    confirmed: null       // { code, film, time, seats, total }
+  };
+
+  var takenCache = {};
+
+  function hashStr(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = (h * 16777619) >>> 0;
+    }
+    return h;
+  }
+
+  function seededRandom(seed) {
+    var s = seed % 2147483647;
+    if (s <= 0) s += 2147483646;
+    return function () {
+      s = (s * 16807) % 2147483647;
+      return (s - 1) / 2147483646;
+    };
+  }
+
+  function getTakenSeats(filmId, time) {
+    var key = filmId + "|" + time;
+    if (takenCache[key]) return takenCache[key];
+    var rand = seededRandom(hashStr(key));
+    var taken = {};
+    var total = ROWS.length * SEATS_PER_ROW;
+    var howMany = Math.floor(total * (0.15 + rand() * 0.25));
+    for (var i = 0; i < howMany; i++) {
+      var r = ROWS[Math.floor(rand() * ROWS.length)];
+      var n = 1 + Math.floor(rand() * SEATS_PER_ROW);
+      taken[r + n] = true;
+    }
+    takenCache[key] = taken;
+    return taken;
+  }
+
+  function fmtPrice(n) {
+    return n.toFixed(2).replace(".", ",") + " €";
+  }
+
+  function findFilm(id) {
+    for (var i = 0; i < FILMS.length; i++) if (FILMS[i].id === id) return FILMS[i];
+    return null;
+  }
+
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    attrs = attrs || {};
+    for (var k in attrs) {
+      if (k === "class") node.className = attrs[k];
+      else if (k === "html") node.innerHTML = attrs[k];
+      else if (k === "text") node.textContent = attrs[k];
+      else node.setAttribute(k, attrs[k]);
+    }
+    (children || []).forEach(function (c) { if (c) node.appendChild(c); });
+    return node;
+  }
+
+  function currentStepIndex() {
+    if (state.confirmed) return 3;
+    if (state.time) return 2;
+    if (state.filmId) return 1;
+    return 0;
+  }
+
+  function renderSteps() {
+    var labels = ["Film", "Séance", "Places", "Confirmation"];
+    var idx = currentStepIndex();
+    var wrap = document.getElementById("steps");
+    wrap.innerHTML = "";
+    labels.forEach(function (label, i) {
+      var cls = "step";
+      if (i < idx) cls += " is-done";
+      if (i === idx) cls += " is-active";
+      wrap.appendChild(el("span", { class: cls }, [
+        el("span", { class: "num", text: String(i + 1) }),
+        el("span", { text: label })
+      ]));
+    });
+  }
+
+  function renderFilms() {
+    document.getElementById("film-count").textContent = "(" + FILMS.length + ")";
+    var grid = document.getElementById("film-grid");
+    grid.innerHTML = "";
+    FILMS.forEach(function (film) {
+      var card = el("button", {
+        class: "film-card" + (state.filmId === film.id ? " is-selected" : ""),
+        type: "button",
+        "aria-pressed": state.filmId === film.id ? "true" : "false"
+      }, [
+        el("div", { class: "poster " + film.poster }, [
+          el("span", { class: "genre-tag", text: film.genre })
+        ]),
+        el("div", { class: "film-meta" }, [
+          el("h3", { class: "film-title", text: film.title }),
+          el("p", { class: "film-sub", text: film.genre.toUpperCase() + " · " + film.duration }),
+          el("p", { class: "film-syn", text: film.synopsis })
+        ])
+      ]);
+      card.addEventListener("click", function () {
+        state.filmId = film.id;
+        state.time = null;
+        state.selectedSeats = {};
+        state.confirmed = null;
+        renderAll();
+        var target = document.getElementById("section-showtime");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function renderShowtime() {
+    var section = document.getElementById("section-showtime");
+    var panel = document.getElementById("showtime-panel");
+    if (!state.filmId) { section.hidden = true; return; }
+    var film = findFilm(state.filmId);
+    section.hidden = false;
+    panel.innerHTML = "";
+    panel.appendChild(el("h3", { text: film.title }));
+    panel.appendChild(el("p", { class: "sub", text: film.genre + " · " + film.duration + " · Salle unique, 80 places" }));
+    var times = el("div", { class: "times" });
+    film.showtimes.forEach(function (st) {
+      var btn = el("button", {
+        class: "time-pill" + (state.time === st.time ? " is-selected" : ""),
+        type: "button"
+      }, [document.createTextNode(st.time + (st.full ? " · Complet" : ""))]);
+      if (st.full) btn.disabled = true;
+      btn.addEventListener("click", function () {
+        state.time = st.time;
+        state.selectedSeats = {};
+        state.confirmed = null;
+        renderAll();
+        var target = document.getElementById("section-seats");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      times.appendChild(btn);
+    });
+    panel.appendChild(times);
+  }
+
+  function seatPrice(row) {
+    return CONFORT_ROWS.indexOf(row) === -1 ? PRICE_STANDARD : PRICE_CONFORT;
+  }
+
+  function renderSeats() {
+    var section = document.getElementById("section-seats");
+    var seatPanel = document.getElementById("seat-panel");
+    var summaryWrap = document.getElementById("summary-wrap");
+    if (!state.filmId || !state.time) { section.hidden = true; return; }
+    section.hidden = false;
+    var film = findFilm(state.filmId);
+    var taken = getTakenSeats(state.filmId, state.time);
+
+    seatPanel.innerHTML = "";
+    seatPanel.appendChild(el("div", { class: "screen-bar" }));
+    seatPanel.appendChild(el("p", { class: "screen-label", text: "Écran" }));
+
+    var rows = el("div", { class: "rows" });
+    ROWS.forEach(function (row) {
+      var rowEl = el("div", { class: "row" });
+      rowEl.appendChild(el("span", { class: "row-label", text: row }));
+      var seatsEl = el("div", { class: "seats" });
+      for (var n = 1; n <= SEATS_PER_ROW; n++) {
+        if (n === 6) seatsEl.appendChild(el("span", { class: "aisle" }));
+        var seatId = row + n;
+        var isTaken = !!taken[seatId];
+        var isConfort = CONFORT_ROWS.indexOf(row) !== -1;
+        var isSelected = !!state.selectedSeats[seatId];
+        var cls = "seat" + (isConfort ? " is-confort" : "") + (isTaken ? " is-taken" : "") + (isSelected ? " is-selected" : "");
+        var seatBtn = el("button", {
+          class: cls, type: "button",
+          "aria-label": (isTaken ? "Place prise " : "Place ") + seatId,
+          "aria-pressed": isSelected ? "true" : "false"
+        });
+        if (isTaken) seatBtn.disabled = true;
+        (function (id) {
+          seatBtn.addEventListener("click", function () {
+            if (state.selectedSeats[id]) {
+              delete state.selectedSeats[id];
+            } else {
+              var count = Object.keys(state.selectedSeats).length;
+              if (count >= MAX_SEATS) return;
+              state.selectedSeats[id] = true;
+            }
+            renderAll();
+          });
+        })(seatId);
+        seatsEl.appendChild(seatBtn);
+      }
+      rowEl.appendChild(seatsEl);
+      rows.appendChild(rowEl);
+    });
+    seatPanel.appendChild(rows);
+
+    seatPanel.appendChild(el("div", { class: "legend" }, [
+      el("span", {}, [el("i", { class: "free" }), document.createTextNode("Libre · " + fmtPrice(PRICE_STANDARD))]),
+      el("span", {}, [el("i", { class: "confort" }), document.createTextNode("Confort · " + fmtPrice(PRICE_CONFORT))]),
+      el("span", {}, [el("i", { class: "sel" }), document.createTextNode("Sélectionnée")]),
+      el("span", {}, [el("i", { class: "taken" }), document.createTextNode("Prise")])
+    ]));
+
+    renderSummary(summaryWrap, film);
+  }
+
+  function renderSummary(wrap, film) {
+    wrap.innerHTML = "";
+    var seatIds = Object.keys(state.selectedSeats).sort();
+    if (seatIds.length === 0) {
+      wrap.appendChild(el("p", { class: "empty-note", text: "Choisissez au moins une place pour voir le récapitulatif." }));
+      return;
+    }
+    var total = 0;
+    seatIds.forEach(function (id) {
+      var row = id.charAt(0);
+      total += seatPrice(row);
+    });
+
+    var ticket = el("div", { class: "ticket" });
+    var main = el("div", { class: "ticket-main" }, [
+      el("p", { class: "ticket-film", text: film.title }),
+      el("p", { class: "ticket-when", text: "Aujourd'hui · " + state.time + " · Salle unique" }),
+      el("div", { class: "ticket-row" }, [
+        el("span", { text: seatIds.length + " place" + (seatIds.length > 1 ? "s" : "") }),
+        el("span", { class: "val", text: seatIds.join(", ") })
+      ]),
+      el("div", { class: "ticket-total" }, [
+        el("span", { text: "Total" }),
+        el("span", { class: "amount", text: fmtPrice(total) })
+      ])
+    ]);
+    var confirmBtn = el("button", { class: "btn", type: "button", text: "Réserver" });
+    confirmBtn.style.marginTop = "16px";
+    confirmBtn.style.width = "100%";
+    confirmBtn.addEventListener("click", function () {
+      var code = "SO-" + Math.random().toString(36).slice(2, 6).toUpperCase() + "-" + seatIds.length;
+      state.confirmed = {
+        code: code, filmTitle: film.title, time: state.time,
+        seats: seatIds.slice(), total: total
+      };
+      renderAll();
+      var target = document.getElementById("section-confirm");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    main.appendChild(confirmBtn);
+    ticket.appendChild(main);
+    ticket.appendChild(el("div", { class: "ticket-stub" }, [
+      el("span", { class: "ticket-code", text: "N° " + hashStr(seatIds.join("") + state.time).toString(36).toUpperCase().slice(0, 6) }),
+      el("span", { class: "ticket-code", text: "Salle Obscure" })
+    ]));
+    wrap.appendChild(ticket);
+  }
+
+  function renderConfirm() {
+    var section = document.getElementById("section-confirm");
+    var wrap = document.getElementById("confirm-wrap");
+    if (!state.confirmed) { section.hidden = true; return; }
+    section.hidden = false;
+    var c = state.confirmed;
+    wrap.innerHTML = "";
+    var box = el("div", { class: "confirm" }, [
+      el("p", { class: "glow", text: "Réservation simulée" }),
+      el("h3", { text: "C'est noté." }),
+      el("p", { text: c.filmTitle + " · " + c.time + " · places " + c.seats.join(", ") + " · " + fmtPrice(c.total) }),
+      el("p", { text: "Billet " + c.code + " — démonstration uniquement, aucune place n'est réellement bloquée." })
+    ]);
+    var again = el("button", { class: "btn ghost", type: "button", text: "Nouvelle réservation" });
+    again.style.marginTop = "10px";
+    again.addEventListener("click", function () {
+      state.filmId = null;
+      state.time = null;
+      state.selectedSeats = {};
+      state.confirmed = null;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    box.appendChild(again);
+    wrap.appendChild(box);
+  }
+
+  function renderAll() {
+    renderSteps();
+    renderFilms();
+    renderShowtime();
+    renderSeats();
+    renderConfirm();
+  }
+
+  renderAll();
+})();
+</script>
+
+</body>
+</html>
