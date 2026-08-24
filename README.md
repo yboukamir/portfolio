@@ -39,6 +39,11 @@ outils/departs-train/          Départs de train en direct (API iRail)
   ├ app.js                     DOM, réseau, rafraîchissement
   └ tests.html · tests.js      27 tests, réponses simulées
 
+demos/ludobox/                 Boutique fictive : panier, quantités, tiroir latéral
+demos/salle-obscure/           Cinéma fictif : séances, plan de salle, billet
+                               Deux démonstrations d'interface, autonomes,
+                               un seul fichier chacune, sans dépendance.
+
 outils/executer-tests.js       Lance les 58 cas en ligne de commande
 .github/workflows/tests.yml    Exécution automatique à chaque poussée
 ```
