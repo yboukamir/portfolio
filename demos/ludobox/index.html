@@ -30,6 +30,15 @@
     --shadow: 0 1px 2px rgba(43,38,32,.06), 0 10px 28px rgba(43,38,32,.07);
     --shadow-lift: 0 2px 4px rgba(43,38,32,.08), 0 18px 36px rgba(43,38,32,.12);
 
+    /* Palette des jouets. Elle est séparée des couleurs d'interface parce
+       qu'elle sert à dessiner, pas à signaler : elle doit rester lisible sur
+       les fonds teintés des cartes, en clair comme en sombre. */
+    --toy-bleu:   #2E5EAA;
+    --toy-vert:   #3F7A56;
+    --toy-orange: #C97D22;
+    --toy-rose:   #A94F62;
+    --toy-bois:   #B9892F;
+
     --font-display: 'Fredoka', ui-rounded, 'Segoe UI', system-ui, sans-serif;
     --font-body: 'Karla', 'Segoe UI', Arial, sans-serif;
     --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
@@ -50,6 +59,11 @@
       --accent-2-soft: #223A2C;
       --accent-3: #E3A354;
       --accent-3-soft: #3D2E1A;
+      --toy-bleu:   #7FA8E6;
+      --toy-vert:   #7FC29B;
+      --toy-orange: #E3A354;
+      --toy-rose:   #D9899A;
+      --toy-bois:   #DBB86A;
       --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.35);
       --shadow-lift: 0 2px 6px rgba(0,0,0,.4), 0 18px 36px rgba(0,0,0,.45);
     }
@@ -68,6 +82,11 @@
     --accent-2-soft: #223A2C;
     --accent-3: #E3A354;
     --accent-3-soft: #3D2E1A;
+    --toy-bleu:   #7FA8E6;
+    --toy-vert:   #7FC29B;
+    --toy-orange: #E3A354;
+    --toy-rose:   #D9899A;
+    --toy-bois:   #DBB86A;
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.35);
     --shadow-lift: 0 2px 6px rgba(0,0,0,.4), 0 18px 36px rgba(0,0,0,.45);
   }
@@ -161,7 +180,19 @@
   .toy-top    { left: 66%; width: 78px;  height: auto; bottom: 44px; }
   .toy-puzzle { left: 84%; width: 90px;  height: auto; bottom: 46px; }
   @media (max-width: 860px) { .hero-shelf { height: 210px; } .toy-train{width:104px;} .toy-blocks{width:74px;} .toy-top{width:62px;} .toy-puzzle{width:70px;} }
-  @media (max-width: 500px) { .hero-shelf { display: none; } }
+
+  /* L'étagère était masquée sous 500 px. Sur mobile, la page perdait alors son
+     seul élément dessiné et devenait une grille de cartes comme une autre.
+     On la garde, en réduisant les jouets et en retirant seulement le puzzle,
+     qui est celui qui débordait à l'extrême droite. */
+  @media (max-width: 500px) {
+    .hero-shelf { height: 148px; }
+    .shelf-line { bottom: 24px; }
+    .toy-train  { left: 0;   width: 86px; bottom: 30px; }
+    .toy-blocks { left: 42%; width: 58px; bottom: 32px; }
+    .toy-top    { left: 70%; width: 50px; bottom: 32px; }
+    .toy-puzzle { display: none; }
+  }
 
   /* ---------- Categories ---------- */
   .categories {
@@ -191,10 +222,19 @@
   .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
   @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
   .card-art {
-    height: 148px; display: flex; align-items: center; justify-content: center;
+    height: 158px; display: flex; align-items: flex-end; justify-content: center;
     background: var(--art-bg, var(--accent-soft));
+    position: relative; overflow: hidden;
   }
-  .card-art svg { width: 64px; height: 64px; color: var(--art-fg, var(--accent)); }
+  /* Chaque jouet pose sur une ligne d'étagère, comme ceux du hero. C'est ce
+     petit rappel qui rattache les cartes à l'illustration d'en-tête, au lieu
+     de laisser six dessins flotter sans raison au milieu d'un aplat. */
+  .card-art::after {
+    content: ""; position: absolute; left: 14%; right: 14%; bottom: 13px;
+    height: 6px; border-radius: 4px;
+    background: var(--ink); opacity: .10;
+  }
+  .card-art svg { position: relative; width: 166px; height: auto; margin-bottom: 14px; }
   .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .card-cat {
     font-family: var(--font-mono); font-size: .72rem; letter-spacing: .05em;
@@ -341,31 +381,31 @@
       <div class="shelf-line"></div>
 
       <svg class="toy toy-train" viewBox="0 0 140 90">
-        <rect x="4" y="34" width="46" height="30" rx="8" fill="#3F7A56"/>
-        <rect x="18" y="14" width="16" height="22" rx="4" fill="#3F7A56"/>
-        <circle cx="16" cy="70" r="9" fill="#2B2620" fill-opacity=".18"/>
-        <circle cx="42" cy="70" r="9" fill="#2B2620" fill-opacity=".18"/>
-        <rect x="58" y="40" width="40" height="24" rx="8" fill="#C97D22"/>
-        <circle cx="68" cy="70" r="9" fill="#2B2620" fill-opacity=".18"/>
-        <circle cx="90" cy="70" r="9" fill="#2B2620" fill-opacity=".18"/>
-        <rect x="106" y="44" width="32" height="20" rx="8" fill="#2E5EAA"/>
-        <circle cx="114" cy="70" r="9" fill="#2B2620" fill-opacity=".18"/>
-        <circle cx="132" cy="70" r="9" fill="#2B2620" fill-opacity=".18"/>
+        <rect x="4" y="34" width="46" height="30" rx="8" fill="var(--toy-vert)"/>
+        <rect x="18" y="14" width="16" height="22" rx="4" fill="var(--toy-vert)"/>
+        <circle cx="16" cy="70" r="9" fill="var(--ink)" fill-opacity=".18"/>
+        <circle cx="42" cy="70" r="9" fill="var(--ink)" fill-opacity=".18"/>
+        <rect x="58" y="40" width="40" height="24" rx="8" fill="var(--toy-orange)"/>
+        <circle cx="68" cy="70" r="9" fill="var(--ink)" fill-opacity=".18"/>
+        <circle cx="90" cy="70" r="9" fill="var(--ink)" fill-opacity=".18"/>
+        <rect x="106" y="44" width="32" height="20" rx="8" fill="var(--toy-bleu)"/>
+        <circle cx="114" cy="70" r="9" fill="var(--ink)" fill-opacity=".18"/>
+        <circle cx="132" cy="70" r="9" fill="var(--ink)" fill-opacity=".18"/>
       </svg>
 
       <svg class="toy toy-blocks" viewBox="0 0 100 100">
-        <rect x="14" y="52" width="42" height="34" rx="6" fill="#C97D22" transform="rotate(-6 35 69)"/>
-        <rect x="34" y="24" width="42" height="34" rx="6" fill="#2E5EAA" transform="rotate(4 55 41)"/>
-        <rect x="20" y="0" width="34" height="28" rx="6" fill="#3F7A56" transform="rotate(-10 37 14)"/>
+        <rect x="14" y="52" width="42" height="34" rx="6" fill="var(--toy-orange)" transform="rotate(-6 35 69)"/>
+        <rect x="34" y="24" width="42" height="34" rx="6" fill="var(--toy-bleu)" transform="rotate(4 55 41)"/>
+        <rect x="20" y="0" width="34" height="28" rx="6" fill="var(--toy-vert)" transform="rotate(-10 37 14)"/>
       </svg>
 
       <svg class="toy toy-top" viewBox="0 0 90 100">
-        <path d="M45 8 L78 30 L66 46 L24 46 L12 30 Z" fill="#2E5EAA"/>
-        <path d="M24 46 L66 46 L52 92 L38 92 Z" fill="#C97D22"/>
+        <path d="M45 8 L78 30 L66 46 L24 46 L12 30 Z" fill="var(--toy-bleu)"/>
+        <path d="M24 46 L66 46 L52 92 L38 92 Z" fill="var(--toy-orange)"/>
       </svg>
 
       <svg class="toy toy-puzzle" viewBox="0 0 100 90">
-        <path d="M6 6h34v14a8 8 0 0 0 16 0V6h34v34h-14a8 8 0 0 0 0 16h14v28H6V56h14a8 8 0 0 0 0-16H6Z" fill="#3F7A56" fill-opacity=".55"/>
+        <path d="M6 6h34v14a8 8 0 0 0 16 0V6h34v34h-14a8 8 0 0 0 0 16h14v28H6V56h14a8 8 0 0 0 0-16H6Z" fill="var(--toy-vert)" fill-opacity=".55"/>
       </svg>
     </div>
   </section>
@@ -382,8 +422,20 @@
     <div class="grid">
 
       <article class="card">
-        <div class="card-art" style="--art-bg:var(--accent-soft); --art-fg:var(--accent)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="9" height="7" rx="1.5"/><rect x="6" y="5" width="4" height="4" rx="1"/><circle cx="5.5" cy="17.5" r="1.6"/><circle cx="9.5" cy="17.5" r="1.6"/><rect x="13" y="10" width="8" height="6" rx="1.5"/><circle cx="15" cy="17.5" r="1.6"/><circle cx="19" cy="17.5" r="1.6"/></svg>
+        <div class="card-art" style="--art-bg:var(--accent-soft)">
+          <svg viewBox="0 0 120 84" aria-hidden="true">
+            <rect x="70" y="42" width="44" height="24" rx="7" fill="var(--toy-orange)"/>
+            <rect x="78" y="30" width="12" height="12" rx="3" fill="var(--toy-bleu)"/>
+            <rect x="94" y="30" width="12" height="12" rx="3" fill="var(--toy-vert)"/>
+            <rect x="8" y="38" width="52" height="28" rx="8" fill="var(--toy-vert)"/>
+            <rect x="30" y="16" width="22" height="24" rx="6" fill="var(--toy-vert)"/>
+            <rect x="36" y="22" width="12" height="11" rx="3" fill="var(--toy-bois)"/>
+            <rect x="14" y="24" width="12" height="16" rx="4" fill="var(--toy-orange)"/>
+            <circle cx="20" cy="70" r="8" fill="var(--ink)" fill-opacity=".2"/>
+            <circle cx="48" cy="70" r="8" fill="var(--ink)" fill-opacity=".2"/>
+            <circle cx="80" cy="70" r="7" fill="var(--ink)" fill-opacity=".2"/>
+            <circle cx="104" cy="70" r="7" fill="var(--ink)" fill-opacity=".2"/>
+          </svg>
         </div>
         <div class="card-body">
           <p class="card-cat">Bois</p>
@@ -397,8 +449,20 @@
       </article>
 
       <article class="card">
-        <div class="card-art" style="--art-bg:var(--accent-2-soft); --art-fg:var(--accent-2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10c0-2.2 1.8-4 4-4s4 1.8 4 4"/><path d="M4 10h16v3a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"/><path d="M9 16v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2"/></svg>
+        <div class="card-art" style="--art-bg:var(--accent-2-soft)">
+          <svg viewBox="0 0 120 84" aria-hidden="true">
+            <path d="M22 74 C22 52 30 42 42 42 C54 42 62 52 62 74 Z" fill="var(--toy-bleu)"/>
+            <ellipse cx="26" cy="30" rx="6" ry="8" fill="var(--toy-bois)"/>
+            <ellipse cx="58" cy="30" rx="6" ry="8" fill="var(--toy-bois)"/>
+            <circle cx="42" cy="32" r="16" fill="var(--toy-bois)"/>
+            <circle cx="36" cy="30" r="2.6" fill="var(--ink)" fill-opacity=".55"/>
+            <circle cx="48" cy="30" r="2.6" fill="var(--ink)" fill-opacity=".55"/>
+            <path d="M76 74 C76 58 82 50 91 50 C100 50 106 58 106 74 Z" fill="var(--toy-rose)"/>
+            <circle cx="91" cy="42" r="12" fill="var(--toy-orange)"/>
+            <path d="M91 26 l5 7 -10 0 Z" fill="var(--toy-rose)"/>
+            <circle cx="87" cy="41" r="2.2" fill="var(--ink)" fill-opacity=".55"/>
+            <path d="M101 43 l8 3 -8 3 Z" fill="var(--toy-bois)"/>
+          </svg>
         </div>
         <div class="card-body">
           <p class="card-cat">Éveil</p>
@@ -412,8 +476,15 @@
       </article>
 
       <article class="card">
-        <div class="card-art" style="--art-bg:var(--accent-3-soft); --art-fg:var(--accent-3)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6l2 6H7Z"/><path d="M7 10h10l-4 10h-2Z"/><path d="M12 4V2"/></svg>
+        <div class="card-art" style="--art-bg:var(--accent-3-soft)">
+          <svg viewBox="0 0 120 84" aria-hidden="true">
+            <path d="M34 16 a30 30 0 0 1 12 -8" stroke="var(--toy-vert)" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".45"/>
+            <path d="M86 16 a30 30 0 0 0 -12 -8" stroke="var(--toy-vert)" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".45"/>
+            <rect x="55" y="6" width="10" height="16" rx="4" fill="var(--toy-vert)"/>
+            <path d="M60 20 L96 42 L24 42 Z" fill="var(--toy-bleu)"/>
+            <rect x="24" y="42" width="72" height="8" fill="var(--toy-bois)"/>
+            <path d="M24 50 L96 50 L68 76 L52 76 Z" fill="var(--toy-orange)"/>
+          </svg>
         </div>
         <div class="card-body">
           <p class="card-cat">Éveil</p>
@@ -427,8 +498,15 @@
       </article>
 
       <article class="card">
-        <div class="card-art" style="--art-bg:var(--accent-soft); --art-fg:var(--accent)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
+        <div class="card-art" style="--art-bg:var(--accent-soft)">
+          <svg viewBox="0 0 120 84" aria-hidden="true">
+            <rect x="16" y="52" width="26" height="22" rx="5" fill="var(--toy-orange)"/>
+            <rect x="47" y="52" width="26" height="22" rx="5" fill="var(--toy-bleu)"/>
+            <rect x="78" y="52" width="26" height="22" rx="5" fill="var(--toy-vert)"/>
+            <rect x="31" y="28" width="26" height="22" rx="5" fill="var(--toy-rose)"/>
+            <rect x="62" y="28" width="26" height="22" rx="5" fill="var(--toy-bois)"/>
+            <rect x="47" y="4" width="26" height="22" rx="5" fill="var(--toy-bleu)"/>
+          </svg>
         </div>
         <div class="card-body">
           <p class="card-cat">Jeux de société</p>
@@ -442,8 +520,15 @@
       </article>
 
       <article class="card">
-        <div class="card-art" style="--art-bg:var(--accent-2-soft); --art-fg:var(--accent-2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7a3.5 3.5 0 0 1-7 0Z"/><path d="M13 13h7v3.5a3.5 3.5 0 0 1-7 0Z"/></svg>
+        <div class="card-art" style="--art-bg:var(--accent-2-soft)">
+          <svg viewBox="0 0 120 84" aria-hidden="true">
+            <rect x="46" y="58" width="14" height="18" rx="3" fill="var(--toy-bois)"/>
+            <path d="M53 30 L78 62 L28 62 Z" fill="var(--toy-vert)"/>
+            <path d="M53 8 L74 38 L32 38 Z" fill="var(--toy-vert)"/>
+            <path d="M84 44 h22 v22 h-22 Z" fill="var(--toy-orange)"/>
+            <circle cx="84" cy="55" r="6" fill="var(--toy-orange)"/>
+            <circle cx="95" cy="44" r="6" fill="var(--art-bg, var(--accent-2-soft))"/>
+          </svg>
         </div>
         <div class="card-body">
           <p class="card-cat">Jeux de société</p>
@@ -457,8 +542,17 @@
       </article>
 
       <article class="card">
-        <div class="card-art" style="--art-bg:var(--accent-3-soft); --art-fg:var(--accent-3)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h13l-1.4 8.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/><path d="M17 11h2.5a1.5 1.5 0 0 1 0 5H17"/></svg>
+        <div class="card-art" style="--art-bg:var(--accent-3-soft)">
+          <svg viewBox="0 0 120 84" aria-hidden="true">
+            <path d="M66 48 q15 3 15 14" stroke="var(--toy-vert)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M18 52 q-11 5 -2 13" stroke="var(--toy-vert)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M18 44 h48 v14 a14 14 0 0 1 -14 14 h-20 a14 14 0 0 1 -14 -14 Z" fill="var(--toy-vert)"/>
+            <rect x="16" y="37" width="52" height="9" rx="4.5" fill="var(--toy-bois)"/>
+            <circle cx="42" cy="31" r="5" fill="var(--toy-bois)"/>
+            <path d="M110 57 q9 2 7 9" stroke="var(--toy-orange)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M84 52 h26 v9 a10 10 0 0 1 -10 10 h-6 a10 10 0 0 1 -10 -10 Z" fill="var(--toy-orange)"/>
+            <rect x="80" y="73" width="36" height="5" rx="2.5" fill="var(--toy-bois)"/>
+          </svg>
         </div>
         <div class="card-body">
           <p class="card-cat">Extérieur</p>
