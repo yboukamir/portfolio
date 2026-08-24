@@ -248,8 +248,12 @@
     width: 16px; text-align: center;
   }
   .seats { display: flex; gap: 6px; }
+  /* 24 × 24 px : le minimum de la WCAG 2.5.8 pour une cible de pointeur.
+     Les sièges faisaient 22 × 20 — l'espacement entre eux les aurait sans doute
+     sauvés au titre de l'exception, mais « sans doute » n'est pas une réponse
+     quand il suffit de deux pixels pour être conforme sans discussion. */
   .seat {
-    width: 22px; height: 20px; border-radius: 4px 4px 2px 2px;
+    width: 24px; height: 24px; border-radius: 4px 4px 2px 2px;
     border: 1px solid var(--line); background: var(--surface-2);
     cursor: pointer; padding: 0; position: relative;
   }
@@ -259,6 +263,16 @@
   .seat.is-confort { border-bottom: 2px solid var(--accent); }
   .seat:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .aisle { width: 16px; }
+
+  /* Sur un écran de 375 px, une rangée à 24 px par siège mesurait 342 px pour
+     343 disponibles : ça tenait, mais au pixel près. On resserre l'espacement
+     plutôt que les sièges — leur taille est une contrainte d'accessibilité,
+     l'écart entre eux n'en est pas une. */
+  @media (max-width: 480px) {
+    .seats { gap: 4px; }
+    .aisle { width: 10px; }
+    .row { gap: 6px; }
+  }
 
   .legend {
     display: flex; justify-content: center; gap: 22px; flex-wrap: wrap;
@@ -497,6 +511,18 @@
     return n.toFixed(2).replace(".", ",") + " €";
   }
 
+  // Le CSS respecte prefers-reduced-motion, mais un défilement animé déclenché
+  // en JavaScript lui échappe complètement. On relit le réglage à chaque appel
+  // plutôt qu'au chargement : il peut changer pendant la visite.
+  function comportementDefilement() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  }
+
+  function allerVers(id) {
+    var cible = document.getElementById(id);
+    if (cible) cible.scrollIntoView({ behavior: comportementDefilement(), block: "start" });
+  }
+
   function findFilm(id) {
     for (var i = 0; i < FILMS.length; i++) if (FILMS[i].id === id) return FILMS[i];
     return null;
@@ -506,8 +532,10 @@
     var node = document.createElement(tag);
     attrs = attrs || {};
     for (var k in attrs) {
+      // Pas de branche « html » ici, volontairement : ce helper ne sait poser
+      // que du texte. Elle n'était utilisée nulle part et n'aurait servi qu'à
+      // rendre facile ce qu'on veut justement s'interdire.
       if (k === "class") node.className = attrs[k];
-      else if (k === "html") node.innerHTML = attrs[k];
       else if (k === "text") node.textContent = attrs[k];
       else node.setAttribute(k, attrs[k]);
     }
@@ -563,8 +591,7 @@
         state.selectedSeats = {};
         state.confirmed = null;
         renderAll();
-        var target = document.getElementById("section-showtime");
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        allerVers("section-showtime");
       });
       grid.appendChild(card);
     });
@@ -591,8 +618,7 @@
         state.selectedSeats = {};
         state.confirmed = null;
         renderAll();
-        var target = document.getElementById("section-seats");
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        allerVers("section-seats");
       });
       times.appendChild(btn);
     });
@@ -699,8 +725,7 @@
         seats: seatIds.slice(), total: total
       };
       renderAll();
-      var target = document.getElementById("section-confirm");
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      allerVers("section-confirm");
     });
     main.appendChild(confirmBtn);
     ticket.appendChild(main);
@@ -732,7 +757,7 @@
       state.selectedSeats = {};
       state.confirmed = null;
       renderAll();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: comportementDefilement() });
     });
     box.appendChild(again);
     wrap.appendChild(box);

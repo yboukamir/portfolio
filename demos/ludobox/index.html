@@ -542,6 +542,21 @@
       return n.toLocaleString('fr-BE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
     }
 
+    // Le panier affiche des noms d'articles : on construit donc le DOM nœud par
+    // nœud, jamais par concaténation de HTML. Ici les noms viennent de nos
+    // propres data-name, mais la règle vaut pour tout le site — et une donnée
+    // « sûre » finit toujours par cesser de l'être.
+    function vider(noeud) {
+      while (noeud.firstChild) { noeud.removeChild(noeud.firstChild); }
+    }
+
+    function creer(balise, classe, texte) {
+      var n = document.createElement(balise);
+      if (classe) { n.className = classe; }
+      if (texte !== undefined) { n.textContent = texte; }
+      return n;
+    }
+
     function totalCount() {
       var n = 0;
       for (var k in cart) { n += cart[k].qty; }
@@ -575,31 +590,38 @@
       subtotalEl.textContent = fmt(totalPrice());
       checkoutBtn.disabled = names.length === 0;
 
+      vider(body);
+
       if (names.length === 0) {
-        body.innerHTML = '<p class="cart-empty">Votre panier est vide.</p>';
+        body.appendChild(creer('p', 'cart-empty', 'Votre panier est vide.'));
         return;
       }
 
-      body.innerHTML = '';
       names.forEach(function (name) {
         var item = cart[name];
-        var row = document.createElement('div');
-        row.className = 'cart-item';
-        row.innerHTML =
-          '<div class="cart-item-info">' +
-            '<p class="cart-item-name"></p>' +
-            '<p class="cart-item-price"></p>' +
-          '</div>' +
-          '<div class="cart-item-actions">' +
-            '<button class="qty-btn minus" type="button" aria-label="Retirer un ' + name + '">–</button>' +
-            '<span class="cart-item-qty"></span>' +
-            '<button class="qty-btn plus" type="button" aria-label="Ajouter un ' + name + '">+</button>' +
-          '</div>';
-        row.querySelector('.cart-item-name').textContent = name;
-        row.querySelector('.cart-item-price').textContent = fmt(item.price) + ' pièce';
-        row.querySelector('.cart-item-qty').textContent = String(item.qty);
-        row.querySelector('.minus').addEventListener('click', function () { changeQty(name, -1); });
-        row.querySelector('.plus').addEventListener('click', function () { changeQty(name, 1); });
+
+        var infos = creer('div', 'cart-item-info');
+        infos.appendChild(creer('p', 'cart-item-name', name));
+        infos.appendChild(creer('p', 'cart-item-price', fmt(item.price) + ' pièce'));
+
+        var moins = creer('button', 'qty-btn minus', '–');
+        moins.type = 'button';
+        moins.setAttribute('aria-label', 'Retirer un ' + name);
+        moins.addEventListener('click', function () { changeQty(name, -1); });
+
+        var plus = creer('button', 'qty-btn plus', '+');
+        plus.type = 'button';
+        plus.setAttribute('aria-label', 'Ajouter un ' + name);
+        plus.addEventListener('click', function () { changeQty(name, 1); });
+
+        var actions = creer('div', 'cart-item-actions');
+        actions.appendChild(moins);
+        actions.appendChild(creer('span', 'cart-item-qty', String(item.qty)));
+        actions.appendChild(plus);
+
+        var row = creer('div', 'cart-item');
+        row.appendChild(infos);
+        row.appendChild(actions);
         body.appendChild(row);
       });
     }
@@ -651,28 +673,41 @@
       if (names.length === 0) return;
       var total = totalPrice();
 
-      var itemsHtml = names.map(function (name) {
+      var bloc = creer('div', 'cart-confirm');
+      bloc.appendChild(creer('h3', null, 'Commande simulée'));
+      bloc.appendChild(creer('p', null, 'Ceci est une démonstration — aucune commande n’est réellement transmise ni facturée.'));
+
+      var liste = document.createElement('ul');
+      names.forEach(function (name) {
         var item = cart[name];
-        return '<li><span>' + item.qty + '× ' + name + '</span><span>' + fmt(item.qty * item.price) + '</span></li>';
-      }).join('');
+        var ligne = document.createElement('li');
+        ligne.appendChild(creer('span', null, item.qty + '× ' + name));
+        ligne.appendChild(creer('span', null, fmt(item.qty * item.price)));
+        liste.appendChild(ligne);
+      });
+      bloc.appendChild(liste);
 
-      body.innerHTML =
-        '<div class="cart-confirm">' +
-          '<h3>Commande simulée</h3>' +
-          '<p>Ceci est une démonstration — aucune commande n’est réellement transmise ni facturée.</p>' +
-          '<ul>' + itemsHtml + '</ul>' +
-          '<div class="confirm-total"><span>Total</span><span>' + fmt(total) + '</span></div>' +
-          '<button class="btn btn-primary" id="continueShopping" type="button">Continuer mes achats</button>' +
-        '</div>';
-      foot.style.display = 'none';
+      var ligneTotal = creer('div', 'confirm-total');
+      ligneTotal.appendChild(creer('span', null, 'Total'));
+      ligneTotal.appendChild(creer('span', null, fmt(total)));
+      bloc.appendChild(ligneTotal);
 
-      document.getElementById('continueShopping').addEventListener('click', function () {
+      // On garde la référence plutôt qu'un id à retrouver : le bouton n'existe
+      // que dans cette portée, personne d'autre n'a besoin de le désigner.
+      var reprendre = creer('button', 'btn btn-primary', 'Continuer mes achats');
+      reprendre.type = 'button';
+      reprendre.addEventListener('click', function () {
         cart = {};
         renderBadge();
         renderCart();
         foot.style.display = '';
         closeDrawer();
       });
+      bloc.appendChild(reprendre);
+
+      vider(body);
+      body.appendChild(bloc);
+      foot.style.display = 'none';
     });
   })();
 </script>
