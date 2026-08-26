@@ -158,6 +158,24 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .btn, .lien-evitement, .carte, .carte-image { transition: none; }
+  /* Ceinture et bretelles : le JS ne pose déjà pas .a-reveler quand le
+     visiteur a demandé moins d'animations, mais si cette règle se retrouvait
+     seule, le contenu resterait visible. Une animation ne doit jamais pouvoir
+     retenir du texte. */
+  .a-reveler { opacity: 1; transform: none; transition: none; }
+}
+
+/* Apparition au défilement. La classe est posée par js/script.js, jamais
+   écrite dans le HTML : sans JavaScript, rien ne masque quoi que ce soit. */
+.a-reveler {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 520ms cubic-bezier(.22, .61, .36, 1),
+              transform 520ms cubic-bezier(.22, .61, .36, 1);
+}
+.a-reveler.visible {
+  opacity: 1;
+  transform: none;
 }
 
 

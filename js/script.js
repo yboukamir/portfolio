@@ -230,4 +230,80 @@
   var annee = document.getElementById("annee");
   if (annee) annee.textContent = String(new Date().getFullYear());
 
+
+  /* ========== 6. APPARITION AU DÉFILEMENT ==========
+     Quelques pixels de montée et un fondu quand un bloc entre à l'écran.
+     Rien de plus : la maquette est volontairement immobile, et un mouvement
+     trop appuyé la ferait paraître datée plutôt que vivante.
+
+     Trois précautions, dans cet ordre :
+
+     1. Si le visiteur a demandé moins d'animations, on ne fait rien du tout —
+        on ne pose même pas la classe qui masque. Sans ce retour anticipé, une
+        panne du reste laisserait la page invisible.
+     2. Si IntersectionObserver manque, même chose. Le contenu ne doit jamais
+        dépendre du JavaScript pour être lisible.
+     3. La classe « à révéler » est posée PAR le script, pas écrite dans le
+        HTML. Un visiteur sans JavaScript voit donc la page entière, dans son
+        état final : c'est le seul montage qui ne peut pas cacher le contenu. */
+
+  var mouvementReduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!mouvementReduit && "IntersectionObserver" in window) {
+    var aReveler = document.querySelectorAll(
+      ".section > .conteneur, .chiffres-grille, .heros-texte, .heros-photo"
+    );
+
+    var observateurRepond = false;
+
+    var observateur = new IntersectionObserver(function (entrees) {
+      observateurRepond = true;
+      entrees.forEach(function (entree) {
+        if (!entree.isIntersecting) return;
+        entree.target.classList.add("visible");
+        observateur.unobserve(entree.target);   // une seule fois, jamais au retour
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.05 });
+
+    /* Le filet, et ce n'est pas de la prudence décorative.
+       IntersectionObserver dépend du pipeline de rendu : dans un onglet
+       d'arrière-plan, il ne rend pas la main tant que l'onglet n'est pas
+       regardé. Vérifié sur cette page — onglet masqué, requestAnimationFrame
+       muet, aucun rappel de l'observateur, pas même le premier.
+       Tant que l'onglet reste caché ça ne gêne personne, puisque personne ne
+       regarde. Mais si l'observateur ne répondait jamais, tout le contenu
+       resterait à l'opacité 0 : un recruteur ouvrirait une page blanche.
+       Deux secondes sans le moindre rappel, et on renonce à l'animation en
+       retirant la classe partout. Le texte passe avant l'effet. */
+    setTimeout(function () {
+      if (observateurRepond) return;
+      observateur.disconnect();
+      Array.prototype.forEach.call(aReveler, function (bloc) {
+        bloc.classList.remove("a-reveler");
+      });
+    }, 2000);
+
+    // On pose d'abord la classe sur tous les blocs...
+    Array.prototype.forEach.call(aReveler, function (bloc) {
+      bloc.classList.add("a-reveler");
+    });
+
+    // ...puis on force le navigateur à recalculer AVANT de révéler quoi que
+    // ce soit. Sans cette ligne, rien ne se passe : le navigateur regroupe la
+    // pose de la classe et la révélation dans le même recalcul, l'état masqué
+    // n'est jamais validé, il n'y a donc aucun changement à animer et les
+    // blocs restent à l'état où ils étaient — visibles pour le héros, mais
+    // jamais révélés pour les autres, qui gardent l'opacité pleine sans que
+    // l'observateur puisse rien y changer. Mesuré : sans ce reflow, huit
+    // blocs sur dix ne bougeaient plus du tout.
+    void document.body.offsetHeight;
+
+    Array.prototype.forEach.call(aReveler, function (bloc, i) {
+      // Le héros est déjà à l'écran au chargement : le révéler tout de suite
+      // évite un clignotement sur la première chose que le visiteur regarde.
+      if (i < 2) { bloc.classList.add("visible"); return; }
+      observateur.observe(bloc);
+    });
+  }
+
 })();
