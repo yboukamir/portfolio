@@ -435,6 +435,26 @@ a { color: inherit; }
 }
 .mention-donnees a:hover { color: var(--encre); }
 
+.contact-adresse {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--gris);
+}
+.contact-adresse a {
+  color: var(--encre);
+  font-weight: 700;
+  /* inline-block + padding vertical : la cible de tap passe de 22 a 26 px.
+     WCAG 2.5.8 exempte les liens en pleine phrase, donc 22 px etait deja
+     conforme — mais sur un telephone, viser un lien de 22 px reste penible. */
+  display: inline-block;
+  padding-block: 2px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.contact-adresse a:hover { text-decoration-thickness: 2px; }
+
 .contact-liens {
   display: flex; justify-content: center; gap: 28px;
   margin-top: 32px; font-size: 15px; font-weight: 700;

@@ -136,9 +136,14 @@ restent distinguables, y compris en cas de daltonisme.
 
 ## Le formulaire de contact
 
-Aucune adresse email n'est affichée sur le site : une adresse en clair se fait
-aspirer par les robots à spam. Le formulaire poste vers **Formspree**, qui fait
-suivre par mail ; l'adresse de réception est configurée chez eux, jamais dans le code.
+Le formulaire poste vers **Formspree**, qui fait suivre par mail ; l'adresse de
+réception est configurée chez eux, jamais dans le code. Une mention sous le
+formulaire dit au visiteur que ses données passent par un service américain —
+le RGPD demande qu'il le sache avant d'envoyer.
+
+L'adresse est aussi affichée en clair sous le formulaire depuis le 26/08/2026.
+**Ne pas l'obfusquer en JavaScript** : le gain anti-robots est nul, et ça casse
+le clic droit « copier » et les lecteurs d'écran.
 
 - `action` porte l'endpoint Formspree ;
 - `js/script.js` poste en `fetch` avec `Accept: application/json`, pour que Formspree
