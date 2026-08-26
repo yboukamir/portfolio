@@ -1,7 +1,12 @@
 /* ==========================================================================
-   Mon site — jetons de design partagés
-   Couleurs, typographie et rythme. Importé par le portfolio ET par les outils
-   du dossier /outils, pour qu'ils restent visuellement cohérents.
+   Mon site — jetons de design des outils
+   Couleurs, typographie et rythme des outils du dossier /outils et de leurs
+   pages de tests, pour qu'ils restent cohérents entre eux.
+
+   ⚠️ Cette feuille ne concerne plus la page d'accueil. Depuis la refonte du
+   26/08/2026, index.html a son propre système, autonome, dans css/style.css.
+   Changer une couleur ici ne change plus rien à l'accueil — et c'est voulu :
+   les outils sont des applications, la page d'accueil est une présentation.
    ========================================================================== */
 /* Texte réservé aux lecteurs d'écran : invisible à l'œil, lu à voix haute.
    Sert à annoncer ce que le visuel dit autrement — un lien qui ouvre un
@@ -25,13 +30,19 @@
    --accent sert aussi pour du petit texte (liens, intitulés de section) : garde
    un rapport de contraste d'au moins 4,5:1 avec --fond. Vérifie sur
    webaim.org/resources/contrastchecker si tu changes la teinte.
-   --accent-survol fonce en thème clair et éclaircit en sombre : dans les deux
-   cas le bouton reste lisible au survol.
+   --accent-survol est une version foncée de --accent, pour que le bouton reste
+   lisible au survol.
    --erreur et --succes sont volontairement éloignés de --accent sur la roue
    chromatique (rouge 0°, vert 105°, teal 175°), pour que les messages du
    formulaire restent identifiables, y compris en cas de daltonisme. */
 
 :root {
+  /* Le navigateur doit savoir que ces pages n’ont qu’un thème clair. Sans
+     cette ligne, un visiteur dont le système est en sombre voit Chrome assombrir
+     lui-même les champs de saisie et la barre de défilement, sur un fond resté
+     blanc : le texte tapé devient illisible. */
+  color-scheme: light;
+
   /* Couleurs — thème clair */
   --fond:            #ffffff;
   --fond-alt:        #f6f7f9;

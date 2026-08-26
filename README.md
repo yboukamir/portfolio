@@ -19,13 +19,21 @@ CNAME                          Domaine servi par GitHub Pages
 .nojekyll                      Désactive Jekyll : les fichiers sont servis tels quels
 _redirects                     Hérité de Netlify, sans effet ici (conservé au cas où)
 
-css/tokens.css                 Couleurs et rythme — partagés par le site ET les outils
-css/style.css                  Styles du portfolio
+css/style.css                  Accueil : jetons, mise en page, composants.
+                               Autonome — n'importe pas tokens.css
+css/tokens.css                 Couleurs et rythme des OUTILS uniquement.
+                               L'accueil ne s'en sert plus depuis la refonte
 css/outils.css                 Coquille commune aux outils
 css/tests.css                  Présentation des pages de tests
 
-js/theme.js                    Bascule clair/sombre, partagée par les trois pages
-js/script.js                   Interactions du portfolio
+js/script.js                   Interactions de l'accueil : menu, en-tête, formulaire
+
+fonts/manrope-variable.woff2   Police auto-hébergée. Aucune requête vers un
+                               domaine tiers, donc rien à déclarer au RGPD
+assets/yassine.jpg             Photo du héros
+assets/apercu.jpg              Image affichée par les réseaux au partage du lien.
+                               À refaire après toute refonte : voir .claude/apercu.ps1
+assets/projets/                Vignettes des cartes de réalisations
 
 outils/suivi-candidatures/     Suivre ses candidatures (données locales)
   ├ logique.js                 Règles métier — fonctions pures
@@ -98,16 +106,31 @@ dans le test du tri, qui n'éprouvait qu'un seul ordre d'entrée.
 
 ## Les couleurs
 
-Tout est dans `css/tokens.css`. Changer `--accent` suffit à retoner le site et les
-outils — mais il y a **trois blocs** à modifier : le thème clair, puis les deux du
-thème sombre (`@media` et `[data-theme="dark"]`), qui doivent rester identiques.
+Deux systèmes cohabitent, volontairement.
 
-`--accent` sert aussi pour du petit texte. Vise au moins **4,5:1** de contraste avec
-le fond — le teal actuel est à 5,5:1 en clair et 10,2:1 en sombre. Vérifie sur
-[contrastchecker](https://webaim.org/resources/contrastchecker/).
+**L'accueil** (`css/style.css`) est en clair uniquement : fond ivoire, encre
+presque noire, et un seul jaune, réservé au fond de la photo. Pas d'accent
+coloré ailleurs — la hiérarchie repose sur la graisse et l'espace.
 
-`--erreur` et `--succes` sont volontairement éloignés de `--accent` sur la roue
-chromatique — rouge 0°, vert 105°, teal 175° — pour que les messages du formulaire
+**Les outils et les pages de tests** (`css/tokens.css`) gardent leur teal. Ce
+sont des applications, pas des pages de présentation ; elles n'ont aucune raison
+de suivre la refonte de l'accueil.
+
+**Il n'y a plus de thème sombre nulle part.** La bascule et `js/theme.js` ont
+été retirés le 26/08/2026, et avec eux les blocs `@media (prefers-color-scheme)`
+et `[data-theme="dark"]`. Tout le site est en clair, y compris les outils et les
+démos. Chaque page déclare donc `color-scheme: light` : sans cette ligne, un
+visiteur dont le système est en sombre voit Chrome assombrir de lui-même les
+champs de formulaire et les barres de défilement, sur un fond resté clair.
+
+Dans les deux systèmes, la règle ne change pas : **4,5:1 minimum** pour tout
+texte, **3:1** pour un objet graphique porteur de sens. À vérifier sur
+[contrastchecker](https://webaim.org/resources/contrastchecker/) — ce n'est pas
+une formalité : deux jetons livrés avec la refonte étaient à 2,7:1 et 2,9:1
+alors qu'ils portaient des dates de parcours et des états de projets.
+
+`--erreur` et `--succes` restent volontairement éloignés de l'accent des outils
+sur la roue chromatique — rouge 0°, vert 105°, teal 175° — pour que les messages
 restent distinguables, y compris en cas de daltonisme.
 
 ## Le formulaire de contact

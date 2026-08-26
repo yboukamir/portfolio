@@ -2,33 +2,53 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page introuvable — Yassine Boukamir</title>
   <meta name="robots" content="noindex">
 
-  <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/outils.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>">
+  <!-- Tous les chemins sont absolus, et ce n'est pas un détail : GitHub Pages
+       sert cette page depuis l'URL demandée, qui peut être à n'importe quelle
+       profondeur. Des chemins relatifs chercheraient le CSS à côté de la page
+       fantôme, et la 404 s'afficherait nue. -->
+  <link rel="preload" href="/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23FBFBF9'/><text x='50' y='74' font-family='Manrope,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23141414'>Y</text></svg>">
 
   <style>
-    body { display: grid; place-items: center; min-height: 100vh; background: var(--fond); }
-    .erreur-404 { max-width: 460px; padding: 24px; text-align: center; }
-    .erreur-404 .code {
-      font-size: clamp(3rem, 12vw, 5rem);
+    /* Cette page reprend les jetons et les boutons de css/style.css ; il ne
+       reste ici que sa mise en page, qui n'existe nulle part ailleurs. */
+    body { display: grid; place-items: center; min-height: 100svh; }
+
+    .erreur { max-width: 560px; padding: 40px 24px; text-align: center; }
+
+    /* Le nombre est décoratif : il est déjà dit par le titre juste en dessous,
+       et un lecteur d'écran qui annonce « quatre cent quatre » n'aide personne. */
+    .erreur .code {
+      font-size: clamp(72px, 16vw, 128px);
       font-weight: 800;
       line-height: 1;
-      color: var(--accent);
+      letter-spacing: -.05em;
+      color: var(--filet);
     }
-    .erreur-404 h1 { margin: .4em 0 .3em; font-size: 1.5rem; font-weight: 700; }
-    .erreur-404 p { color: var(--texte-doux); }
+    .erreur h1 { margin: 8px 0 14px; font-size: clamp(26px, 4vw, 34px); }
+    .erreur p { color: var(--gris); font-size: 17px; }
+
+    .erreur-actions {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      margin-top: 32px;
+    }
   </style>
 </head>
 <body>
-  <main class="erreur-404">
+  <main class="erreur">
     <p class="code" aria-hidden="true">404</p>
     <h1>Cette page n'existe pas</h1>
-    <p>Le lien est peut-être erroné, ou la page a été déplacée.</p>
-    <p><a class="btn btn-primaire" href="/">Retour à l'accueil</a></p>
+    <p>Le lien est peut-être erroné, ou la page a été déplacée.
+       L'accueil, lui, est toujours là.</p>
+    <div class="erreur-actions">
+      <a class="btn btn-encre" href="/">Retour à l'accueil</a>
+      <a class="btn btn-filet" href="/#realisations">Voir les réalisations</a>
+    </div>
   </main>
 </body>
 </html>
