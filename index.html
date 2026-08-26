@@ -30,6 +30,38 @@
   <link rel="preload" href="fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23FBFBF9'/><text x='50' y='74' font-family='Manrope,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23141414'>Y</text></svg>">
+
+  <!-- Données structurées. Sur un site de recherche de poste, Person est le
+       seul balisage qui rapporte : il relie les profils entre eux et alimente
+       le panneau de connaissances. Tout ce qui est ici doit être vrai et
+       vérifiable ailleurs — un balisage qui contredit la page se retourne. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Yassine Boukamir",
+    "url": "https://boukamir.be/",
+    "image": "https://boukamir.be/assets/yassine-900.jpg",
+    "jobTitle": "Développeur web",
+    "description": "Je conçois des sites et des outils web, et je les fais vivre.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Charleroi",
+      "addressCountry": "BE"
+    },
+    "knowsLanguage": ["fr", "en"],
+    "knowsAbout": ["Développement web", "WordPress", "WooCommerce", "JavaScript", "Référencement", "Accessibilité"],
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "BeCode" },
+      { "@type": "EducationalOrganization", "name": "CEPEGRA" }
+    ],
+    "seeks": { "@type": "Demand", "name": "Poste de développeur web" },
+    "sameAs": [
+      "https://www.linkedin.com/in/yboukamir/",
+      "https://github.com/yboukamir"
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="lien-evitement" href="#contenu">Aller au contenu</a>
@@ -82,7 +114,16 @@
         <!-- fetchpriority="high" et pas de lazy : c'est la seule image visible
              au chargement, la retarder décale tout le héros. -->
         <div class="heros-photo">
-          <img src="assets/yassine.jpg" width="760" height="929"
+          <!-- Deux densités. La photo s'affiche à 430 px de large au maximum ;
+               sur un écran 2× il en faut 860, d'où le fichier de 900.
+               sizes suit les marges réelles : --marge vaut 24 px sous 640,
+               40 px entre 640 et 900, et la colonne est figée à 430 au-dessus.
+               Se tromper ici fait choisir au navigateur un fichier trop petit,
+               et le gain de netteté est perdu sans qu'on le voie. -->
+          <img src="assets/yassine-430.jpg"
+               srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w"
+               sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(100vw - 80px), 430px"
+               width="430" height="526"
                alt="Portrait de Yassine Boukamir" fetchpriority="high" decoding="async">
         </div>
       </div>
@@ -148,7 +189,10 @@
 
           <article class="carte">
             <a class="carte-lien" href="https://tjeditions.com" target="_blank" rel="noopener noreferrer">
-              <img class="carte-image" src="assets/projets/p-tj.jpg" width="620" height="387"
+              <img class="carte-image" src="assets/projets/p-tj.jpg"
+                   srcset="assets/projets/p-tj.jpg 620w, assets/projets/p-tj@2x.jpg 1240w"
+                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
+                   width="620" height="387"
                    alt="Page d'accueil du site TJ Editions" loading="lazy" decoding="async">
               <div class="carte-corps">
                 <p class="carte-contexte">Agence · Vitrine</p>
@@ -182,7 +226,10 @@
 
           <article class="carte">
             <a class="carte-lien" href="outils/suivi-candidatures/">
-              <img class="carte-image" src="assets/projets/p-suivi.jpg" width="620" height="387"
+              <img class="carte-image" src="assets/projets/p-suivi.jpg"
+                   srcset="assets/projets/p-suivi.jpg 620w, assets/projets/p-suivi@2x.jpg 1240w"
+                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
+                   width="620" height="387"
                    alt="Interface de l'outil de suivi de candidatures" loading="lazy" decoding="async">
               <div class="carte-corps">
                 <p class="carte-contexte">Outil en service</p>
@@ -201,7 +248,10 @@
 
           <article class="carte">
             <a class="carte-lien" href="outils/departs-train/">
-              <img class="carte-image" src="assets/projets/p-train.jpg" width="620" height="387"
+              <img class="carte-image" src="assets/projets/p-train.jpg"
+                   srcset="assets/projets/p-train.jpg 620w, assets/projets/p-train@2x.jpg 1240w"
+                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
+                   width="620" height="387"
                    alt="Interface de l'outil de départs de train en direct" loading="lazy" decoding="async">
               <div class="carte-corps">
                 <p class="carte-contexte">Outil en service</p>
@@ -220,7 +270,10 @@
 
           <article class="carte">
             <a class="carte-lien" href="demos/ludobox/">
-              <img class="carte-image" src="assets/projets/p-ludobox.jpg" width="620" height="387"
+              <img class="carte-image" src="assets/projets/p-ludobox.jpg"
+                   srcset="assets/projets/p-ludobox.jpg 620w, assets/projets/p-ludobox@2x.jpg 1240w"
+                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
+                   width="620" height="387"
                    alt="Interface de la démonstration Ludobox" loading="lazy" decoding="async">
               <div class="carte-corps">
                 <p class="carte-contexte">Démonstration</p>
@@ -238,7 +291,10 @@
 
           <article class="carte">
             <a class="carte-lien" href="demos/salle-obscure/">
-              <img class="carte-image" src="assets/projets/p-salle.jpg" width="620" height="387"
+              <img class="carte-image" src="assets/projets/p-salle.jpg"
+                   srcset="assets/projets/p-salle.jpg 620w, assets/projets/p-salle@2x.jpg 1240w"
+                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
+                   width="620" height="387"
                    alt="Interface de la démonstration Salle Obscure" loading="lazy" decoding="async">
               <div class="carte-corps">
                 <p class="carte-contexte">Démonstration</p>
@@ -399,6 +455,18 @@
 
           <button class="btn btn-encre btn-large" type="submit">Envoyer le message</button>
           <p class="form-note" id="form-note" role="status"></p>
+
+          <!-- Le formulaire poste vers Formspree, un service américain : les
+               données sortent de l'UE. Le RGPD demande que le visiteur le
+               sache avant d'envoyer, pas après. La mention est dans le <form>,
+               au-dessus de rien d'autre : on la lit à l'endroit où on décide. -->
+          <p class="mention-donnees">
+            Vos données sont transmises via
+            <a href="https://formspree.io/legal/privacy-policy" target="_blank"
+               rel="noopener noreferrer">Formspree<span class="hors-ecran"> (nouvel onglet)</span></a>
+            et me servent uniquement à vous répondre. Elles ne sont ni conservées
+            au-delà de l'échange, ni revendues, ni utilisées à d'autres fins.
+          </p>
         </form>
 
         <p class="contact-liens">

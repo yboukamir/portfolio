@@ -419,6 +419,22 @@ a { color: inherit; }
 .form-note.succes { color: var(--dispo); font-weight: 700; }
 .form-note.echec  { color: #B3261E; font-weight: 700; }
 
+/* Mention de traitement des données. --tenu est mesuré à 4,67:1 sur --fond :
+   le seuil AA tient même à 13 px. Ne pas l'éclaircir pour « alléger ». */
+.mention-donnees {
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--tenu);
+  text-align: center;
+}
+.mention-donnees a {
+  color: var(--tenu);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.mention-donnees a:hover { color: var(--encre); }
+
 .contact-liens {
   display: flex; justify-content: center; gap: 28px;
   margin-top: 32px; font-size: 15px; font-weight: 700;

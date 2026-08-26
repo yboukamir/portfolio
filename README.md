@@ -30,7 +30,8 @@ js/script.js                   Interactions de l'accueil : menu, en-tête, formu
 
 fonts/manrope-variable.woff2   Police auto-hébergée. Aucune requête vers un
                                domaine tiers, donc rien à déclarer au RGPD
-assets/yassine.jpg             Photo du héros
+assets/yassine-430.jpg         Photo du héros, densité 1×
+assets/yassine-900.jpg         La même en 2×, servie par srcset
 assets/apercu.jpg              Image affichée par les réseaux au partage du lien.
                                À refaire après toute refonte : voir .claude/apercu.ps1
 assets/projets/                Vignettes des cartes de réalisations
