@@ -57,38 +57,11 @@
   --transition:  200ms cubic-bezier(.2, .7, .3, 1);
 }
 
-/* Thème sombre — suit le réglage du système... */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --fond:            #0f1115;
-    --fond-alt:        #14171d;
-    --fond-carte:      #181c23;
-    --texte:           #eceef2;
-    --texte-doux:      #a0a7b4;
-    --bordure:         #262b34;
-    --accent:          #2dd4bf;
-    --accent-survol:   #5eead4;
-    --accent-contraste:#12141a;
-    --erreur:          #f87171;
-    --succes:          #4bab2b;
-    --ombre:           0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
-    --ombre-forte:     0 2px 4px rgba(0, 0, 0, .4), 0 16px 40px rgba(0, 0, 0, .5);
-  }
-}
-
-/* ...ou du choix explicite fait avec le bouton. */
-:root[data-theme="dark"] {
-  --fond:            #0f1115;
-  --fond-alt:        #14171d;
-  --fond-carte:      #181c23;
-  --texte:           #eceef2;
-  --texte-doux:      #a0a7b4;
-  --bordure:         #262b34;
-  --accent:          #2dd4bf;
-  --accent-survol:   #5eead4;
-  --accent-contraste:#12141a;
-  --erreur:          #f87171;
-  --succes:          #4bab2b;
-  --ombre:           0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
-  --ombre-forte:     0 2px 4px rgba(0, 0, 0, .4), 0 16px 40px rgba(0, 0, 0, .5);
-}
+/* Le thème sombre a été retiré le 26/08/2026, en même temps que le bouton de
+   bascule des outils. La refonte de la page d'accueil n'en prévoyait pas, et
+   garder une bascule sur les seuls outils créait deux sites dans un seul.
+   Les deux démos gardent leur propre thème sombre : ce sont des boutiques
+   fictives, autonomes, censées ressembler à des sites tiers — leur apparence
+   n'a pas à suivre celle du portfolio.
+   Pour rétablir un thème sombre ici : voir le commit qui l'a supprimé, les
+   valeurs y sont intactes. */

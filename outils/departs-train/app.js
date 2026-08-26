@@ -5,7 +5,7 @@
 
    1. Constantes · 2. Appel réseau · 3. Rendu · 4. Rafraîchissement
    5. Interface · 6. Démarrage
-   La bascule de thème est dans ../../js/theme.js.
+   Le site est en thème clair uniquement depuis le 26/08/2026.
    ========================================================================== */
 
 (function () {

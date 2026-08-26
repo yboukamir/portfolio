@@ -5,7 +5,7 @@
 
    1. Constantes · 2. Stockage · 3. Rendu · 4. Formulaire
    5. Filtres · 6. Import / export · 7. Démarrage
-   La bascule de thème est dans ../../js/theme.js, partagée avec les autres pages.
+   Le site est en thème clair uniquement depuis le 26/08/2026.
    ========================================================================== */
 
 (function () {

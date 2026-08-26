@@ -75,31 +75,11 @@ a:hover { text-decoration: underline; }
 }
 .retour:hover { color: var(--accent); text-decoration: none; }
 
-.btn-icone {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 1px solid var(--bordure);
-  border-radius: var(--rayon-petit);
-  background: var(--fond-carte);
-  color: var(--texte);
-  cursor: pointer;
-}
-.btn-icone:hover { background: var(--fond-alt); border-color: var(--texte-doux); }
-
-.icone-lune   { display: block; }
-.icone-soleil { display: none; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .icone-lune   { display: none; }
-  :root:not([data-theme="light"]) .icone-soleil { display: block; }
-}
-:root[data-theme="dark"] .icone-lune   { display: none; }
-:root[data-theme="dark"] .icone-soleil { display: block; }
-:root[data-theme="light"] .icone-lune   { display: block; }
-:root[data-theme="light"] .icone-soleil { display: none; }
+/* .btn-icone, .icone-lune et .icone-soleil vivaient ici : le bouton carré de
+   bascule de thème et ses deux icônes. Bouton et thème sombre retirés le
+   26/08/2026 — voir la note en fin de tokens.css. Plus aucun élément du site
+   ne portait ces classes, elles partent avec.
+   Les deux démos gardent leur propre thème sombre : elles sont autonomes. */
 
 
 /* ========== BLOCS ========== */
