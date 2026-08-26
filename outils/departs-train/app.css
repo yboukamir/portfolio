@@ -109,10 +109,6 @@
   font-weight: 700;
   color: #b45309;
 }
-:root[data-theme="dark"] .depart-retard { color: #fbbf24; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .depart-retard { color: #fbbf24; }
-}
 
 /* Heure théorique barrée quand il y a du retard : on montre les deux, sinon
    on ne sait pas si « 14:32 » est l'horaire prévu ou l'horaire réel. */

@@ -130,13 +130,6 @@
 .pastille[data-statut="offre"]      { background: color-mix(in srgb, var(--succes) 16%, transparent);     color: var(--succes); }
 .pastille[data-statut="refus"]      { background: color-mix(in srgb, var(--erreur) 14%, transparent);     color: var(--erreur); }
 
-:root[data-theme="dark"] .pastille[data-statut="relancee"]  { color: #fbbf24; }
-:root[data-theme="dark"] .pastille[data-statut="entretien"] { color: #c4b5fd; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .pastille[data-statut="relancee"]  { color: #fbbf24; }
-  :root:not([data-theme="light"]) .pastille[data-statut="entretien"] { color: #c4b5fd; }
-}
-
 
 /* ========== DONNÉES ========== */
 
