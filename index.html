@@ -23,6 +23,11 @@
        sans repasser par une nouvelle procédure. Ne pas le modifier. -->
   <meta name="google-site-verification" content="LoE7iel1y7EDNJW5CL4DNfynYiIcXp9uapy0k_Mepdo">
 
+  <!-- La police est découverte tardivement, une fois le CSS analysé : sans ce
+       preload, le titre s'affiche d'abord dans la police système puis saute.
+       crossorigin est obligatoire même en même origine — les polices sont
+       toujours récupérées en mode CORS, sans lui le fichier est chargé deux fois. -->
+  <link rel="preload" href="fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23FBFBF9'/><text x='50' y='74' font-family='Manrope,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23141414'>Y</text></svg>">
 </head>

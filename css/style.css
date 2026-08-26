@@ -17,10 +17,16 @@
    secours plutôt qu'un blanc. Si les .woff2 sont absents, la pile de repli
    prend le relais sans que la page casse. */
 
+/* Un seul fichier : la police est variable, la plage 400–800 couvre les cinq
+   graisses du brief sans cinq téléchargements. C'est le sous-ensemble « latin »
+   de Google, qui suffit au français — U+0000-00FF pour les accents et les
+   guillemets, U+0152-0153 pour Œ et œ, U+20AC pour l'euro. Le sous-ensemble
+   latin-ext n'apporterait rien ici.
+   Pas d'unicode-range volontairement : sans lui, un caractère absent de la
+   police retombe simplement sur la pile système, au lieu de disparaître. */
 @font-face {
   font-family: "Manrope";
-  src: url("../fonts/manrope-variable.woff2") format("woff2-variations"),
-       url("../fonts/manrope-variable.woff2") format("woff2");
+  src: url("../fonts/manrope-variable.woff2") format("woff2");
   font-weight: 400 800;
   font-style: normal;
   font-display: swap;
