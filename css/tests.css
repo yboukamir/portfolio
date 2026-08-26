@@ -10,8 +10,8 @@
   font-weight: 700;
   margin-bottom: 22px;
 }
-.resume.ok    { background: color-mix(in srgb, var(--succes) 14%, transparent); color: var(--succes); }
-.resume.echec { background: color-mix(in srgb, var(--erreur) 12%, transparent); color: var(--erreur); }
+.resume.ok    { background: color-mix(in srgb, var(--succes) 12%, transparent); color: var(--succes-sur-teinte); }
+.resume.echec { background: color-mix(in srgb, var(--erreur) 12%, transparent); color: var(--erreur-sur-teinte); }
 
 #resultats { list-style: none; margin: 0; padding: 0; }
 #resultats li {
@@ -36,8 +36,8 @@
   font-weight: 700;
   text-align: center;
 }
-li.ok .puce    { background: color-mix(in srgb, var(--succes) 16%, transparent); color: var(--succes); }
-li.echec .puce { background: color-mix(in srgb, var(--erreur) 14%, transparent); color: var(--erreur); }
+li.ok .puce    { background: color-mix(in srgb, var(--succes) 12%, transparent); color: var(--succes-sur-teinte); }
+li.echec .puce { background: color-mix(in srgb, var(--erreur) 12%, transparent); color: var(--erreur-sur-teinte); }
 
 .message {
   flex-basis: 100%;

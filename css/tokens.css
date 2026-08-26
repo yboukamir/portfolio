@@ -3,11 +3,32 @@
    Couleurs, typographie et rythme des outils du dossier /outils et de leurs
    pages de tests, pour qu'ils restent cohérents entre eux.
 
-   ⚠️ Cette feuille ne concerne plus la page d'accueil. Depuis la refonte du
+   ⚠️ Cette feuille ne concerne pas la page d'accueil. Depuis la refonte du
    26/08/2026, index.html a son propre système, autonome, dans css/style.css.
-   Changer une couleur ici ne change plus rien à l'accueil — et c'est voulu :
+   Changer une couleur ici ne change rien à l'accueil — et c'est voulu :
    les outils sont des applications, la page d'accueil est une présentation.
+
+   Ce que les deux systèmes PARTAGENT depuis le 26/08/2026 : la police, les
+   neutres et le rythme. Ce qui les sépare : l'accent. Un outil a besoin d'une
+   couleur d'action et d'états d'erreur ; une page de présentation n'en a pas.
    ========================================================================== */
+
+/* ========== 1. POLICE ==========
+   Manrope, la même que l'accueil, et le même fichier : la page d'accueil
+   l'a déjà mise en cache, l'outil ne coûte donc aucune requête de plus.
+
+   Avant le 26/08/2026 cette feuille déclarait « Inter » — sans jamais la
+   charger. Aucun @font-face, aucun lien : les outils s'affichaient depuis
+   toujours dans la police système, Segoe UI sous Windows. La déclaration
+   décrivait une intention, pas ce que voyaient les visiteurs. */
+@font-face {
+  font-family: "Manrope";
+  src: url("../fonts/manrope-variable.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Texte réservé aux lecteurs d'écran : invisible à l'œil, lu à voix haute.
    Sert à annoncer ce que le visuel dit autrement — un lien qui ouvre un
    nouvel onglet, par exemple. Ni display:none ni visibility:hidden, qui le
@@ -25,54 +46,71 @@
 }
 
 
-/* ========== 1. VARIABLES ========== */
-/* Change les couleurs ici : tout le site suit automatiquement.
-   --accent sert aussi pour du petit texte (liens, intitulés de section) : garde
-   un rapport de contraste d'au moins 4,5:1 avec --fond. Vérifie sur
-   webaim.org/resources/contrastchecker si tu changes la teinte.
-   --accent-survol est une version foncée de --accent, pour que le bouton reste
-   lisible au survol.
-   --erreur et --succes sont volontairement éloignés de --accent sur la roue
-   chromatique (rouge 0°, vert 105°, teal 175°), pour que les messages du
-   formulaire restent identifiables, y compris en cas de daltonisme. */
+/* ========== 2. VARIABLES ==========
+   Les neutres sont ceux de l'accueil, au jeton près. Ils étaient gris froids
+   (#f6f7f9, #16181d) ; l'accueil est ivoire chaud. Deux gris qui ne sont pas
+   de la même famille suffisent à donner l'impression de deux sites, même
+   quand tout le reste concorde.
+
+   --accent reste le teal, et c'est le seul écart assumé avec l'accueil. Il
+   est à 177° du rouge d'erreur sur la roue chromatique : les messages
+   d'erreur y restent distinguables, y compris en cas de daltonisme. Il sert
+   aussi pour du petit texte, donc garder au moins 4,5:1 avec --fond.
+   --erreur et --succes sont volontairement éloignés de --accent pour la même
+   raison (rouge 0°, vert 105°, teal 175°). */
 
 :root {
-  /* Le navigateur doit savoir que ces pages n’ont qu’un thème clair. Sans
-     cette ligne, un visiteur dont le système est en sombre voit Chrome assombrir
-     lui-même les champs de saisie et la barre de défilement, sur un fond resté
-     blanc : le texte tapé devient illisible. */
+  /* Le navigateur doit savoir que ces pages n'ont qu'un thème clair. Sans
+     cette ligne, un visiteur dont le système est en sombre voit Chrome
+     assombrir lui-même les champs de saisie et la barre de défilement, sur
+     un fond resté blanc : le texte tapé devient illisible. */
   color-scheme: light;
 
-  /* Couleurs — thème clair */
+  /* Couleurs — neutres partagés avec l'accueil */
   --fond:            #ffffff;
-  --fond-alt:        #f6f7f9;
+  --fond-alt:        #fbfbf9;
   --fond-carte:      #ffffff;
-  --texte:           #16181d;
-  --texte-doux:      #5b616e;
-  --bordure:         #e3e6ea;
+  --texte:           #141414;
+  --texte-doux:      #6e6e68;
+  --texte-tenu:      #72726c;
+  --bordure:         #e6e6e1;
+
+  /* Couleurs — propres aux outils */
   --accent:          #0f766e;
   --accent-survol:   #115e59;
   --accent-contraste:#ffffff;
-  --erreur:          #b91c1c;
-  --succes:          #367a1f;
-  --ombre:           0 1px 2px rgba(16, 18, 27, .04), 0 8px 24px rgba(16, 18, 27, .06);
-  --ombre-forte:     0 2px 4px rgba(16, 18, 27, .06), 0 16px 40px rgba(16, 18, 27, .12);
+  --erreur:          #b3261e;
+  --succes:          #178052;
+
+  /* Versions assombries, à n'utiliser QUE pour du texte posé sur une teinte
+     de sa propre couleur — pastilles de statut, badges des pages de tests.
+     Écrire --accent sur un fond fait de --accent est séduisant et rarement
+     lisible : le fond monte avec le texte, et le rapport plafonne autour de
+     4:1. Mesuré le 26/08/2026 sur les pastilles de statut, qui étaient à 4,37,
+     3,99 et 3,91 alors qu'elles portent l'état d'une candidature.
+     Chaque valeur est calculée pour tenir 5,5:1 sur une teinte à 12 %. */
+  --accent-sur-teinte: #0d6962;
+  --succes-sur-teinte: #136c45;
+  --erreur-sur-teinte: #af251d;
+
+  --ombre:       0 1px 2px rgba(20, 20, 20, .05), 0 12px 32px -18px rgba(20, 20, 20, .18);
+  --ombre-forte: 0 2px 4px rgba(20, 20, 20, .06), 0 20px 44px -20px rgba(20, 20, 20, .22);
 
   /* Typographie */
-  --police: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --police: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
-  /* Rythme */
-  --largeur-max: 1120px;
-  --rayon:       14px;
-  --rayon-petit: 8px;
-  --transition:  200ms cubic-bezier(.2, .7, .3, 1);
+  /* Rythme — aligné sur l'accueil */
+  --largeur-max:  1120px;
+  --rayon:        18px;
+  --rayon-petit:  10px;
+  --rayon-pilule: 999px;
+  --transition:   200ms cubic-bezier(.2, .7, .3, 1);
 }
 
 /* Le thème sombre a été retiré le 26/08/2026, en même temps que le bouton de
    bascule des outils. La refonte de la page d'accueil n'en prévoyait pas, et
    garder une bascule sur les seuls outils créait deux sites dans un seul.
-   Les deux démos gardent leur propre thème sombre : ce sont des boutiques
-   fictives, autonomes, censées ressembler à des sites tiers — leur apparence
-   n'a pas à suivre celle du portfolio.
-   Pour rétablir un thème sombre ici : voir le commit qui l'a supprimé, les
-   valeurs y sont intactes. */
+   Les démos ont suivi le même jour : elles déclarent color-scheme: light
+   elles aussi. Il n'y a plus un seul bloc de thème sombre dans le dépôt.
+   Pour en rétablir un : voir le commit qui l'a supprimé, les valeurs y sont
+   intactes. */

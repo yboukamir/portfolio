@@ -1,7 +1,17 @@
 /* ==========================================================================
    Coquille commune aux outils de /outils
-   Mise en page, en-tête, boutons et champs. Les couleurs viennent de
-   tokens.css. Chaque outil ajoute ensuite sa propre feuille de style.
+   Mise en page, en-tête, boutons et champs. Les couleurs et le rythme
+   viennent de tokens.css. Chaque outil ajoute ensuite sa propre feuille.
+
+   Refondue le 26/08/2026 pour suivre la nouvelle page d'accueil : même
+   police, mêmes neutres, mêmes rayons, boutons en pilule, en-tête collant.
+   L'accent teal reste, lui — voir la note dans tokens.css.
+
+   Les proportions ne sont PAS celles de l'accueil au pixel près, et c'est
+   volontaire. L'accueil a des boutons de 54 px parce qu'on n'en croise qu'un
+   ou deux ; un outil en aligne sept sur une ligne de filtres. Ici la pilule
+   fait 44 px : au-dessus du seuil de 24 px de la WCAG, confortable au pouce,
+   et assez compacte pour qu'une barre de filtres tienne sur une ligne.
    ========================================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -20,14 +30,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 { line-height: 1.2; letter-spacing: -.02em; margin: 0; }
+h1, h2, h3 {
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  font-weight: 800;
+}
 p { margin: 0 0 1em; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--texte);
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
@@ -35,26 +50,36 @@ a:hover { text-decoration: underline; }
   width: 100%;
   max-width: 940px;
   margin-inline: auto;
-  padding-inline: 20px;
+  padding-inline: 24px;
 }
 
 .skip-link {
   position: absolute;
-  left: -9999px;
-  top: 12px;
+  left: 12px;
+  top: -60px;
   z-index: 100;
-  background: var(--accent);
-  color: var(--accent-contraste);
-  padding: 10px 18px;
-  border-radius: var(--rayon-petit);
+  background: var(--texte);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--rayon-pilule);
+  font-weight: 700;
+  font-size: .95rem;
+  transition: top 150ms ease;
 }
-.skip-link:focus { left: 16px; }
+.skip-link:focus { top: 12px; text-decoration: none; }
 
 
-/* ========== EN-TÊTE ========== */
+/* ========== EN-TÊTE ==========
+   Collant et flouté comme celui de l'accueil. Le filet du bas n'apparaît
+   qu'une fois la page défilée : posé en permanence, il coupe la page en deux
+   dès le chargement. */
 
 .entete {
-  background: var(--fond);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--fond) 88%, transparent);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--bordure);
 }
 .entete-inner {
@@ -62,38 +87,33 @@ a:hover { text-decoration: underline; }
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
-  padding-block: 22px;
+  padding-block: 20px;
 }
-.entete h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; }
+.entete h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
 
 .retour {
   display: inline-block;
-  margin-bottom: 4px;
-  font-size: .88rem;
-  font-weight: 500;
+  margin-bottom: 6px;
+  font-size: .86rem;
+  font-weight: 600;
   color: var(--texte-doux);
 }
-.retour:hover { color: var(--accent); text-decoration: none; }
-
-/* .btn-icone, .icone-lune et .icone-soleil vivaient ici : le bouton carré de
-   bascule de thème et ses deux icônes. Bouton et thème sombre retirés le
-   26/08/2026 — voir la note en fin de tokens.css. Plus aucun élément du site
-   ne portait ces classes, elles partent avec.
-   Les deux démos gardent leur propre thème sombre : elles sont autonomes. */
+.retour:hover { color: var(--texte); text-decoration: none; }
 
 
 /* ========== BLOCS ========== */
 
-main { padding-block: 28px 60px; }
+main { padding-block: 32px 72px; }
 
 .bloc {
-  margin-bottom: 24px;
-  padding: 26px 24px;
+  margin-bottom: 20px;
+  padding: 28px 26px;
   border: 1px solid var(--bordure);
   border-radius: var(--rayon);
   background: var(--fond-carte);
+  box-shadow: var(--ombre);
 }
-.bloc-titre { font-size: 1.15rem; font-weight: 700; }
+.bloc-titre { font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; }
 
 .bloc-entete {
   display: flex;
@@ -101,20 +121,20 @@ main { padding-block: 28px 60px; }
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 
 /* ========== CHAMPS ========== */
 
-.champ { display: grid; gap: 6px; }
-.champ label { font-size: .88rem; font-weight: 600; }
+.champ { display: grid; gap: 7px; }
+.champ label { font-size: .86rem; font-weight: 700; }
 
 .champ input,
 .champ select,
 .champ textarea {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--bordure);
   border-radius: var(--rayon-petit);
   background: var(--fond);
@@ -122,6 +142,7 @@ main { padding-block: 28px 60px; }
   font-family: inherit;
   font-size: .96rem;
   resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 .champ input:focus,
 .champ select:focus,
@@ -139,20 +160,22 @@ main { padding-block: 28px 60px; }
 }
 
 
-/* ========== BOUTONS ========== */
+/* ========== BOUTONS ==========
+   Pilules, comme l'accueil, mais en 44 px : voir l'en-tête de ce fichier. */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 11px 20px;
+  height: 44px;
+  padding-inline: 22px;
   border: 1px solid transparent;
-  border-radius: var(--rayon-petit);
+  border-radius: var(--rayon-pilule);
   font-family: inherit;
   font-size: .94rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background var(--transition), border-color var(--transition);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 .btn:disabled { opacity: .6; cursor: wait; }
 
@@ -179,13 +202,13 @@ main { padding-block: 28px 60px; }
 
 /* ========== MESSAGES ========== */
 
-.form-note { min-height: 1.3em; margin: 14px 0 0; font-size: .88rem; color: var(--texte-doux); }
-.form-note.succes { color: var(--succes); font-weight: 600; }
-.form-note.echec  { color: var(--erreur); font-weight: 600; }
+.form-note { min-height: 1.3em; margin: 16px 0 0; font-size: .88rem; color: var(--texte-doux); }
+.form-note.succes { color: var(--succes); font-weight: 700; }
+.form-note.echec  { color: var(--erreur); font-weight: 700; }
 
 .vide {
   margin: 0;
-  padding: 26px 0;
+  padding: 30px 0;
   text-align: center;
   color: var(--texte-doux);
 }
@@ -194,7 +217,7 @@ main { padding-block: 28px 60px; }
 /* ========== PIED ========== */
 
 .pied {
-  padding-block: 24px;
+  padding-block: 28px;
   border-top: 1px solid var(--bordure);
   background: var(--fond);
 }
@@ -203,6 +226,8 @@ main { padding-block: 28px 60px; }
 
 @media (max-width: 560px) {
   .entete-inner { align-items: center; }
+  .conteneur { padding-inline: 20px; }
+  .bloc { padding: 24px 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -210,4 +235,5 @@ main { padding-block: 28px 60px; }
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
   }
+  .skip-link { transition: none; }
 }

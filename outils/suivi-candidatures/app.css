@@ -123,12 +123,27 @@
   font-weight: 600;
   white-space: nowrap;
 }
-.pastille[data-statut="a-postuler"] { background: color-mix(in srgb, var(--texte-doux) 16%, transparent); color: var(--texte); }
-.pastille[data-statut="envoyee"]    { background: color-mix(in srgb, var(--accent) 16%, transparent);     color: var(--accent); }
-.pastille[data-statut="relancee"]   { background: color-mix(in srgb, #b45309 18%, transparent);           color: #b45309; }
-.pastille[data-statut="entretien"]  { background: color-mix(in srgb, #6d28d9 16%, transparent);           color: #6d28d9; }
-.pastille[data-statut="offre"]      { background: color-mix(in srgb, var(--succes) 16%, transparent);     color: var(--succes); }
-.pastille[data-statut="refus"]      { background: color-mix(in srgb, var(--erreur) 14%, transparent);     color: var(--erreur); }
+/* Le texte de la pastille n'est PAS la couleur du statut : c'en est une
+   version assombrie, et le fond est une teinte à 12 % au lieu de 16 %.
+
+   Mesuré le 26/08/2026, à 12,5 px sur le fond des cartes : « Envoyée »
+   tombait à 4,37:1, « Relancée » à 3,91 et « Offre » à 3,99. Trois statuts
+   sous le seuil AA de 4,5, sur des étiquettes qui portent l'état d'une
+   candidature — l'information même que l'outil sert à suivre.
+
+   Écrire la couleur du statut sur une teinte de cette même couleur est
+   séduisant et rarement lisible : le fond monte avec le texte. Assombrir le
+   texte ET éclaircir le fond décolle les deux. Chaque paire est calculée pour
+   tenir 5,5:1, pas 4,5 : à un cheveu du seuil, un arrondi fait basculer.
+
+   Le libellé reste écrit en toutes lettres : la couleur ne porte jamais
+   l'information seule. */
+.pastille[data-statut="a-postuler"] { background: color-mix(in srgb, var(--texte-doux) 12%, transparent); color: #5f5f59; }
+.pastille[data-statut="envoyee"]    { background: color-mix(in srgb, var(--accent) 12%, transparent);     color: var(--accent-sur-teinte); }
+.pastille[data-statut="relancee"]   { background: color-mix(in srgb, #b45309 12%, transparent);           color: #974608; }
+.pastille[data-statut="entretien"]  { background: color-mix(in srgb, #6d28d9 12%, transparent);           color: #6d28d9; }
+.pastille[data-statut="offre"]      { background: color-mix(in srgb, var(--succes) 12%, transparent);     color: var(--succes-sur-teinte); }
+.pastille[data-statut="refus"]      { background: color-mix(in srgb, var(--erreur) 12%, transparent);     color: var(--erreur-sur-teinte); }
 
 
 /* ========== DONNÉES ========== */

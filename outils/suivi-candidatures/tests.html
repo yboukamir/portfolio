@@ -6,6 +6,11 @@
   <title>Tests — Suivi de candidatures</title>
   <meta name="robots" content="noindex">
 
+  <!-- La police est dÃ©couverte tardivement, une fois le CSS analysÃ© : sans ce
+       preload, le titre s’affiche d’abord dans la police systÃ¨me puis saute.
+       crossorigin est obligatoire mÃªme en mÃªme origine â les polices sont
+       toujours rÃ©cupÃ©rÃ©es en mode CORS, sans lui le fichier est chargÃ© deux fois. -->
+  <link rel="preload" href="../../fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../css/tokens.css">
   <link rel="stylesheet" href="../../css/outils.css">
   <link rel="stylesheet" href="../../css/tests.css">
