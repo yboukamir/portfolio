@@ -1,124 +1,119 @@
 /* ==========================================================================
-   Mon site — interactions
-   1. Thème clair/sombre · 2. Menu mobile · 3. En-tête au défilement
-   4. Lien de nav actif · 5. Apparition au scroll · 6. Formulaire · 7. Année
+   boukamir.be — page d'accueil
+   1. Menu mobile · 2. En-tête au défilement · 3. Lien de nav actif
+   4. Formulaire de contact · 5. Année courante
+
+   Aucune dépendance. Ce fichier ne sert qu'à index.html : les outils et les
+   démos ont leur propre JavaScript.
    ========================================================================== */
 
 (function () {
   "use strict";
 
-  /* ========== 1. THÈME CLAIR / SOMBRE ========== */
-
-  var racine = document.documentElement;
-  var boutonTheme = document.getElementById("theme-toggle");
-
-  // Rétablit le choix précédent de l'utilisateur, s'il en a fait un.
-  try {
-    var themeEnregistre = localStorage.getItem("theme");
-    if (themeEnregistre === "dark" || themeEnregistre === "light") {
-      racine.setAttribute("data-theme", themeEnregistre);
-    }
-  } catch (e) {
-    /* localStorage indisponible (navigation privée) : on garde le thème système. */
-  }
-
-  if (boutonTheme) {
-    boutonTheme.addEventListener("click", function () {
-      var sombreSysteme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      var actuel = racine.getAttribute("data-theme") || (sombreSysteme ? "dark" : "light");
-      var nouveau = actuel === "dark" ? "light" : "dark";
-
-      racine.setAttribute("data-theme", nouveau);
-      try { localStorage.setItem("theme", nouveau); } catch (e) {}
-    });
-  }
-
-
-  /* ========== 2. MENU MOBILE ========== */
+  /* ========== 1. MENU MOBILE ==========
+     Le menu piège le focus tant qu'il est ouvert et se referme à Échap : sans
+     ça, la tabulation continue derrière le panneau, dans une page qu'on ne
+     voit plus. */
 
   var burger = document.getElementById("burger");
   var nav = document.getElementById("nav");
 
-  function fermerMenu() {
-    if (!nav || !burger) return;
+  function elementsFocusables() {
+    return Array.prototype.slice.call(nav.querySelectorAll("a[href]"));
+  }
+
+  function ouvrirMenu() {
+    nav.classList.add("ouvert");
+    burger.setAttribute("aria-expanded", "true");
+    burger.setAttribute("aria-label", "Fermer le menu");
+    var premier = elementsFocusables()[0];
+    if (premier) premier.focus();
+  }
+
+  function fermerMenu(rendreLeFocus) {
     nav.classList.remove("ouvert");
     burger.setAttribute("aria-expanded", "false");
     burger.setAttribute("aria-label", "Ouvrir le menu");
+    // On revient toujours sur le bouton, jamais sur ce qui était focalisé avant :
+    // le menu ne s'ouvre que par lui, et mémoriser document.activeElement rend
+    // le focus au <body> quand l'ouverture vient d'ailleurs qu'un clic réel.
+    if (rendreLeFocus) burger.focus();
+  }
+
+  function menuOuvert() {
+    return nav.classList.contains("ouvert");
   }
 
   if (burger && nav) {
     burger.addEventListener("click", function () {
-      var ouvert = nav.classList.toggle("ouvert");
-      burger.setAttribute("aria-expanded", String(ouvert));
-      burger.setAttribute("aria-label", ouvert ? "Fermer le menu" : "Ouvrir le menu");
+      if (menuOuvert()) fermerMenu(true); else ouvrirMenu();
     });
 
-    // On referme après un clic sur un lien, et avec la touche Échap.
     nav.addEventListener("click", function (ev) {
-      if (ev.target.tagName === "A") fermerMenu();
+      if (ev.target.tagName === "A") fermerMenu(false);
     });
+
     document.addEventListener("keydown", function (ev) {
-      if (ev.key === "Escape") fermerMenu();
+      if (!menuOuvert()) return;
+
+      if (ev.key === "Escape") {
+        fermerMenu(true);
+        return;
+      }
+
+      if (ev.key !== "Tab") return;
+
+      // Piège à focus : on boucle sur les liens du menu et le bouton lui-même.
+      var cibles = elementsFocusables().concat([burger]);
+      var premier = cibles[0];
+      var dernier = cibles[cibles.length - 1];
+
+      if (ev.shiftKey && document.activeElement === premier) {
+        ev.preventDefault();
+        dernier.focus();
+      } else if (!ev.shiftKey && document.activeElement === dernier) {
+        ev.preventDefault();
+        premier.focus();
+      }
     });
   }
 
 
-  /* ========== 3. EN-TÊTE AU DÉFILEMENT ========== */
+  /* ========== 2. EN-TÊTE AU DÉFILEMENT ========== */
 
-  var header = document.querySelector(".site-header");
+  var entete = document.querySelector(".entete");
 
-  function majHeader() {
-    if (header) header.classList.toggle("defile", window.scrollY > 8);
+  function majEntete() {
+    if (entete) entete.classList.toggle("defile", window.scrollY > 8);
   }
-  majHeader();
-  window.addEventListener("scroll", majHeader, { passive: true });
+  majEntete();
+  window.addEventListener("scroll", majEntete, { passive: true });
 
 
-  /* ========== 4. LIEN DE NAVIGATION ACTIF ========== */
+  /* ========== 3. LIEN DE NAVIGATION ACTIF ========== */
 
   var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
-  var liensNav = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
+  var liens = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
 
-  if (sections.length && liensNav.length && "IntersectionObserver" in window) {
-    var observateurNav = new IntersectionObserver(function (entrees) {
+  if (sections.length && liens.length && "IntersectionObserver" in window) {
+    var observateur = new IntersectionObserver(function (entrees) {
       entrees.forEach(function (entree) {
         if (!entree.isIntersecting) return;
         var id = entree.target.id;
-        liensNav.forEach(function (lien) {
+        liens.forEach(function (lien) {
           lien.classList.toggle("actif", lien.getAttribute("href") === "#" + id);
         });
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
 
-    sections.forEach(function (section) { observateurNav.observe(section); });
+    sections.forEach(function (section) { observateur.observe(section); });
   }
 
 
-  /* ========== 5. APPARITION AU SCROLL ========== */
-
-  var elementsReveal = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
-  var animationsReduites = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (animationsReduites || !("IntersectionObserver" in window)) {
-    // Pas d'animation : on affiche tout immédiatement.
-    elementsReveal.forEach(function (el) { el.classList.add("visible"); });
-  } else {
-    var observateurReveal = new IntersectionObserver(function (entrees, obs) {
-      entrees.forEach(function (entree, i) {
-        if (!entree.isIntersecting) return;
-        // Léger décalage entre voisins pour un effet en cascade.
-        setTimeout(function () { entree.target.classList.add("visible"); }, i * 70);
-        obs.unobserve(entree.target);
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-
-    elementsReveal.forEach(function (el) { observateurReveal.observe(el); });
-  }
-
-
-  /* ========== 6. FORMULAIRE DE CONTACT ========== */
-  /* Validation dans le navigateur, puis envoi vers Formspree, qui fait suivre
-     par mail. L'adresse de destination est configurée chez eux, jamais ici. */
+  /* ========== 4. FORMULAIRE DE CONTACT ==========
+     Validation dans le navigateur, puis envoi vers Formspree, qui fait suivre
+     par mail. L'adresse de destination est configurée chez eux, jamais ici :
+     c'est ce qui évite qu'un robot la récolte sur la page. */
 
   var formulaire = document.getElementById("formulaire-contact");
   var note = document.getElementById("form-note");
@@ -142,9 +137,6 @@
     champ.classList.toggle("invalide", Boolean(erreur));
     if (messageErreur) messageErreur.textContent = erreur;
 
-    /* La bordure rouge ne dit rien à un lecteur d'écran. aria-invalid signale
-       l'erreur, et aria-describedby (posé dans le HTML) fait lire le message
-       au moment où l'utilisateur atteint le champ. */
     if (erreur) input.setAttribute("aria-invalid", "true");
     else input.removeAttribute("aria-invalid");
 
@@ -158,7 +150,6 @@
       formulaire.querySelectorAll(".champ input, .champ textarea")
     );
 
-    // On ne signale l'erreur qu'après une première sortie du champ.
     champs.forEach(function (input) {
       input.addEventListener("blur", function () { validerChamp(input); });
       input.addEventListener("input", function () {
@@ -183,9 +174,8 @@
       envoyer();
     });
 
-    /* Envoi vers Formspree, à l'adresse indiquée par l'attribut « action » du
-       formulaire. Contrairement à Netlify Forms, ça fonctionne aussi en local :
-       attention, un test depuis ton ordinateur envoie donc un vrai message. */
+    /* ⚠️ Formspree fonctionne aussi depuis localhost : tester le formulaire
+       envoie un vrai message. */
     function envoyer() {
       var bouton = formulaire.querySelector("button[type=submit]");
       var libelle = bouton ? bouton.textContent : "";
@@ -201,9 +191,8 @@
 
       var donnees = new URLSearchParams(new FormData(formulaire)).toString();
 
-      // L'en-tête « Accept » demande à Formspree une réponse JSON plutôt
-      // qu'une redirection vers sa page de remerciement : le visiteur reste
-      // sur la page, on affiche notre propre message.
+      // L'en-tête « Accept » demande une réponse JSON plutôt qu'une redirection
+      // vers la page de remerciement de Formspree : le visiteur reste ici.
       fetch(formulaire.action, {
         method: "POST",
         headers: {
@@ -223,7 +212,7 @@
         .catch(function () {
           if (note) {
             note.className = "form-note echec";
-            note.textContent = "L'envoi a échoué. Réessaie dans un instant, ou contacte-moi via les liens en bas de page.";
+            note.textContent = "L'envoi a échoué. Réessaie dans un instant, ou passe par LinkedIn.";
           }
         })
         .then(function () {
@@ -236,7 +225,7 @@
   }
 
 
-  /* ========== 7. ANNÉE COURANTE ========== */
+  /* ========== 5. ANNÉE COURANTE ========== */
 
   var annee = document.getElementById("annee");
   if (annee) annee.textContent = String(new Date().getFullYear());
