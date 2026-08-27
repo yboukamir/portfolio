@@ -309,9 +309,15 @@ a { color: inherit; }
   margin-bottom: 14px;
 }
 /* Les titres de section ont toute la largeur : 1425 px à 1440, pour un texte
-   qui tiendrait jusqu'à 150 px. Ils en utilisaient 52. On monte à 84 — assez
-   pour qu'ils portent la page, pas assez pour qu'ils l'écrasent. */
-.titre-section { font-size: clamp(36px, 5.9vw, 84px); }
+   qui tiendrait jusqu'à 150 px. Ils étaient à 52, puis 84, maintenant 110.
+
+   ⚠️ À 110 ils sont PLUS GROS que le titre du héros, qui plafonne à 72 parce
+   qu'il partage sa ligne avec la photo. La hiérarchie typographique est donc
+   inversée : le h1 n'est plus le plus grand caractère de la page. C'est un
+   choix éditorial assumé, pas un oubli — le héros tient par la photo et par
+   sa position, pas par sa taille. Si on veut le rétablir, il faut sortir le
+   titre du héros de la grille à deux colonnes, ce qui est une autre refonte. */
+.titre-section { font-size: clamp(38px, 7.7vw, 110px); }
 .chapo-section {
   font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: var(--gris);
   max-width: 62ch; margin-top: 18px;
