@@ -11,7 +11,15 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://boukamir.be/">
   <link rel="canonical" href="https://boukamir.be/">
-  <meta property="og:image" content="https://boukamir.be/assets/apercu.jpg">
+  <!-- Le nom porte un numero de version, et ce n'est pas de la coquetterie.
+       LinkedIn associe une image traitee a l'URL exacte de l'og:image. Deux
+       re-lectures a quelques heures d'ecart ont laisse leur vignette a 89
+       octets -- un pixel transparent, leur substitut quand le traitement
+       echoue -- alors que l'image est servie en 200, en image/jpeg, en
+       1200 x 630 exactement, et que leur robot la recoit entiere. L'echec
+       semble colle a l'URL. Un nom neuf leur presente une image sans passe.
+       Incrementer a chaque refonte de l'apercu. -->
+  <meta property="og:image" content="https://boukamir.be/assets/apercu-2.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Yassine Boukamir, développeur web à Charleroi">
