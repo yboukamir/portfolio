@@ -94,38 +94,44 @@
 
     <!-- ========== 1. HÉROS ========== -->
     <section class="heros" id="accueil" aria-labelledby="titre-heros">
-      <div class="conteneur heros-grille">
-        <div class="heros-texte">
-          <p class="pastille"><span class="point" aria-hidden="true"></span>Disponible · Charleroi, Belgique</p>
-          <!-- L'espace avant chaque <br> n'est pas une coquille. Quand la règle
-               qui masque les <br> s'applique, sans lui les mots se collent :
-               « des siteset des outils web.Je les fais vivre. ». Un espace
-               avant un saut de ligne, lui, ne se voit pas. -->
-          <h1 id="titre-heros">Je conçois des sites <br>et des outils web. <br>Je les fais vivre.</h1>
-          <p class="chapo">
-            Six ans de pratique, aujourd'hui à la recherche d'un poste où
-            l'exécution compte autant que l'idée.
-          </p>
-          <div class="heros-actions">
-            <a class="btn btn-encre" href="#realisations">Voir le travail</a>
-            <a class="btn btn-filet" href="#contact">Me contacter</a>
-          </div>
-        </div>
+      <div class="conteneur">
+        <p class="pastille"><span class="point" aria-hidden="true"></span>Disponible · Charleroi, Belgique</p>
 
-        <!-- fetchpriority="high" et pas de lazy : c'est la seule image visible
-             au chargement, la retarder décale tout le héros. -->
-        <div class="heros-photo">
-          <!-- Deux densités. La photo s'affiche à 430 px de large au maximum ;
-               sur un écran 2× il en faut 860, d'où le fichier de 900.
-               sizes suit les marges réelles : --marge vaut 24 px sous 640,
-               40 px entre 640 et 900, et la colonne est figée à 430 au-dessus.
-               Se tromper ici fait choisir au navigateur un fichier trop petit,
-               et le gain de netteté est perdu sans qu'on le voie. -->
-          <img src="assets/yassine-430.jpg"
-               srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w"
-               sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(100vw - 80px), 430px"
-               width="430" height="526"
-               alt="Portrait de Yassine Boukamir" fetchpriority="high" decoding="async">
+        <!-- Le titre occupe toute la largeur, seul sur sa ligne. C'est ce qui
+             lui permet d'être le plus grand caractère de la page : tant qu'il
+             partageait sa ligne avec la photo, sa colonne le plafonnait à 72 px
+             et les titres de section finissaient par le dépasser.
+             L'espace avant chaque <br> n'est pas une coquille. Quand la règle
+             qui masque les <br> s'applique, sans lui les mots se collent :
+             « des siteset des outils web.Je les fais vivre. ». Un espace
+             avant un saut de ligne, lui, ne se voit pas. -->
+        <h1 id="titre-heros">Je conçois des sites <br>et des outils web. <br>Je les fais vivre.</h1>
+
+        <div class="heros-bas">
+          <div class="heros-texte">
+            <p class="chapo">
+              Six ans de pratique, aujourd'hui à la recherche d'un poste où
+              l'exécution compte autant que l'idée.
+            </p>
+            <div class="heros-actions">
+              <a class="btn btn-encre" href="#realisations">Voir le travail</a>
+              <a class="btn btn-filet" href="#contact">Me contacter</a>
+            </div>
+          </div>
+
+          <!-- fetchpriority="high" et pas de lazy : c'est la seule image visible
+               au chargement, la retarder décale tout le héros. -->
+          <div class="heros-photo">
+            <!-- Deux densités. La photo s'affiche à 430 px de large au maximum ;
+                 sur un écran 2× il en faut 860, d'où le fichier de 900.
+                 sizes suit les marges réelles : --marge vaut 24 px sous 640,
+                 40 px entre 640 et 900, et la colonne plafonne à 430 au-dessus. -->
+            <img src="assets/yassine-430.jpg"
+                 srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w"
+                 sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(100vw - 80px), 430px"
+                 width="430" height="526"
+                 alt="Portrait de Yassine Boukamir" fetchpriority="high" decoding="async">
+          </div>
         </div>
       </div>
     </section>
