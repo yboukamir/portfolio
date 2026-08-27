@@ -225,7 +225,18 @@ a { color: inherit; }
 
 .heros { padding-block: 80px 110px; }
 .heros-grille {
-  display: grid; grid-template-columns: 1fr 430px; gap: 80px; align-items: center;
+  display: grid;
+  /* La photo était figée à 430 px. Conséquence invisible tant que le titre
+     restait petit : en franchissant 1200 px vers le haut, la marge passe de
+     64 à 100 px ET la photo de 360 à 430 — la colonne de texte perdait d'un
+     coup 165 px, alors qu'elle venait de gagner de la place. À 1280 px le
+     titre repassait donc à quatre lignes, entre deux largeurs où il en fait
+     trois.
+     En fractions, la proportion est celle de la maquette à 1440 (730 / 80 /
+     430) et elle se conserve en dessous au lieu de sauter. */
+  grid-template-columns: 1fr 0.589fr;
+  gap: 80px;
+  align-items: center;
 }
 
 .pastille {
@@ -238,7 +249,19 @@ a { color: inherit; }
   background: var(--dispo-pastille); flex-shrink: 0;
 }
 
-.heros h1 { font-size: clamp(39px, 4.7vw, 68px); }
+/* Le héros est le seul titre qui ne peut PAS grandir librement : il partage sa
+   ligne avec la photo. Sa colonne fait 715 px à 1440, et « Je conçois des
+   sites » y tient sur une ligne jusqu'à 78 px — mesuré, pas estimé.
+
+   Mais le plafond ne suffit pas : c'est la PENTE qui compte. Essayé à 5,3vw,
+   le titre repassait à quatre lignes vers 905 px, là où la colonne tombe à
+   441 px — exactement le défaut corrigé plus haut par la photo élastique,
+   recréé par le bas. 5vw laisse une marge à chaque largeur : 72 px à 1440
+   pour une colonne qui en accepte 78, 45 px à 905 pour 47.
+
+   Les titres de section, eux, occupent toute la largeur et peuvent doubler.
+   C'est là que la page gagne de l'aplomb, pas ici. */
+.heros h1 { font-size: clamp(42px, 5vw, 72px); }
 
 .chapo {
   font-size: clamp(16px, 1.45vw, 21px); line-height: 1.55; font-weight: 500;
@@ -269,7 +292,7 @@ a { color: inherit; }
 }
 .chiffre { display: flex; flex-direction: column; gap: 4px; }
 .chiffre b {
-  font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: -.035em;
+  font-size: clamp(30px, 3.9vw, 56px); font-weight: 800; letter-spacing: -.04em;
   line-height: 1.03;
 }
 .chiffre span { font-size: 13.5px; color: var(--gris); }
@@ -285,7 +308,10 @@ a { color: inherit; }
   text-transform: uppercase; color: var(--tenu);
   margin-bottom: 14px;
 }
-.titre-section { font-size: clamp(34px, 3.6vw, 52px); }
+/* Les titres de section ont toute la largeur : 1425 px à 1440, pour un texte
+   qui tiendrait jusqu'à 150 px. Ils en utilisaient 52. On monte à 84 — assez
+   pour qu'ils portent la page, pas assez pour qu'ils l'écrasent. */
+.titre-section { font-size: clamp(36px, 5.9vw, 84px); }
 .chapo-section {
   font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: var(--gris);
   max-width: 62ch; margin-top: 18px;
@@ -370,7 +396,7 @@ a { color: inherit; }
   padding: 76px 80px;
   display: grid; grid-template-columns: 44% 1fr; gap: 60px; align-items: center;
 }
-.bandeau h2 { font-size: clamp(30px, 3.3vw, 48px); color: #fff; }
+.bandeau h2 { font-size: clamp(32px, 4.2vw, 60px); color: #fff; }
 .bandeau p { font-size: 16.5px; line-height: 1.65; color: rgba(255,255,255,.78); }
 
 
@@ -404,7 +430,7 @@ a { color: inherit; }
 /* ========== 14. CONTACT ========== */
 
 .section-contact { padding-block: 130px 120px; text-align: center; }
-.titre-contact { font-size: clamp(40px, 4.3vw, 62px); }
+.titre-contact { font-size: clamp(42px, 6.4vw, 92px); }
 .chapo-contact {
   font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: var(--gris);
   margin: 20px auto 0; max-width: 46ch;
