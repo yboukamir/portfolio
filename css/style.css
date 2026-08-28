@@ -223,32 +223,19 @@ a { color: inherit; }
 
 /* ========== 6. HÉROS ========== */
 
-.heros { padding-block: 72px 64px; }
-
-/* Le titre occupe désormais toute la largeur, seul. Ce qui suit — chapô,
-   boutons, photo — se partage la ligne du dessous.
-
-   Ce n'est pas un caprice de mise en page : c'est ce qui débloque la taille du
-   titre. Tant qu'il partageait sa ligne avec la photo, sa colonne faisait
-   715 px à 1440 et le plafonnait à 78. En pleine largeur il dispose de
-   1240 px, et « Je conçois des sites » y tient jusqu'à 135 px. On s'arrête à
-   116 : au-delà, le titre à trois lignes dépasse la hauteur d'un écran de
-   portable et le chapô comme les boutons passent sous la ligne de flottaison. */
-.heros-bas {
+.heros { padding-block: 80px 110px; }
+.heros-grille {
   display: grid;
-  /* La photo rétrécit : 0,45fr au lieu de 0,589. Quand le titre partageait sa
-     ligne avec elle, ils étaient à égalité ; maintenant que le titre occupe
-     toute la largeur, la photo est un second rôle. Gardée à sa taille d'avant,
-     elle descendait 390 px plus bas que les boutons et creusait un vide que
-     rien ne venait justifier. */
-  grid-template-columns: 1fr 0.45fr;
+  /* La photo etait figee a 430 px, et ca cachait un defaut : en franchissant
+     1200 px vers le HAUT, la marge laterale passe de 64 a 100 px et la photo
+     de 360 a 430. La colonne de texte perdait 165 px au moment meme ou la
+     fenetre s elargissait, et le titre partait a quatre lignes vers 1280 --
+     entre deux largeurs ou il en faisait trois.
+     En fractions, la proportion de la maquette est exacte a 1440 (730 / 80 /
+     430) et se conserve en dessous au lieu de sauter. */
+  grid-template-columns: 1fr 0.589fr;
   gap: 80px;
-  /* start, pas end : la photo fait 540 px de haut et le bloc chapô + boutons
-     environ 150. Aligné en bas, ce dernier se retrouvait à 437 px sous le
-     titre, séparé de lui par un vide que rien ne justifiait. Aligné en haut,
-     il suit le titre et la photo descend seule. */
-  align-items: start;
-  margin-top: 44px;
+  align-items: center;
 }
 
 .pastille {
@@ -261,24 +248,13 @@ a { color: inherit; }
   background: var(--dispo-pastille); flex-shrink: 0;
 }
 
-/* 8,7vw, et le chiffre n'est pas décoratif : c'est la pente qui décide, pas
-   le plafond — troisième fois que cette page le rappelle.
-
-   À 9vw, la marge tombait à 8 px sur une ligne de 993 juste au-dessus de
-   1200, là où la marge latérale passe de 64 à 100 px : le conteneur perd
-   72 px pendant que la typo continue de grandir. 8 px sur 993, c'est 0,8 % —
-   n'importe quelle variation de rendu, ou la police de repli affichée le
-   temps du chargement, faisait basculer le titre à quatre lignes.
-
-   À 8,7vw la marge ne descend jamais sous 53 px, ni à 901 ni à 1201, les deux
-   points serrés. Le plafond de 116 est atteint à 1333. Vérifié de 360 à 1920. */
-.heros h1 { font-size: clamp(42px, 8.7vw, 116px); }
+.heros h1 { font-size: clamp(39px, 4.7vw, 68px); }
 
 .chapo {
   font-size: clamp(16px, 1.45vw, 21px); line-height: 1.55; font-weight: 500;
-  color: var(--gris); max-width: 46ch;
+  color: var(--gris); max-width: 46ch; margin-top: 26px;
 }
-.heros-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.heros-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
 
 /* Le seul aplat de couleur de la page. Le jaune n'apparaît nulle part ailleurs. */
 .heros-photo {
@@ -303,7 +279,7 @@ a { color: inherit; }
 }
 .chiffre { display: flex; flex-direction: column; gap: 4px; }
 .chiffre b {
-  font-size: clamp(30px, 3.9vw, 56px); font-weight: 800; letter-spacing: -.04em;
+  font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: -.035em;
   line-height: 1.03;
 }
 .chiffre span { font-size: 13.5px; color: var(--gris); }
@@ -319,16 +295,7 @@ a { color: inherit; }
   text-transform: uppercase; color: var(--tenu);
   margin-bottom: 14px;
 }
-/* Les titres de section ont toute la largeur : 1425 px à 1440, pour un texte
-   qui tiendrait jusqu'à 150 px. Ils étaient à 52, puis 84, maintenant 110.
-
-   ⚠️ À 110 ils sont PLUS GROS que le titre du héros, qui plafonne à 72 parce
-   qu'il partage sa ligne avec la photo. La hiérarchie typographique est donc
-   inversée : le h1 n'est plus le plus grand caractère de la page. C'est un
-   choix éditorial assumé, pas un oubli — le héros tient par la photo et par
-   sa position, pas par sa taille. Si on veut le rétablir, il faut sortir le
-   titre du héros de la grille à deux colonnes, ce qui est une autre refonte. */
-.titre-section { font-size: clamp(38px, 7.7vw, 110px); }
+.titre-section { font-size: clamp(34px, 3.6vw, 52px); }
 .chapo-section {
   font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: var(--gris);
   max-width: 62ch; margin-top: 18px;
@@ -413,7 +380,7 @@ a { color: inherit; }
   padding: 76px 80px;
   display: grid; grid-template-columns: 44% 1fr; gap: 60px; align-items: center;
 }
-.bandeau h2 { font-size: clamp(32px, 4.2vw, 60px); color: #fff; }
+.bandeau h2 { font-size: clamp(30px, 3.3vw, 48px); color: #fff; }
 .bandeau p { font-size: 16.5px; line-height: 1.65; color: rgba(255,255,255,.78); }
 
 
@@ -447,7 +414,7 @@ a { color: inherit; }
 /* ========== 14. CONTACT ========== */
 
 .section-contact { padding-block: 130px 120px; text-align: center; }
-.titre-contact { font-size: clamp(42px, 6.4vw, 92px); }
+.titre-contact { font-size: clamp(40px, 4.3vw, 62px); }
 .chapo-contact {
   font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: var(--gris);
   margin: 20px auto 0; max-width: 46ch;
@@ -541,10 +508,11 @@ a { color: inherit; }
 
 @media (max-width: 1200px) {
   :root { --marge: 64px; }
-  /* La photo maigrit avec la fenêtre au lieu de rester figée. Depuis que le
-     titre est en pleine largeur, elle ne le contraint plus — mais elle
-     contraint toujours le chapô, qui partage sa ligne. */
-  .heros-bas { grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 360px); gap: 56px; }
+  /* La photo était figée à 360 px jusqu’à la rupture de 900. Juste au-dessus,
+     vers 920 px, elle laissait 361 px au texte — moins qu’à elle — et le titre
+     passait à quatre lignes au lieu de trois. En la laissant maigrir avec la
+     fenêtre, le texte garde la majorité sur toute la bande. */
+  .heros-grille { grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 360px); gap: 56px; }
   .bandeau { padding: 64px; grid-template-columns: 50% 1fr; gap: 44px; }
   .grille-competences { grid-template-columns: repeat(3, 1fr); gap: 36px 30px; }
 }
@@ -570,7 +538,7 @@ a { color: inherit; }
   .nav.ouvert a { display: block; padding: 14px 0; font-size: 17px; font-weight: 600; }
 
   .heros { padding-block: 48px 72px; }
-  .heros-bas { grid-template-columns: 1fr; gap: 40px; margin-top: 32px; }
+  .heros-grille { grid-template-columns: 1fr; gap: 40px; }
   /* Sur mobile la photo passe sous les boutons, pleine largeur. */
   .heros-photo { aspect-ratio: auto; height: 400px; border-radius: 20px; }
 
