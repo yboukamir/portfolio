@@ -3,44 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yassine Boukamir — Développeur web à Charleroi</title>
-  <meta name="description" content="Je conçois des sites et des outils web, et je les fais vivre. Six ans de pratique, vingt et un projets livrés. Actuellement à la recherche d'un poste.">
+  <title>Un site qui fait venir des clients — Yassine Boukamir, développeur web à Charleroi</title>
+  <meta name="description" content="Sites vitrines pour commerçants, artisans et PME. Prix fixe annoncé avant de commencer, réponse sous 24 h. Devis gratuit.">
 
-  <meta property="og:title" content="Yassine Boukamir — Développeur web à Charleroi">
-  <meta property="og:description" content="Je conçois des sites et des outils web, et je les fais vivre. Six ans de pratique, vingt et un projets livrés. Actuellement à la recherche d'un poste.">
+  <meta property="og:title" content="Un site qui fait venir des clients — Yassine Boukamir">
+  <meta property="og:description" content="Sites vitrines pour commerçants, artisans et PME. Prix fixe annoncé avant de commencer, réponse sous 24 h.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://boukamir.be/">
   <link rel="canonical" href="https://boukamir.be/">
-  <!-- Le nom porte un numero de version, et ce n'est pas de la coquetterie.
-       LinkedIn associe l'image qu'il a traitee a l'URL exacte de l'og:image, et
-       il garde aussi ses echecs : la vignette est restee a 89 octets -- un
-       pixel transparent -- pendant deux re-lectures, alors que l'image etait
-       servie correctement. Renommer a suffi : traitee du premier coup.
-       Incrementer a chaque refonte de l'apercu. -->
+  <!-- TODO après cette refonte : régénérer l'aperçu de partage avec
+       .claude/apercu.ps1 et incrémenter son numéro de version (apercu-4.jpg),
+       le contenu de la page ayant changé. -->
   <meta property="og:image" content="https://boukamir.be/assets/apercu-3.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Yassine Boukamir, développeur web à Charleroi">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Validation Google Search Console. Ce jeton était déjà celui du domaine :
-       il était inséré par l'extension Rank Math de l'ancien WordPress, et a
-       disparu avec lui. Le remettre ici conserve la propriété déjà validée,
-       sans repasser par une nouvelle procédure. Ne pas le modifier. -->
   <meta name="google-site-verification" content="LoE7iel1y7EDNJW5CL4DNfynYiIcXp9uapy0k_Mepdo">
 
-  <!-- La police est découverte tardivement, une fois le CSS analysé : sans ce
-       preload, le titre s'affiche d'abord dans la police système puis saute.
-       crossorigin est obligatoire même en même origine — les polices sont
-       toujours récupérées en mode CORS, sans lui le fichier est chargé deux fois. -->
-  <link rel="preload" href="fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Police Inter via Google Fonts : choix volontaire de la refonte du
+       31/08/2026, au lieu de Manrope auto-hébergée. Inter n'est pas
+       distribuée en variable statique facile à auto-héberger dans ce cadre,
+       d'où le retour à Google Fonts ; le preconnect limite la latence de la
+       première requête. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23FBFBF9'/><text x='50' y='74' font-family='Manrope,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23141414'>Y</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230A0A0A'/><text x='50' y='74' font-family='Inter,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>Y</text></svg>">
 
-  <!-- Données structurées. Sur un site de recherche de poste, Person est le
-       seul balisage qui rapporte : il relie les profils entre eux et alimente
-       le panneau de connaissances. Tout ce qui est ici doit être vrai et
-       vérifiable ailleurs — un balisage qui contredit la page se retourne. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,20 +41,15 @@
     "url": "https://boukamir.be/",
     "email": "mailto:yboukamir@gmail.com",
     "image": "https://boukamir.be/assets/yassine-900.jpg",
-    "jobTitle": "Développeur web",
-    "description": "Je conçois des sites et des outils web, et je les fais vivre.",
+    "jobTitle": "Développeur web freelance",
+    "description": "Sites vitrines pour commerçants, artisans et PME à Charleroi et alentours.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Charleroi",
       "addressCountry": "BE"
     },
     "knowsLanguage": ["fr", "en"],
-    "knowsAbout": ["Développement web", "WordPress", "WooCommerce", "JavaScript", "Référencement", "Accessibilité"],
-    "alumniOf": [
-      { "@type": "EducationalOrganization", "name": "BeCode" },
-      { "@type": "EducationalOrganization", "name": "CEPEGRA" }
-    ],
-    "seeks": { "@type": "Demand", "name": "Poste de développeur web" },
+    "knowsAbout": ["Développement web", "WordPress", "WooCommerce", "Référencement", "Accessibilité"],
     "sameAs": [
       "https://www.linkedin.com/in/yboukamir/",
       "https://github.com/yboukamir"
@@ -73,435 +60,274 @@
 <body>
   <a class="lien-evitement" href="#contenu">Aller au contenu</a>
 
-  <header class="entete">
+  <header class="site-header">
     <div class="conteneur entete-inner">
-      <a class="marque" href="#accueil">Yassine Boukamir</a>
+      <a class="logo" href="/">Boukamir</a>
 
       <nav class="nav" id="nav" aria-label="Navigation principale">
         <ul>
-          <li><a href="#realisations">Réalisations</a></li>
-          <li><a href="#competences">Compétences</a></li>
-          <li><a href="#parcours">Parcours</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/a-propos.html">À propos</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
+        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
       </nav>
 
-      <a class="btn btn-encre btn-entete" href="#contact">Me contacter</a>
-
-      <!-- Deux traits, comme dans la maquette. Le bouton porte l'état ouvert :
-           c'est lui que le lecteur d'écran annonce, pas le menu. -->
-      <button class="burger" id="burger" type="button"
-              aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span>
+      <button class="nav-toggle" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
       </button>
     </div>
   </header>
 
   <main id="contenu">
 
-    <!-- ========== 1. HÉROS ========== -->
-    <section class="heros" id="accueil" aria-labelledby="titre-heros">
-      <div class="conteneur heros-grille">
-        <div class="heros-texte">
-          <p class="pastille"><span class="point" aria-hidden="true"></span>Disponible · Charleroi, Belgique</p>
-          <!-- L'espace avant chaque <br> n'est pas une coquille. Quand la règle
-               qui masque les <br> s'applique, sans lui les mots se collent :
-               « des siteset des outils web.Je les fais vivre. ». Un espace
-               avant un saut de ligne, lui, ne se voit pas. -->
-          <h1 id="titre-heros">Je conçois des sites <br>et des outils web. <br>Je les fais vivre.</h1>
-          <p class="chapo">
-            Six ans de pratique, aujourd'hui à la recherche d'un poste où
-            l'exécution compte autant que l'idée.
-          </p>
-          <div class="heros-actions">
-            <a class="btn btn-encre" href="#realisations">Voir le travail</a>
-            <a class="btn btn-filet" href="#contact">Me contacter</a>
+    <section class="hero conteneur">
+      <div class="grid--split">
+        <div>
+          <p class="label">Développeur web freelance · Charleroi</p>
+          <h1>Un site qui fait venir des clients.</h1>
+          <p class="lead">Pas un site « qui fait joli ». Un site que vos clients comprennent en 3 secondes, qui marche sur leur téléphone, et qui leur donne envie de vous appeler. Pour les commerçants, les artisans et les PME.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
+            <a class="btn btn--outline" href="#travail">Voir mon travail</a>
           </div>
+          <ul class="hero-meta">
+            <li>Prix fixe, annoncé avant de commencer</li>
+            <li>Réponse sous 24 h</li>
+            <li>Facturation via Smart, en règle</li>
+          </ul>
         </div>
-
-        <!-- fetchpriority="high" et pas de lazy : c'est la seule image visible
-             au chargement, la retarder décale tout le héros. -->
-        <div class="heros-photo">
-          <!-- Deux densités. La photo s'affiche à 430 px de large au maximum ;
-               sur un écran 2× il en faut 860, d'où le fichier de 900.
-               sizes suit les marges réelles : --marge vaut 24 px sous 640,
-               40 px entre 640 et 900, et la colonne est figée à 430 au-dessus.
-               Se tromper ici fait choisir au navigateur un fichier trop petit,
-               et le gain de netteté est perdu sans qu'on le voie. -->
-          <img src="assets/yassine-430.jpg"
-               srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w"
-               sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(100vw - 80px), 430px"
-               width="430" height="526"
-               alt="Portrait de Yassine Boukamir" fetchpriority="high" decoding="async">
+        <div class="hero-photo">
+          <img src="assets/yassine-430.jpg" srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w" sizes="(max-width: 900px) 90vw, 430px" alt="Yassine Boukamir, développeur web" width="430" height="538">
         </div>
       </div>
     </section>
 
-    <!-- ========== 2. CHIFFRES ========== -->
-    <section class="chiffres" aria-label="En quelques chiffres">
-      <div class="conteneur chiffres-grille">
-        <p class="chiffre"><b>6 ans</b><span>de pratique</span></p>
-        <p class="chiffre"><b>21</b><span>projets livrés</span></p>
-        <p class="chiffre"><b>58</b><span>tests unitaires écrits</span></p>
-      </div>
-    </section>
-
-    <!-- ========== 3. EN LIGNE AUJOURD'HUI ========== -->
-    <!-- Nexilios a été réalisé pour une agence tierce : le travail se montre,
-         le cadre ne se nomme pas. Voir « Trois précautions » du brief. -->
-    <section class="section" id="realisations" aria-labelledby="titre-realisations">
+    <section class="section bg-noir">
       <div class="conteneur">
-        <p class="surtitre">Réalisations</p>
-        <h2 class="titre-section" id="titre-realisations">En ligne aujourd'hui</h2>
-        <p class="chapo-section">
-          Trois sites clients encore en service, dans l'état où je les ai livrés.
-          Chacun vérifié le 25 août 2026.
-        </p>
-
-        <div class="grille-cartes grille-3">
-
-          <article class="carte">
-            <a class="carte-lien" href="https://orientalbeaute.be" target="_blank" rel="noopener noreferrer">
-              <img class="carte-image" src="assets/projets/p-oriental.jpg" width="620" height="387"
-                   alt="Page d'accueil du site Oriental Beauté" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Indépendant · E-commerce</p>
-                <h3>Oriental Beauté<span class="hors-ecran"> (nouvel onglet)</span></h3>
-                <p class="carte-texte">
-                  Boutique en ligne pour un institut de beauté : forfaits de soins,
-                  réservation et paiement sécurisé. Le parcours va de la découverte
-                  d'un soin à la confirmation, en un minimum d'étapes.
-                </p>
-                <p class="preuve">Signé dans le pied de page</p>
-                <ul class="etiquettes"><li>WordPress</li><li>WooCommerce</li><li>Elementor</li><li>UI/UX</li></ul>
-              </div>
-            </a>
-          </article>
-
-          <article class="carte">
-            <a class="carte-lien" href="https://nexilios.com" target="_blank" rel="noopener noreferrer">
-              <img class="carte-image" src="assets/projets/p-nexilios.jpg" width="620" height="387"
-                   alt="Page d'accueil du site Nexilios" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Vitrine · Intelligence artificielle</p>
-                <h3>Nexilios<span class="hors-ecran"> (nouvel onglet)</span></h3>
-                <p class="carte-texte">
-                  Refonte de l'identité et du site d'une société de solutions en
-                  intelligence artificielle. Trois produits présentés à une
-                  clientèle professionnelle internationale.
-                </p>
-                <ul class="etiquettes"><li>WordPress</li><li>Elementor</li><li>Refonte</li><li>UI/UX</li></ul>
-              </div>
-            </a>
-          </article>
-
-          <article class="carte">
-            <a class="carte-lien" href="https://tjeditions.com" target="_blank" rel="noopener noreferrer">
-              <img class="carte-image" src="assets/projets/p-tj.jpg"
-                   srcset="assets/projets/p-tj.jpg 620w, assets/projets/p-tj@2x.jpg 1240w"
-                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
-                   width="620" height="387"
-                   alt="Page d'accueil du site TJ Editions" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Agence · Vitrine</p>
-                <h3>TJ Editions<span class="hors-ecran"> (nouvel onglet)</span></h3>
-                <p class="carte-texte">
-                  Site d'un éditeur de bandes dessinées : collections thématiques,
-                  licences officielles, offre corporate. Une structure pensée pour
-                  que lecteurs et partenaires trouvent vite ce qu'ils cherchent.
-                </p>
-                <ul class="etiquettes"><li>WordPress</li><li>WooCommerce</li><li>UI/UX</li></ul>
-              </div>
-            </a>
-          </article>
-
+        <div class="section-head">
+          <p class="label">Ce que voit votre client en 3 secondes</p>
+          <h2>Un visiteur vous accorde trois secondes. Après, il retourne sur Google et clique chez votre <span class="accent">concurrent.</span></h2>
         </div>
-      </div>
-    </section>
-
-    <!-- ========== 4. ÉCRITS À LA MAIN ========== -->
-    <section class="section" id="outils" aria-labelledby="titre-outils">
-      <div class="conteneur">
-        <p class="surtitre">Outils et démonstrations</p>
-        <h2 class="titre-section" id="titre-outils">Écrits à la main</h2>
-        <p class="chapo-section">
-          Sans framework ni dépendance. Les règles métier sont isolées du DOM et
-          couvertes par des tests que vous pouvez exécuter vous-même, dans votre
-          navigateur.
-        </p>
-
-        <div class="grille-cartes grille-2">
-
-          <article class="carte">
-            <a class="carte-lien" href="outils/suivi-candidatures/">
-              <img class="carte-image" src="assets/projets/p-suivi.jpg"
-                   srcset="assets/projets/p-suivi.jpg 620w, assets/projets/p-suivi@2x.jpg 1240w"
-                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
-                   width="620" height="387"
-                   alt="Interface de l'outil de suivi de candidatures" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Outil en service</p>
-                <h3>Suivi de candidatures</h3>
-                <p class="carte-texte">
-                  Je gérais ma recherche d'emploi dans un fichier texte, sans moyen
-                  de savoir qui relancer. J'en ai fait une application : statuts,
-                  filtres, export. Tout reste dans le navigateur, aucune donnée ne
-                  part sur un serveur.
-                </p>
-                <p class="preuve">31 tests unitaires</p>
-                <ul class="etiquettes"><li>JavaScript</li><li>localStorage</li><li>Tests</li></ul>
-              </div>
-            </a>
-          </article>
-
-          <article class="carte">
-            <a class="carte-lien" href="outils/departs-train/">
-              <img class="carte-image" src="assets/projets/p-train.jpg"
-                   srcset="assets/projets/p-train.jpg 620w, assets/projets/p-train@2x.jpg 1240w"
-                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
-                   width="620" height="387"
-                   alt="Interface de l'outil de départs de train en direct" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Outil en service</p>
-                <h3>Départs de train en direct</h3>
-                <p class="carte-texte">
-                  Les prochains départs de n'importe quelle gare belge, depuis l'API
-                  publique iRail. Retards, quais, suppressions, et un rafraîchissement
-                  qui se met en pause quand l'onglet est masqué. Chaque panne possible
-                  a son message.
-                </p>
-                <p class="preuve">27 tests unitaires</p>
-                <ul class="etiquettes"><li>fetch</li><li>API REST</li><li>ARIA live</li></ul>
-              </div>
-            </a>
-          </article>
-
-          <article class="carte">
-            <a class="carte-lien" href="demos/ludobox/">
-              <img class="carte-image" src="assets/projets/p-ludobox.jpg"
-                   srcset="assets/projets/p-ludobox.jpg 620w, assets/projets/p-ludobox@2x.jpg 1240w"
-                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
-                   width="620" height="387"
-                   alt="Interface de la démonstration Ludobox" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Démonstration</p>
-                <h3>Ludobox</h3>
-                <p class="carte-texte">
-                  Boutique de jouets fictive, avec un flux e-commerce complet côté
-                  client : catalogue, ajout au panier, quantités, tiroir latéral,
-                  récapitulatif. Illustrations vectorielles dessinées pour l'occasion.
-                </p>
-                <p class="preuve">Sans framework ni dépendance</p>
-                <ul class="etiquettes"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-              </div>
-            </a>
-          </article>
-
-          <article class="carte">
-            <a class="carte-lien" href="demos/salle-obscure/">
-              <img class="carte-image" src="assets/projets/p-salle.jpg"
-                   srcset="assets/projets/p-salle.jpg 620w, assets/projets/p-salle@2x.jpg 1240w"
-                   sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 60px), calc((min(100vw, 1440px) - 272px) / 3)"
-                   width="620" height="387"
-                   alt="Interface de la démonstration Salle Obscure" loading="lazy" decoding="async">
-              <div class="carte-corps">
-                <p class="carte-contexte">Démonstration</p>
-                <h3>Salle Obscure</h3>
-                <p class="carte-texte">
-                  Cinéma indépendant fictif : choix du film, de la séance et des
-                  places sur un plan de salle interactif, avec catégories de prix et
-                  sièges déjà pris. Jusqu'au billet récapitulatif.
-                </p>
-                <p class="preuve">Sans framework ni dépendance</p>
-                <ul class="etiquettes"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-              </div>
-            </a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== 5. AUTRES RÉALISATIONS ========== -->
-    <!-- Aucun lien sur ces lignes, volontairement : ils mèneraient à des erreurs,
-         des pages de maintenance ou aux sites d'autres prestataires. -->
-    <section class="section" id="autres" aria-labelledby="titre-autres">
-      <div class="conteneur">
-        <p class="surtitre">Le reste du parcours</p>
-        <h2 class="titre-section" id="titre-autres">Autres réalisations</h2>
-        <p class="chapo-section">
-          Sites livrés entre 2021 et 2024, en agence et en indépendant. Certains
-          sont encore en ligne, d'autres ont été refaits, fermés ou repris depuis :
-          c'est ce qui arrive à un site après trois ans. Captures d'époque
-          disponibles sur demande.
-        </p>
-
-        <ul class="liste-autres">
-          <li><span class="autre-nom">Bureautique Pro</span><span class="autre-nature">Organisme de formation · Vitrine one-page</span><span class="autre-etat est-en-ligne">En ligne</span></li>
-          <li><span class="autre-nom">JoKemby</span><span class="autre-nature">Cosmétique · Rebranding et e-commerce</span><span class="autre-etat">Site fermé</span></li>
-          <li><span class="autre-nom">OHT Cuisine &amp; Electro</span><span class="autre-nature">Cuisines · Catalogue en ligne</span><span class="autre-etat">Site refait depuis</span></li>
-          <li><span class="autre-nom">GK Véranda</span><span class="autre-nature">Vérandas · Identité et demande de devis</span><span class="autre-etat">Site hors ligne</span></li>
-          <li><span class="autre-nom">Les Looks de Val</span><span class="autre-nature">Prêt-à-porter · E-commerce et formation</span><span class="autre-etat">Site hors ligne</span></li>
-          <li><span class="autre-nom">Mixologiq BeLux</span><span class="autre-nature">Horeca · Vitrine technique</span><span class="autre-etat">Domaine fermé</span></li>
-          <li><span class="autre-nom">La Couvinoise</span><span class="autre-nature">Centre commercial · Vitrine et commerces</span><span class="autre-etat">Hero modifié depuis</span></li>
-          <li><span class="autre-nom">Pause Plaisir</span><span class="autre-nature">Distributeurs · E-commerce B2B</span><span class="autre-etat">Société reprise</span></li>
-          <li><span class="autre-nom">DoBox</span><span class="autre-nature">Logiciel de gestion sportive · Identité et plateforme</span></li>
-          <li><span class="autre-nom">KVK Déco</span><span class="autre-nature">Revêtement et décoration · Vitrine</span><span class="autre-etat est-en-ligne">En ligne</span></li>
-          <li><span class="autre-nom">Kick 8</span><span class="autre-nature">Vitrine</span></li>
-          <li><span class="autre-nom">Bartolas</span><span class="autre-nature">Vitrine</span></li>
-          <li><span class="autre-nom">Aide Administrative</span><span class="autre-nature">Services · Vitrine</span></li>
-          <li><span class="autre-nom">Basin ChemEco</span><span class="autre-nature">Produits pour le bois · Site trois langues</span><span class="autre-etat est-en-ligne">En ligne</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ========== 6. LE BINÔME AVEC L'IA ========== -->
-    <section class="section section-bandeau" id="binome" aria-labelledby="titre-binome">
-      <div class="conteneur">
-        <div class="bandeau">
-          <h2 id="titre-binome">Je développe en binôme avec l'IA.</h2>
-          <p>
-            C'est ma méthode de travail principale, pas un appoint. Elle me fait
-            gagner en vitesse — sans rien céder sur la lisibilité du code, ni sur
-            ce qui arrive réellement entre les mains des utilisateurs.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== 7. COMPÉTENCES ========== -->
-    <section class="section" id="competences" aria-labelledby="titre-competences">
-      <div class="conteneur">
-        <p class="surtitre">Compétences</p>
-        <h2 class="titre-section" id="titre-competences">Ce que je maîtrise</h2>
-
-        <div class="grille-competences">
-          <div class="groupe-comp">
-            <h3>Plateformes</h3>
-            <ul><li>WordPress</li><li>WooCommerce</li><li>Elementor</li><li>Sites vitrines</li></ul>
+        <div class="grille">
+          <div class="card">
+            <p class="card-num">01</p>
+            <h3>Il charge trop lentement.</h3>
+            <p class="gris">Sur le 4G, dans la rue, personne n'attend une page qui traîne.</p>
           </div>
-          <div class="groupe-comp">
-            <h3>Développement</h3>
-            <ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Intégration sur-mesure</li></ul>
+          <div class="card">
+            <p class="card-num">02</p>
+            <h3>On ne comprend pas ce que vous vendez.</h3>
+            <p class="gris">Un slogan vague ne remplace jamais une phrase claire.</p>
           </div>
-          <div class="groupe-comp">
-            <h3>Conception &amp; qualité</h3>
-            <ul><li>UI / UX</li><li>Responsive</li><li>Accessibilité</li></ul>
-          </div>
-          <div class="groupe-comp">
-            <h3>Communication digitale</h3>
-            <ul><li>SEO</li><li>Stratégie de contenu</li><li>Réseaux sociaux</li><li>Publicité en ligne</li><li>Analytics</li></ul>
-          </div>
-          <div class="groupe-comp">
-            <h3>Méthodes</h3>
-            <ul><li>Git</li><li>Tests unitaires</li><li>Développement assisté par IA</li><li>Consommation d'API REST</li></ul>
+          <div class="card">
+            <p class="card-num">03</p>
+            <h3>On ne trouve pas comment vous joindre.</h3>
+            <p class="gris">Un numéro caché en bas de page, c'est un client perdu.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== 8. PARCOURS ========== -->
-    <section class="section" id="parcours" aria-labelledby="titre-parcours">
+    <section class="section" id="services-apercu">
       <div class="conteneur">
-        <p class="surtitre">Parcours</p>
-        <h2 class="titre-section" id="titre-parcours">D'où je viens</h2>
-
-        <ol class="liste-parcours">
-          <li><span class="p-dates">2026</span><span class="p-lieu">Aujourd'hui</span><span class="p-detail">En recherche d'un poste</span></li>
-          <li><span class="p-dates">2025</span><span class="p-lieu">CEPEGRA</span><span class="p-detail">Formation en communication digitale · stage chez Ovation Studio</span></li>
-          <li><span class="p-dates">2023 — 2024</span><span class="p-lieu">WebWing</span><span class="p-detail">Développeur web indépendant</span></li>
-          <li><span class="p-dates">2021 — 2023</span><span class="p-lieu">Indigo Studio</span><span class="p-detail">Développeur web, agence</span></li>
-          <li><span class="p-dates">2019 — 2020</span><span class="p-lieu">BeCode</span><span class="p-detail">Formation développeur web</span></li>
-        </ol>
+        <div class="section-head">
+          <p class="label">Ce que je fais</p>
+          <h2>Trois façons de travailler ensemble.</h2>
+          <p class="lead">Un prix fixe pour chaque formule. Vous savez ce que vous payez avant que je commence.</p>
+        </div>
+        <div class="grille">
+          <a class="card" href="/services.html#vitrine">
+            <h3>Votre premier site</h3>
+            <p class="gris">Une vitrine claire, rapide, qui présente votre activité et donne envie d'appeler.</p>
+            <span class="link-arrow">Voir la formule <span class="fleche" aria-hidden="true">→</span></span>
+          </a>
+          <a class="card" href="/services.html#refonte">
+            <h3>Refaire votre site</h3>
+            <p class="gris">Votre site actuel date, ou ne convertit plus. On repart sur des bases saines.</p>
+            <span class="link-arrow">Voir la formule <span class="fleche" aria-hidden="true">→</span></span>
+          </a>
+          <a class="card" href="/services.html#suivi">
+            <h3>Le garder en vie</h3>
+            <p class="gris">Mises à jour, petites modifications, disponibilité : votre site reste à jour.</p>
+            <span class="link-arrow">Voir la formule <span class="fleche" aria-hidden="true">→</span></span>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- ========== 9. CONTACT ========== -->
-    <section class="section section-contact" id="contact" aria-labelledby="titre-contact">
-      <div class="conteneur conteneur-etroit">
-        <h2 class="titre-contact" id="titre-contact">Parlons-en.</h2>
-        <p class="chapo-contact">
-          Un projet, une question, ou simplement envie d'échanger. Écris-moi, je
-          réponds sous 48 h.
-        </p>
-
-        <!-- Le formulaire poste vers Formspree, qui fait suivre par mail.
-             L'adresse de destination est configurée chez eux : elle n'apparaît
-             nulle part ici, donc les robots à spam ne peuvent pas la récolter.
-             Le brief prévoyait un lien mailto ; Yassine a demandé de garder le
-             formulaire, pour cette raison précise. Ne pas défaire. -->
-        <form class="formulaire" id="formulaire-contact" novalidate
-              action="https://formspree.io/f/mljrvvkd" method="POST">
-
-          <input type="hidden" name="_subject" value="Nouveau message depuis ton portfolio">
-
-          <!-- Piège à robots : invisible et hors du parcours clavier. Un humain
-               ne le remplit jamais ; s'il est rempli, Formspree jette l'envoi. -->
-          <p class="champ-piege" aria-hidden="true">
-            <label>Laisse ce champ vide
-              <input name="_gotcha" tabindex="-1" autocomplete="off">
-            </label>
-          </p>
-
-          <div class="champ">
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" required autocomplete="name" aria-describedby="erreur-nom">
-            <span class="erreur" id="erreur-nom"></span>
+    <section class="section" id="travail">
+      <div class="conteneur">
+        <div class="section-head">
+          <p class="label">La preuve</p>
+          <h2>Avant / après.</h2>
+        </div>
+        <div class="compare">
+          <div class="compare-item avant">
+            <p class="label" style="color: var(--gris);">Avant</p>
+            <div class="placeholder">Chargement en 9 secondes...</div>
           </div>
-
-          <div class="champ">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autocomplete="email" aria-describedby="erreur-email">
-            <span class="erreur" id="erreur-email"></span>
+          <div class="compare-item apres">
+            <p class="label">Après</p>
+            <div class="placeholder">Chargement en 1 seconde...</div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="champ">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required aria-describedby="erreur-message"></textarea>
-            <span class="erreur" id="erreur-message"></span>
+    <section class="section bg-noir">
+      <div class="conteneur">
+        <div class="section-head">
+          <p class="label">Comment ça se passe</p>
+          <h2>Quatre étapes, pas plus.</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <p class="step-num">01</p>
+            <h3>On se parle</h3>
+            <p class="gris">Un appel ou un message pour comprendre votre activité et vos besoins.</p>
           </div>
+          <div class="step">
+            <p class="step-num">02</p>
+            <h3>Vous recevez un devis fixe</h3>
+            <p class="gris">Un prix clair, sans surprise, avant que quoi que ce soit ne commence.</p>
+          </div>
+          <div class="step">
+            <p class="step-num">03</p>
+            <h3>Je construis, vous validez</h3>
+            <p class="gris">Vous voyez le site prendre forme et donnez votre avis à chaque étape.</p>
+          </div>
+          <div class="step">
+            <p class="step-num">04</p>
+            <h3>C'est en ligne, et je reste joignable</h3>
+            <p class="gris">Le site est publié, et je reste disponible pour les questions qui suivent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <button class="btn btn-encre btn-large" type="submit">Envoyer le message</button>
-          <p class="form-note" id="form-note" role="status"></p>
+    <section class="section" id="audit">
+      <div class="conteneur">
+        <div class="audit">
+          <div class="audit-inner">
+            <div>
+              <p class="label">Gratuit, sans engagement</p>
+              <h2>Votre site perd-il des clients ?</h2>
+              <p class="lead">Envoyez l'adresse de votre site, je vous dis en 24 h ce qui freine vos visiteurs — vitesse, clarté, mobile. Sans blabla, sans obligation d'achat.</p>
+            </div>
+            <form class="form" data-formulaire action="https://formspree.io/f/mljrvvkd" method="POST" novalidate>
+              <input type="hidden" name="_subject" value="Demande d'audit gratuit — boukamir.be">
+              <div class="piege-robots" aria-hidden="true">
+                <label for="audit-gotcha">Ne pas remplir ce champ</label>
+                <input type="text" id="audit-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="audit-url">Adresse de votre site</label>
+                <input class="input" type="url" id="audit-url" name="Site" placeholder="https://votresite.be" required>
+                <p class="erreur-champ" role="alert"></p>
+              </div>
+              <div class="field">
+                <label for="audit-email">Votre email</label>
+                <input class="input" type="email" id="audit-email" name="Email" required>
+                <p class="erreur-champ" role="alert"></p>
+              </div>
+              <p class="mention-rgpd">Ce formulaire est transmis via Formspree, un service basé aux États-Unis. Vos données servent uniquement à répondre à votre demande.</p>
+              <button class="btn btn--outline btn--block" type="submit">Recevoir mon audit gratuit</button>
+              <p class="form-note" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- Le formulaire poste vers Formspree, un service américain : les
-               données sortent de l'UE. Le RGPD demande que le visiteur le
-               sache avant d'envoyer, pas après. La mention est dans le <form>,
-               au-dessus de rien d'autre : on la lit à l'endroit où on décide. -->
-          <p class="mention-donnees">
-            Vos données sont transmises via
-            <a href="https://formspree.io/legal/privacy-policy" target="_blank"
-               rel="noopener noreferrer">Formspree<span class="hors-ecran"> (nouvel onglet)</span></a>
-            et me servent uniquement à vous répondre. Elles ne sont ni conservées
-            au-delà de l'échange, ni revendues, ni utilisées à d'autres fins.
-          </p>
-        </form>
+    <section class="section">
+      <div class="conteneur">
+        <div class="grid--split-even">
+          <div>
+            <p class="label">Qui je suis</p>
+            <h2>Yassine, développeur à Charleroi.</h2>
+            <p class="lead">Je construis des sites WordPress depuis 2020. Pas d'agence entre vous et moi : vous me parlez directement, du premier appel à la mise en ligne.</p>
+            <a class="link-arrow" href="/a-propos.html" style="margin-top: var(--space-3);">En savoir plus <span class="fleche" aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-photo">
+            <img src="assets/yassine-430.jpg" srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w" sizes="(max-width: 900px) 90vw, 430px" alt="Yassine Boukamir, développeur web" width="430" height="538">
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Adresse en clair, décidée le 26/08/2026. Elle renverse le choix
-             initial (formulaire et LinkedIn seuls). Le raisonnement : un
-             recruteur qui verse un profil dans son outil de suivi, ou le
-             transfère à un collègue, n'avait rien à copier. Le coût de celui
-             qui abandonne est plus élevé que celui du spam.
-             Ne pas obfusquer en JavaScript : le gain anti-robots est nul
-             aujourd'hui, et ça casse le clic droit « copier » et les lecteurs
-             d'écran — les deux gestes qu'on veut justement servir. -->
-        <p class="contact-adresse">
-          Ou directement :
-          <a href="mailto:yboukamir@gmail.com">yboukamir@gmail.com</a>
-        </p>
+    <section class="section bg-noir">
+      <div class="conteneur">
+        <div class="section-head">
+          <p class="label">Questions fréquentes</p>
+          <h2>Ce qu'on me demande le plus.</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Combien de temps pour avoir mon site ?</summary>
+            <p>Comptez deux à trois semaines pour une vitrine simple, selon la disponibilité des contenus (textes, photos) de votre côté.</p>
+          </details>
+          <details>
+            <summary>Je n'ai pas encore de textes ni de photos, c'est grave ?</summary>
+            <p>Non. On peut avancer avec des textes provisoires et les remplacer ensuite, ou je vous aide à les structurer.</p>
+          </details>
+          <details>
+            <summary>Le prix annoncé, c'est vraiment fixe ?</summary>
+            <p>Oui. Le devis précise ce qui est compris. S'il y a une demande en plus en cours de route, on en parle avant, jamais après.</p>
+          </details>
+          <details>
+            <summary>Et après la mise en ligne, qui s'occupe du site ?</summary>
+            <p>Vous, ou moi si vous prenez la formule de suivi mensuel. Dans tous les cas, le site vous appartient.</p>
+          </details>
+          <details>
+            <summary>Vous travaillez avec quels outils ?</summary>
+            <p>WordPress et WooCommerce le plus souvent : c'est un choix solide, que vous pourrez faire évoluer avec n'importe quel autre développeur si besoin.</p>
+          </details>
+        </div>
+      </div>
+    </section>
 
-        <p class="contact-liens">
-          <a href="https://www.linkedin.com/in/yboukamir/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="hors-ecran"> (nouvel onglet)</span></a>
-          <a href="https://github.com/yboukamir" target="_blank" rel="noopener noreferrer">GitHub<span class="hors-ecran"> (nouvel onglet)</span></a>
-        </p>
+    <section class="cta-final conteneur">
+      <p class="label">On en parle ?</p>
+      <h2>Prêt à avoir un site qui travaille pour vous ?</h2>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
       </div>
     </section>
 
   </main>
 
-  <footer class="pied">
-    <div class="conteneur pied-inner">
-      <p>© <span id="annee">2026</span> Yassine Boukamir</p>
-      <p>Charleroi, Belgique</p>
+  <footer class="site-footer">
+    <div class="conteneur">
+      <div class="footer-grille">
+        <div>
+          <a class="logo" href="/" style="color: var(--creme);">Boukamir</a>
+          <p class="footer-desc">Sites vitrines pour commerçants, artisans et PME. Prix fixe, réponse rapide.</p>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="/services.html">Services</a></li>
+            <li><a href="/a-propos.html">À propos</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/index.html#audit">Audit gratuit</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:yboukamir@gmail.com">yboukamir@gmail.com</a></li>
+            <li><a href="https://www.linkedin.com/in/yboukamir/">LinkedIn</a></li>
+            <li>Charleroi, Belgique</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bas">
+        <p>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</p>
+        <p>Site fait à Charleroi, sans jargon.</p>
+      </div>
     </div>
   </footer>
 

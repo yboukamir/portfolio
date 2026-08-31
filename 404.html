@@ -10,9 +10,11 @@
        sert cette page depuis l'URL demandée, qui peut être à n'importe quelle
        profondeur. Des chemins relatifs chercheraient le CSS à côté de la page
        fantôme, et la 404 s'afficherait nue. -->
-  <link rel="preload" href="/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23FBFBF9'/><text x='50' y='74' font-family='Manrope,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23141414'>Y</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230A0A0A'/><text x='50' y='74' font-family='Inter,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>Y</text></svg>">
 
   <style>
     /* Cette page reprend les jetons et les boutons de css/style.css ; il ne
@@ -28,7 +30,7 @@
       font-weight: 800;
       line-height: 1;
       letter-spacing: -.05em;
-      color: var(--filet);
+      color: var(--ligne);
     }
     .erreur h1 { margin: 8px 0 14px; font-size: clamp(26px, 4vw, 34px); }
     .erreur p { color: var(--gris); font-size: 17px; }
@@ -46,8 +48,8 @@
     <p>Le lien est peut-être erroné, ou la page a été déplacée.
        L'accueil, lui, est toujours là.</p>
     <div class="erreur-actions">
-      <a class="btn btn-encre" href="/">Retour à l'accueil</a>
-      <a class="btn btn-filet" href="/#realisations">Voir les réalisations</a>
+      <a class="btn btn--primary" href="/">Retour à l'accueil</a>
+      <a class="btn btn--outline" href="/services.html">Voir les services</a>
     </div>
   </main>
 </body>
