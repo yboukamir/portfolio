@@ -362,6 +362,8 @@ h3, .h3 { font: var(--h3); }
 .section { padding-block: var(--space-6); }
 .section--tight { padding-block: var(--space-5); }
 
+.rule { border: 0; border-top: 1px solid var(--ligne); margin: 0; }
+
 .section-head { max-width: var(--measure); margin-bottom: var(--space-5); }
 .section-head .label { margin-bottom: var(--space-2); }
 .section-head h2 { margin-top: var(--space-1); }
