@@ -600,6 +600,13 @@ a.card:hover {
 .compare-item .label { color: var(--gris); }
 .compare-item.apres .label { color: var(--orange); }
 
+.compare-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--ligne);
+}
+
 .placeholder {
   aspect-ratio: 16/10;
   border-radius: var(--radius-card);
