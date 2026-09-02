@@ -484,15 +484,15 @@ a.card .link-arrow { margin-top: var(--space-3); }
 }
 
 /* Photos réelles là où la maquette posait un .placeholder vertical. Le
-   ratio 4/5 est celui du placeholder d'origine ; --haute sert à la page à
-   propos, dont le placeholder était décrit comme « pleine hauteur ». */
+   ratio 4/5 est celui du placeholder d'origine, sur les DEUX pages : la
+   mention « pleine hauteur » de la maquette décrit le sujet à cadrer, pas un
+   autre format. Un 2/3 avait été essayé ici, à tort. */
 .photo {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--radius-card);
 }
-.photo--haute { aspect-ratio: 2 / 3; }
 
 /* Piège à robots : invisible et hors du parcours clavier. Un humain ne le
    remplit jamais ; s'il est rempli, Formspree jette l'envoi. Ne pas le
