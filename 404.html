@@ -14,42 +14,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230A0A0A'/><text x='50' y='74' font-family='Inter,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>Y</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0A0A'/><text x='40' y='75' font-family='Inter,Segoe UI,Helvetica,sans-serif' font-size='78' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>b</text><circle cx='74' cy='67' r='9' fill='%23FF5A1F'/></svg>">
 
   <style>
-    /* Cette page reprend les jetons et les boutons de css/style.css ; il ne
+    /* Cette page reprend les jetons et les composants de css/style.css ; il ne
        reste ici que sa mise en page, qui n'existe nulle part ailleurs. */
     body { display: grid; place-items: center; min-height: 100svh; }
 
-    .erreur { max-width: 560px; padding: 40px 24px; text-align: center; }
+    .erreur { max-width: 620px; padding: var(--space-5) var(--gutter); text-align: center; }
+    .erreur p { margin-inline: auto; }
 
     /* Le nombre est décoratif : il est déjà dit par le titre juste en dessous,
        et un lecteur d'écran qui annonce « quatre cent quatre » n'aide personne. */
     .erreur .code {
-      font-size: clamp(72px, 16vw, 128px);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -.05em;
+      font: 850 clamp(72px, 16vw, 128px)/1 var(--font);
+      letter-spacing: var(--ls-display);
       color: var(--ligne);
     }
-    .erreur h1 { margin: 8px 0 14px; font-size: clamp(26px, 4vw, 34px); }
-    .erreur p { color: var(--gris); font-size: 17px; }
-
-    .erreur-actions {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-      margin-top: 32px;
-    }
+    .erreur h1 { margin-block: var(--space-2); }
+    .erreur .btn-row { justify-content: center; margin-top: var(--space-4); }
   </style>
 </head>
 <body>
   <main class="erreur">
     <p class="code" aria-hidden="true">404</p>
-    <h1>Cette page n'existe pas</h1>
-    <p>Le lien est peut-être erroné, ou la page a été déplacée.
+    <h1>Cette page n'existe pas.</h1>
+    <p class="lead">Le lien est peut-être erroné, ou la page a été déplacée.
        L'accueil, lui, est toujours là.</p>
-    <div class="erreur-actions">
+    <div class="btn-row">
       <a class="btn btn--primary" href="/">Retour à l'accueil</a>
-      <a class="btn btn--outline" href="/services.html">Voir les services</a>
+      <a class="btn btn--outline" href="/services.html">Voir les formules</a>
     </div>
   </main>
 </body>

@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact — Yassine Boukamir, développeur web à Charleroi</title>
-  <meta name="description" content="Demandez un devis fixe pour votre site vitrine ou votre refonte. Réponse sous 24 h.">
+  <title>Contact — Yassine Boukamir</title>
+  <meta name="description" content="Racontez-moi votre commerce en trois lignes. Je réponds sous 24 h avec des questions, puis un devis fixe. Gratuit, sans engagement.">
 
   <meta property="og:title" content="Contact — Yassine Boukamir">
-  <meta property="og:description" content="Demandez un devis fixe pour votre site vitrine ou votre refonte. Réponse sous 24 h.">
+  <meta property="og:description" content="Racontez-moi votre commerce en trois lignes. Je réponds sous 24 h. Gratuit, sans engagement.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://boukamir.be/contact.html">
+  <meta property="og:locale" content="fr_BE">
   <link rel="canonical" href="https://boukamir.be/contact.html">
-  <meta property="og:image" content="https://boukamir.be/assets/apercu-4.jpg">
+  <meta property="og:image" content="https://boukamir.be/assets/apercu-5.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Yassine Boukamir, développeur web à Charleroi">
+  <meta property="og:image:alt" content="boukamir.be — un site qui fait venir des clients">
   <meta name="twitter:card" content="summary_large_image">
 
   <meta name="google-site-verification" content="LoE7iel1y7EDNJW5CL4DNfynYiIcXp9uapy0k_Mepdo">
@@ -23,156 +24,137 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230A0A0A'/><text x='50' y='74' font-family='Inter,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>Y</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0A0A'/><text x='40' y='75' font-family='Inter,Segoe UI,Helvetica,sans-serif' font-size='78' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>b</text><circle cx='74' cy='67' r='9' fill='%23FF5A1F'/></svg>">
 </head>
 <body>
-  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+  <a class="lien-evitement" href="#main">Aller au contenu</a>
 
+  <!-- En-tête : pas de bouton orange ici. L'orange est réservé au bouton principal de la page. -->
   <header class="site-header">
-    <div class="conteneur entete-inner">
-      <a class="logo" href="/">Boukamir</a>
-
+    <div class="container site-header__inner">
+      <a class="logo" href="/" aria-label="boukamir.be — accueil">boukamir<span class="logo__dot">.</span></a>
       <nav class="nav" id="nav" aria-label="Navigation principale">
-        <ul>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/a-propos.html">À propos</a></li>
-          <li><a href="/contact.html" aria-current="page">Contact</a></li>
-        </ul>
-        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
+        <a href="services.html">Services</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html" aria-current="page">Contact</a>
       </nav>
-
-      <button class="nav-toggle" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M3 6h18M3 12h18M3 18h18"/>
-        </svg>
-      </button>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     </div>
   </header>
 
-  <main id="contenu">
+  <main id="main">
 
-    <section class="hero conteneur">
-      <div class="grid--split">
-        <div>
-          <p class="label">Contact</p>
-          <h1>Parlons de votre projet.</h1>
-          <p class="lead">Remplissez le formulaire, je réponds sous 24 h avec un premier retour et, si c'est clair pour tout le monde, un devis fixe.</p>
+    <!-- ÉCRAN 1 · Le formulaire est le héros. Le seul orange de l'écran : le bouton d'envoi « Demander un devis ». -->
+    <section class="section section--hero" aria-labelledby="hero-title">
+      <div class="container grid grid--split">
 
-          <div style="margin-top: var(--space-5);">
-            <h3>Ce qui se passe ensuite</h3>
-            <div class="steps" style="grid-template-columns: 1fr; margin-top: var(--space-3); gap: var(--space-2);">
-              <div class="step">
-                <p class="step-num">01</p>
-                <p class="gris">Je lis votre message et je reviens vers vous sous 24 h.</p>
-              </div>
-              <div class="step">
-                <p class="step-num">02</p>
-                <p class="gris">On échange par téléphone ou par écrit pour cadrer le projet.</p>
-              </div>
-              <div class="step">
-                <p class="step-num">03</p>
-                <p class="gris">Vous recevez un devis fixe, sans obligation de donner suite.</p>
-              </div>
-            </div>
+        <div class="stack-lg contact-intro">
+          <span class="label">Contact</span>
+          <h1 id="hero-title">Racontez-moi votre commerce. Je vous réponds sous 24 h.</h1>
+          <p class="lead">Pas besoin de tout savoir ni de tout préparer. Trois lignes suffisent : ce que vous faites, où, et ce qui vous embête avec votre site actuel (ou l'absence de site).</p>
+          <!-- Mobile uniquement : le bouton orange reste visible sans scroller et mène au formulaire. -->
+          <a class="btn btn--primary only-mobile" href="#devis">Demander un devis</a>
+          <hr class="rule only-desktop">
+          <div class="stack">
+            <span class="label">Ce qui se passe ensuite</span>
+            <ol class="steps">
+              <li><div><h3>Je vous réponds sous 24 h</h3><p class="muted">Avec des questions, pas un discours.</p></div></li>
+              <li><div><h3>On se parle 30 minutes</h3><p class="muted">Par téléphone, en visio, ou chez vous si vous êtes à Charleroi.</p></div></li>
+              <li><div><h3>Vous recevez un devis fixe</h3><p class="muted">Un prix, un délai, une liste de ce qui est compris.</p></div></li>
+            </ol>
           </div>
-
-          <div style="margin-top: var(--space-5);">
-            <h3>Vous préférez écrire directement ?</h3>
-            <p class="gris" style="margin-top: var(--space-1);">
-              <a class="link-arrow" href="mailto:yboukamir@gmail.com">yboukamir@gmail.com <span class="fleche" aria-hidden="true">→</span></a>
+          <div class="stack">
+            <span class="label">Vous préférez écrire directement ?</span>
+            <p>
+              <a href="mailto:bonjour@boukamir.be">bonjour@boukamir.be</a><br>
+              <a href="https://www.instagram.com/boukamir.be" target="_blank" rel="noopener noreferrer">Instagram @boukamir.be<span class="sr-only"> (nouvel onglet)</span></a><br>
+              <a href="https://www.linkedin.com/in/yboukamir/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a>
             </p>
-            <p class="gris" style="margin-top: 10px;">
-              <a class="link-arrow" href="https://www.linkedin.com/in/yboukamir/">LinkedIn <span class="fleche" aria-hidden="true">→</span></a>
-            </p>
+            <p class="small muted">Charleroi, Belgique · Facturation via Smart</p>
           </div>
         </div>
 
-        <div class="card">
-          <form class="form" data-formulaire action="https://formspree.io/f/mljrvvkd" method="POST" novalidate>
-            <input type="hidden" name="_subject" value="Demande de devis — boukamir.be">
-            <div class="piege-robots" aria-hidden="true">
-              <label for="contact-gotcha">Ne pas remplir ce champ</label>
-              <input type="text" id="contact-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
-            </div>
+        <!-- ⚠️ Formspree fonctionne aussi depuis localhost : tester ce
+             formulaire envoie un vrai message. -->
+        <form class="form" id="devis" data-formulaire action="https://formspree.io/f/mljrvvkd" method="POST" novalidate aria-label="Demander un devis">
+          <input type="hidden" name="_subject" value="Demande de devis — boukamir.be">
+          <p class="piege-robots" aria-hidden="true">
+            <label for="contact-gotcha">Laissez ce champ vide</label>
+            <input id="contact-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+          </p>
 
+          <div class="form__row">
             <div class="field">
-              <label for="contact-nom">Nom</label>
-              <input class="input" type="text" id="contact-nom" name="Nom" required>
+              <label for="f-nom">Votre nom</label>
+              <input class="input" id="f-nom" name="Nom" type="text" autocomplete="name" required>
               <p class="erreur-champ" role="alert"></p>
             </div>
-
             <div class="field">
-              <label for="contact-entreprise">Entreprise <span class="facultatif">(facultatif)</span></label>
-              <input class="input" type="text" id="contact-entreprise" name="Entreprise">
+              <label for="f-entreprise">Votre commerce ou entreprise</label>
+              <input class="input" id="f-entreprise" name="Entreprise" type="text" autocomplete="organization" placeholder="Boulangerie Dupont, Marcinelle">
               <p class="erreur-champ" role="alert"></p>
             </div>
+          </div>
 
+          <div class="form__row">
             <div class="field">
-              <label for="contact-email">Email</label>
-              <input class="input" type="email" id="contact-email" name="Email" required>
+              <label for="f-email">Votre e-mail</label>
+              <input class="input" id="f-email" name="Email" type="email" autocomplete="email" required>
               <p class="erreur-champ" role="alert"></p>
             </div>
-
             <div class="field">
-              <label for="contact-tel">Téléphone <span class="facultatif">(facultatif)</span></label>
-              <input class="input" type="tel" id="contact-tel" name="Téléphone">
+              <label for="f-tel">Votre téléphone <span class="muted" style="font-weight:450">(facultatif)</span></label>
+              <input class="input" id="f-tel" name="Téléphone" type="tel" autocomplete="tel" placeholder="Si vous préférez qu'on s'appelle">
               <p class="erreur-champ" role="alert"></p>
             </div>
+          </div>
 
-            <fieldset class="field" style="border: none; padding: 0;">
-              <legend style="font-weight: 700; font-size: 14px; margin-bottom: 6px;">Ce que vous cherchez</legend>
-              <div class="choices">
-                <label class="choix">
-                  <input type="radio" name="Formule" value="Premier site" required>
-                  <span>Premier site</span>
-                </label>
-                <label class="choix">
-                  <input type="radio" name="Formule" value="Refonte">
-                  <span>Refonte</span>
-                </label>
-                <label class="choix">
-                  <input type="radio" name="Formule" value="Suivi">
-                  <span>Suivi mensuel</span>
-                </label>
-                <label class="choix">
-                  <input type="radio" name="Formule" value="Autre">
-                  <span>Autre</span>
-                </label>
-              </div>
-            </fieldset>
-
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea class="textarea" id="message" name="Message" required></textarea>
-              <p class="erreur-champ" role="alert"></p>
+          <fieldset class="field" style="border:0;padding:0;margin:0">
+            <legend style="font-weight:700;font-size:15px;padding:0;margin-bottom:8px">Ce que vous cherchez</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="Besoin" value="Un premier site" checked><span>Un premier site</span></label>
+              <label class="choice"><input type="radio" name="Besoin" value="Refaire mon site"><span>Refaire mon site</span></label>
+              <label class="choice"><input type="radio" name="Besoin" value="Le garder à jour"><span>Le garder à jour</span></label>
+              <label class="choice"><input type="radio" name="Besoin" value="Je ne sais pas encore"><span>Je ne sais pas encore</span></label>
             </div>
+          </fieldset>
 
-            <div class="field">
-              <label for="contact-site">Site actuel <span class="facultatif">(facultatif)</span></label>
-              <input class="input" type="url" id="contact-site" name="Site actuel" placeholder="https://votresite.be">
-              <p class="erreur-champ" role="alert"></p>
-            </div>
+          <div class="field">
+            <label for="f-message">En quelques lignes</label>
+            <textarea class="textarea" id="f-message" name="Message" style="min-height:110px" placeholder="Ce que vous faites, où, et ce qui vous embête aujourd'hui."></textarea>
+            <p class="erreur-champ" role="alert"></p>
+          </div>
 
-            <p class="mention-rgpd">Ce formulaire est transmis via Formspree, un service basé aux États-Unis. Vos données servent uniquement à répondre à votre demande.</p>
+          <div class="field">
+            <label for="f-site">Votre site actuel <span class="muted" style="font-weight:450">(s'il existe)</span></label>
+            <input class="input" id="f-site" name="Site actuel" type="url" placeholder="https://votre-commerce.be">
+            <p class="erreur-champ" role="alert"></p>
+          </div>
 
-            <button class="btn btn--primary btn--block" type="submit">Demander un devis</button>
-            <p class="form-note" aria-live="polite"></p>
-          </form>
-        </div>
+          <p class="mention-donnees">Vos données sont transmises via <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Formspree<span class="sr-only"> (nouvel onglet)</span></a>, un service américain, et me servent uniquement à vous répondre. Elles ne sont ni conservées au-delà de l'échange, ni revendues.</p>
+
+          <div class="form__foot">
+            <button class="btn btn--primary btn--outline-mobile" type="submit">Demander un devis</button>
+            <span class="small muted">Gratuit, sans engagement. Vos coordonnées ne servent qu'à vous répondre.</span>
+          </div>
+          <p class="form__status small muted" aria-live="polite"></p>
+        </form>
+
       </div>
     </section>
 
-    <section class="section section--tight">
-      <div class="conteneur">
-        <div class="audit">
-          <div class="audit-inner" style="align-items: center;">
-            <div>
-              <p class="label">Gratuit, sans engagement</p>
-              <h2>Pas encore prêt à démarrer ?</h2>
-              <p class="lead">Commencez par un audit gratuit de votre site actuel : je vous dis en 24 h ce qui freine vos visiteurs.</p>
+    <!-- ÉCRAN 2 · Rappel audit (sans formulaire ici, pour ne pas doubler) -->
+    <section class="section section--tight" aria-labelledby="audit-rappel-title">
+      <div class="container">
+        <div class="audit bg-noir">
+          <div class="grid grid--split-even">
+            <div class="stack-lg">
+              <span class="label">Pas encore prêt pour un devis ?</span>
+              <h2 id="audit-rappel-title">Commencez par l'audit gratuit de votre site.</h2>
+              <p class="lead">Vous m'envoyez l'adresse, vous recevez une vidéo de 5 minutes sous 48 h. Ce qui bloque, ce qu'il faudrait changer, et si ça vaut la peine de refaire ou non.</p>
             </div>
-            <div>
-              <a class="btn btn--outline" href="/index.html#audit">Recevoir mon audit gratuit</a>
+            <div class="btn-row">
+              <a class="btn btn--outline" href="index.html#audit">Demander l'audit gratuit</a>
             </div>
           </div>
         </div>
@@ -181,34 +163,35 @@
 
   </main>
 
-  <footer class="site-footer">
-    <div class="conteneur">
-      <div class="footer-grille">
-        <div>
-          <a class="logo" href="/" style="color: var(--creme);">Boukamir</a>
-          <p class="footer-desc">Sites vitrines pour commerçants, artisans et PME. Prix fixe, réponse rapide.</p>
+  <footer class="site-footer bg-noir">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="stack">
+          <a class="logo" href="/">boukamir<span class="logo__dot">.</span></a>
+          <p class="muted">Développeur web freelance à Charleroi. Je construis des sites qui font venir des clients aux commerçants, artisans et PME francophones.</p>
         </div>
         <div>
-          <h3>Pages</h3>
-          <ul>
-            <li><a href="/services.html">Services</a></li>
-            <li><a href="/a-propos.html">À propos</a></li>
-            <li><a href="/contact.html">Contact</a></li>
-            <li><a href="/index.html#audit">Audit gratuit</a></li>
+          <span class="label">Pages</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="services.html">Services</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html#audit">Audit gratuit</a></li>
           </ul>
         </div>
         <div>
-          <h3>Contact</h3>
-          <ul>
-            <li><a href="mailto:yboukamir@gmail.com">yboukamir@gmail.com</a></li>
-            <li><a href="https://www.linkedin.com/in/yboukamir/">LinkedIn</a></li>
+          <span class="label">Contact</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="mailto:bonjour@boukamir.be">bonjour@boukamir.be</a></li>
+            <li><a href="https://www.instagram.com/boukamir.be" target="_blank" rel="noopener noreferrer">Instagram @boukamir.be<span class="sr-only"> (nouvel onglet)</span></a></li>
+            <li><a href="https://www.linkedin.com/in/yboukamir/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
             <li>Charleroi, Belgique</li>
           </ul>
         </div>
       </div>
-      <div class="footer-bas">
-        <p>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</p>
-        <p>Site fait à Charleroi, sans jargon.</p>
+      <div class="site-footer__bottom">
+        <span>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</span>
+        <span>Site fait à Charleroi, sans jargon.</span>
       </div>
     </div>
   </footer>

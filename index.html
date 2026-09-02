@@ -3,328 +3,380 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Un site qui fait venir des clients — Yassine Boukamir, développeur web à Charleroi</title>
-  <meta name="description" content="Sites vitrines pour commerçants, artisans et PME. Prix fixe annoncé avant de commencer, réponse sous 24 h. Devis gratuit.">
+  <title>Yassine Boukamir — Un site qui fait venir des clients</title>
+  <meta name="description" content="Développeur web freelance à Charleroi. Je construis des sites pour les commerçants, artisans et PME : prix fixe annoncé avant de commencer, réponse sous 24 h.">
 
-  <meta property="og:title" content="Un site qui fait venir des clients — Yassine Boukamir">
-  <meta property="og:description" content="Sites vitrines pour commerçants, artisans et PME. Prix fixe annoncé avant de commencer, réponse sous 24 h.">
+  <meta property="og:title" content="Yassine Boukamir — Un site qui fait venir des clients">
+  <meta property="og:description" content="Développeur web freelance à Charleroi. Des sites pour commerçants, artisans et PME. Prix fixe, réponse sous 24 h.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://boukamir.be/">
+  <meta property="og:locale" content="fr_BE">
   <link rel="canonical" href="https://boukamir.be/">
-  <!-- TODO après cette refonte : régénérer l'aperçu de partage avec
-       .claude/apercu.ps1 et incrémenter son numéro de version (apercu-4.jpg),
-       le contenu de la page ayant changé. -->
-  <meta property="og:image" content="https://boukamir.be/assets/apercu-4.jpg">
+  <!-- Le nom porte un numero de version, et ce n'est pas de la coquetterie.
+       LinkedIn associe l'image qu'il a traitee a l'URL exacte de l'og:image, et
+       il garde aussi ses echecs : la vignette est restee a 89 octets -- un
+       pixel transparent -- pendant deux re-lectures, alors que l'image etait
+       servie correctement. Renommer a suffi : traitee du premier coup.
+       Incrementer a chaque refonte de l'apercu. -->
+  <meta property="og:image" content="https://boukamir.be/assets/apercu-5.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Yassine Boukamir, développeur web à Charleroi">
+  <meta property="og:image:alt" content="boukamir.be — un site qui fait venir des clients">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Validation Google Search Console. Ce jeton était déjà celui du domaine :
+       il était inséré par l'extension Rank Math de l'ancien WordPress, et a
+       disparu avec lui. Le remettre ici conserve la propriété déjà validée,
+       sans repasser par une nouvelle procédure. Ne pas le modifier. -->
   <meta name="google-site-verification" content="LoE7iel1y7EDNJW5CL4DNfynYiIcXp9uapy0k_Mepdo">
 
-  <!-- Police Inter via Google Fonts : choix volontaire de la refonte du
-       31/08/2026, au lieu de Manrope auto-hébergée. Inter n'est pas
-       distribuée en variable statique facile à auto-héberger dans ce cadre,
-       d'où le retour à Google Fonts ; le preconnect limite la latence de la
-       première requête. -->
+  <!-- Inter vient de Google Fonts : c'est la police du kit d'identité, et
+       elle n'est pas auto-hébergée ici. Les deux preconnect font gagner le
+       temps de négociation TLS vers les deux domaines (le CSS d'un côté, les
+       fichiers de police de l'autre) ; sans le crossorigin sur gstatic, la
+       connexion ouverte n'est pas réutilisée et le preconnect ne sert à rien. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230A0A0A'/><text x='50' y='74' font-family='Inter,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>Y</text></svg>">
 
+  <!-- Favicon : le mot-symbole réduit à son initiale, avec le point orange.
+       C'est ce qui rend l'onglet reconnaissable sans être lu. -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0A0A'/><text x='40' y='75' font-family='Inter,Segoe UI,Helvetica,sans-serif' font-size='78' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>b</text><circle cx='74' cy='67' r='9' fill='%23FF5A1F'/></svg>">
+
+  <!-- Données structurées. Le site vend des prestations : c'est le
+       professionnel local qu'il faut décrire, pas un candidat. Tout ce qui
+       est ici doit être vrai et vérifiable ailleurs — un balisage qui
+       contredit la page se retourne contre elle. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Yassine Boukamir",
+    "@type": "ProfessionalService",
+    "name": "Yassine Boukamir — Développeur web freelance",
     "url": "https://boukamir.be/",
-    "email": "mailto:yboukamir@gmail.com",
+    "email": "mailto:bonjour@boukamir.be",
     "image": "https://boukamir.be/assets/yassine-900.jpg",
-    "jobTitle": "Développeur web freelance",
     "description": "Sites vitrines pour commerçants, artisans et PME à Charleroi et alentours.",
+    "areaServed": "BE",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Charleroi",
       "addressCountry": "BE"
     },
+    "founder": {
+      "@type": "Person",
+      "name": "Yassine Boukamir",
+      "jobTitle": "Développeur web freelance"
+    },
     "knowsLanguage": ["fr", "en"],
-    "knowsAbout": ["Développement web", "WordPress", "WooCommerce", "Référencement", "Accessibilité"],
     "sameAs": [
-      "https://www.linkedin.com/in/yboukamir/",
-      "https://github.com/yboukamir"
+      "https://www.instagram.com/boukamir.be",
+      "https://www.linkedin.com/in/yboukamir/"
     ]
   }
   </script>
 </head>
 <body>
-  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+  <a class="lien-evitement" href="#main">Aller au contenu</a>
 
+  <!-- En-tête : pas de bouton orange ici. L'orange est réservé au bouton principal de la page. -->
   <header class="site-header">
-    <div class="conteneur entete-inner">
-      <a class="logo" href="/">Boukamir</a>
-
+    <div class="container site-header__inner">
+      <a class="logo" href="/" aria-label="boukamir.be — accueil">boukamir<span class="logo__dot">.</span></a>
       <nav class="nav" id="nav" aria-label="Navigation principale">
-        <ul>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/a-propos.html">À propos</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
+        <a href="services.html">Services</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
       </nav>
-
-      <button class="nav-toggle" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M3 6h18M3 12h18M3 18h18"/>
-        </svg>
-      </button>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     </div>
   </header>
 
-  <main id="contenu">
+  <main id="main">
 
-    <!-- Héros texte seul, sans photo : conforme à la maquette source, qui ne
-         montre la photo qu'au bloc « Qui je suis » et sur la page à propos. -->
-    <section class="hero conteneur">
-      <p class="label">Développeur web freelance · Charleroi</p>
-      <h1>Un site qui fait venir des clients.</h1>
-      <p class="lead">Pas un site « qui fait joli ». Un site que vos clients comprennent en 3 secondes, qui marche sur leur téléphone, et qui leur donne envie de vous appeler. Pour les commerçants, les artisans et les PME.</p>
-      <div class="hero-actions">
-        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
-        <a class="btn btn--outline" href="#travail">Voir mon travail</a>
-      </div>
-      <ul class="hero-meta">
-        <li>Prix fixe, annoncé avant de commencer</li>
-        <li>Réponse sous 24 h</li>
-        <li>Facturation via Smart, en règle</li>
-      </ul>
-    </section>
-
-    <section class="section bg-noir">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Ce que voit votre client en 3 secondes</p>
-          <h2>Un visiteur vous accorde trois secondes. Après, il retourne sur Google et clique chez votre <span class="accent">concurrent.</span></h2>
+    <!-- ÉCRAN 1 · Héros — le seul orange de cet écran : le bouton « Demander un devis ». -->
+    <section class="section section--hero" aria-labelledby="hero-title">
+      <div class="container hero">
+        <span class="label">Développeur web freelance · Charleroi</span>
+        <h1 class="display hero__title" id="hero-title">Un site qui fait venir des clients.</h1>
+        <p class="lead hero__lead">Pas un site « qui fait joli ». Un site que vos clients comprennent en 3 secondes, qui marche sur leur téléphone, et qui leur donne envie de vous appeler. Pour les commerçants, les artisans et les PME.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="contact.html">Demander un devis</a>
+          <a class="btn btn--outline" href="#travail">Voir mon travail</a>
         </div>
-        <div class="grille">
-          <div class="card">
-            <p class="card-num">01</p>
-            <h3>Il charge trop lentement.</h3>
-            <p class="gris">Sur le 4G, dans la rue, personne n'attend une page qui traîne.</p>
-          </div>
-          <div class="card">
-            <p class="card-num">02</p>
-            <h3>On ne comprend pas ce que vous vendez.</h3>
-            <p class="gris">Un slogan vague ne remplace jamais une phrase claire.</p>
-          </div>
-          <div class="card">
-            <p class="card-num">03</p>
-            <h3>On ne trouve pas comment vous joindre.</h3>
-            <p class="gris">Un numéro caché en bas de page, c'est un client perdu.</p>
-          </div>
+        <div class="hero__meta small muted">
+          <span>Prix fixe, annoncé avant de commencer</span>
+          <span>Réponse sous 24 h</span>
+          <span>Facturation via Smart, en règle</span>
         </div>
       </div>
     </section>
 
-    <section class="section" id="services-apercu">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Ce que je fais</p>
-          <h2>Trois façons de travailler ensemble.</h2>
+    <!-- ÉCRAN 2 · Le problème — l'accent ici est un mot orange dans le titre (pas de bouton). -->
+    <section class="section bg-noir" aria-labelledby="probleme-title">
+      <div class="container">
+        <div class="section__head">
+          <span class="label">Ce que voit votre client en 3 secondes</span>
+          <h2 id="probleme-title">Un visiteur vous accorde trois secondes. Après, il retourne sur Google et clique chez votre <span class="accent">concurrent.</span></h2>
+        </div>
+        <div class="grid grid--3">
+          <div class="card">
+            <span class="card__num">01</span>
+            <h3 class="card__title">Il charge trop lentement.</h3>
+            <p class="muted">Sur un téléphone, en 4G, dans la rue. C'est là que vos clients vous cherchent, pas derrière un bureau.</p>
+          </div>
+          <div class="card">
+            <span class="card__num">02</span>
+            <h3 class="card__title">On ne comprend pas ce que vous vendez.</h3>
+            <p class="muted">Un slogan vague, une photo d'illustration, et le visiteur repart sans savoir si vous faites ce qu'il cherche.</p>
+          </div>
+          <div class="card">
+            <span class="card__num">03</span>
+            <h3 class="card__title">On ne trouve pas comment vous joindre.</h3>
+            <p class="muted">Le numéro est en bas de page, les horaires sont sur Facebook, l'adresse est dans une image. Le client abandonne.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 3 · Ce que je fais -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section__head">
+          <span class="label">Ce que je fais</span>
+          <h2 id="services-title">Trois façons de travailler ensemble.</h2>
           <p class="lead">Un prix fixe pour chaque formule. Vous savez ce que vous payez avant que je commence.</p>
         </div>
-        <div class="grille">
-          <a class="card" href="/services.html#vitrine">
-            <h3>Votre premier site</h3>
-            <p class="gris">Une vitrine claire, rapide, qui présente votre activité et donne envie d'appeler.</p>
-            <span class="link-arrow">Voir la formule <span class="fleche" aria-hidden="true">→</span></span>
+        <div class="grid grid--3">
+          <a class="card" href="services.html#vitrine">
+            <h3 class="card__title">Votre premier site</h3>
+            <p class="muted">Vous n'avez rien, ou une page Facebook. On part de zéro : un site clair, avec vos vrais horaires, vos vrais prix, vos vraies photos.</p>
+            <span class="link-arrow">Voir la formule</span>
           </a>
-          <a class="card" href="/services.html#refonte">
-            <h3>Refaire votre site</h3>
-            <p class="gris">Votre site actuel date, ou ne convertit plus. On repart sur des bases saines.</p>
-            <span class="link-arrow">Voir la formule <span class="fleche" aria-hidden="true">→</span></span>
+          <a class="card" href="services.html#refonte">
+            <h3 class="card__title">Refaire votre site</h3>
+            <p class="muted">Vous avez un site, mais il date, il est lent, ou personne ne vous appelle grâce à lui. On garde ce qui marche, on refait le reste.</p>
+            <span class="link-arrow">Voir la formule</span>
           </a>
-          <a class="card" href="/services.html#suivi">
-            <h3>Le garder en vie</h3>
-            <p class="gris">Mises à jour, petites modifications, disponibilité : votre site reste à jour.</p>
-            <span class="link-arrow">Voir la formule <span class="fleche" aria-hidden="true">→</span></span>
+          <a class="card" href="services.html#suivi">
+            <h3 class="card__title">Le garder en vie</h3>
+            <p class="muted">Mises à jour, nouvelles photos, changement d'horaires, petits ajouts. Vous m'écrivez, c'est fait dans la semaine.</p>
+            <span class="link-arrow">Voir la formule</span>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="travail">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">La preuve</p>
-          <h2>Avant / après.</h2>
-          <!-- Exemple illustratif, pas un client réel : le nom et le domaine sont
-               fictifs. Le dire ici évite de faire croire à un cas vérifiable. -->
-          <p class="chapo-section">Exemple illustratif d'une refonte, pas un client réel.</p>
+    <!-- ÉCRAN 4 · La preuve : avant / après
+         Les captures montrent une pizzeria imaginaire, et leur barre
+         d'adresse le dit en toutes lettres (« …-demo.be »). Le texte doit le
+         dire aussi : c'est le bloc qui s'appelle « La preuve », un prospect
+         qui découvre seul que l'exemple est fictif perd confiance d'un coup. -->
+    <section class="section section--tight" id="travail" aria-labelledby="travail-title">
+      <div class="container">
+        <div class="section__head">
+          <span class="label">La preuve</span>
+          <h2 id="travail-title">Avant, après.</h2>
+          <p class="lead">Un exemple illustratif, pas un client réel : la même page d'accueil, refaite. Même commerce, même budget, pas la même première impression.</p>
         </div>
         <div class="compare">
-          <div class="compare-item avant">
-            <p class="label" style="color: var(--gris);">Avant</p>
-            <img class="compare-image" src="assets/site-avant.png" width="1440" height="960" alt="Ancien site fictif, lent et chargé, sans mise en avant claire" loading="lazy" decoding="async">
-          </div>
-          <div class="compare-item apres">
-            <p class="label">Après</p>
-            <img class="compare-image" src="assets/site-apres.png" width="1440" height="960" alt="Nouveau site fictif, épuré, avec un message clair et un bouton d'action visible" loading="lazy" decoding="async">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Comment ça se passe</p>
-          <h2>Quatre étapes, pas plus.</h2>
-        </div>
-        <div class="steps">
-          <div class="step">
-            <p class="step-num">01</p>
-            <h3>On se parle</h3>
-            <p class="gris">Un appel ou un message pour comprendre votre activité et vos besoins.</p>
-          </div>
-          <div class="step">
-            <p class="step-num">02</p>
-            <h3>Vous recevez un devis fixe</h3>
-            <p class="gris">Un prix clair, sans surprise, avant que quoi que ce soit ne commence.</p>
-          </div>
-          <div class="step">
-            <p class="step-num">03</p>
-            <h3>Je construis, vous validez</h3>
-            <p class="gris">Vous voyez le site prendre forme et donnez votre avis à chaque étape.</p>
-          </div>
-          <div class="step">
-            <p class="step-num">04</p>
-            <h3>C'est en ligne, et je reste joignable</h3>
-            <p class="gris">Le site est publié, et je reste disponible pour les questions qui suivent.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="audit">
-      <div class="conteneur">
-        <div class="audit">
-          <div class="audit-inner">
-            <div>
-              <p class="label">Gratuit, sans engagement</p>
-              <h2>Votre site perd-il des clients ?</h2>
-              <p class="lead">Envoyez l'adresse de votre site, je vous dis en 24 h ce qui freine vos visiteurs — vitesse, clarté, mobile. Sans blabla, sans obligation d'achat.</p>
+          <div class="compare__panel">
+            <span class="label">Avant</span>
+            <div class="compare__body">
+              <img class="capture" src="assets/site-avant.png" width="1440" height="900"
+                   alt="Page d'accueil encombrée : titre clignotant, images non chargées, horaires noyés en bas de page"
+                   loading="lazy" decoding="async">
+              <p class="muted small">Chargement en 9 secondes. Les horaires sont dans une image. Aucun bouton pour appeler.</p>
             </div>
+          </div>
+          <div class="compare__panel">
+            <span class="label">Après</span>
+            <div class="compare__body">
+              <img class="capture" src="assets/site-apres.png" width="1440" height="900"
+                   alt="Page d'accueil épurée : un titre lisible, un bouton de réservation, les informations utiles en évidence"
+                   loading="lazy" decoding="async">
+              <p class="muted small">Chargement en 1 seconde. Le numéro est en haut, cliquable. Les horaires sont du texte, à jour.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 5 · Comment ça se passe -->
+    <section class="section" aria-labelledby="etapes-title">
+      <div class="container grid grid--split">
+        <div class="section__head">
+          <span class="label">Comment ça se passe</span>
+          <h2 id="etapes-title">Quatre étapes, aucune surprise.</h2>
+          <p class="lead">Vous n'avez rien à installer, rien à apprendre. Vous me racontez votre métier, je m'occupe du reste.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <div>
+              <h3>On se parle</h3>
+              <p class="muted">30 minutes, chez vous ou par téléphone. Qui sont vos clients, ce qu'ils vous demandent, ce qui vous fait perdre du temps.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Vous recevez un devis fixe</h3>
+              <p class="muted">Un prix, un délai, une liste claire de ce qui est compris. Si ça change en route, c'est écrit avant, pas facturé après.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Je construis, vous validez</h3>
+              <p class="muted">Vous voyez le site en vrai, sur votre téléphone, avant qu'il soit en ligne. On ajuste ensemble.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>C'est en ligne, et je reste joignable</h3>
+              <p class="muted">Je mets le site en ligne, je vous montre comment changer un horaire ou une photo. Et je réponds quand vous m'écrivez.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Bloc « audit gratuit » : fond noir, bouton en contour (l'orange de la page est déjà pris par « Demander un devis »). -->
+    <section class="section" id="audit" aria-labelledby="audit-title">
+      <div class="container">
+        <div class="audit bg-noir">
+          <div class="audit__grid">
+            <div class="stack-lg">
+              <span class="label">Audit gratuit de votre site</span>
+              <h2 id="audit-title">Votre site fait fuir des clients ? Je vous le dis. Gratuitement.</h2>
+              <p class="lead">Envoyez-moi l'adresse de votre site. Sous 48 h, vous recevez une vidéo de 5 minutes où je vous montre ce qui bloque, et ce qu'il faudrait changer. Sans engagement, sans relance.</p>
+              <ul class="list">
+                <li>Est-ce qu'on comprend en 3 secondes ce que vous vendez ?</li>
+                <li>Est-ce qu'il s'affiche correctement sur un téléphone ?</li>
+                <li>Est-ce qu'il charge assez vite pour qu'on reste ?</li>
+                <li>Est-ce qu'on trouve votre numéro et vos horaires sans chercher ?</li>
+              </ul>
+            </div>
+
+            <!-- ⚠️ Formspree fonctionne aussi depuis localhost : tester ce
+                 formulaire envoie un vrai message. L'adresse de réception est
+                 configurée chez eux, jamais ici — c'est ce qui évite qu'un
+                 robot la récolte sur la page. -->
             <form class="form" data-formulaire action="https://formspree.io/f/mljrvvkd" method="POST" novalidate>
               <input type="hidden" name="_subject" value="Demande d'audit gratuit — boukamir.be">
-              <div class="piege-robots" aria-hidden="true">
-                <label for="audit-gotcha">Ne pas remplir ce champ</label>
-                <input type="text" id="audit-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
-              </div>
+              <p class="piege-robots" aria-hidden="true">
+                <label for="audit-gotcha">Laissez ce champ vide</label>
+                <input id="audit-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+              </p>
               <div class="field">
-                <label for="audit-url">Adresse de votre site</label>
-                <input class="input" type="url" id="audit-url" name="Site" placeholder="https://votresite.be" required>
+                <label for="audit-url">L'adresse de votre site</label>
+                <input class="input" id="audit-url" name="Site" type="url" placeholder="https://votre-commerce.be" required>
                 <p class="erreur-champ" role="alert"></p>
               </div>
               <div class="field">
-                <label for="audit-email">Votre email</label>
-                <input class="input" type="email" id="audit-email" name="Email" required>
+                <label for="audit-email">Votre e-mail</label>
+                <input class="input" id="audit-email" name="Email" type="email" placeholder="vous@exemple.be" required>
+                <span class="hint">Uniquement pour vous envoyer la vidéo.</span>
                 <p class="erreur-champ" role="alert"></p>
               </div>
-              <p class="mention-rgpd">Ce formulaire est transmis via Formspree, un service basé aux États-Unis. Vos données servent uniquement à répondre à votre demande.</p>
+              <p class="mention-donnees">Vos données sont transmises via <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Formspree<span class="sr-only"> (nouvel onglet)</span></a>, un service américain, et me servent uniquement à vous répondre.</p>
               <button class="btn btn--outline btn--block" type="submit">Recevoir mon audit gratuit</button>
-              <p class="form-note" aria-live="polite"></p>
+              <p class="form__status small muted" aria-live="polite"></p>
             </form>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="conteneur">
-        <div class="grid--split-even">
-          <div>
-            <p class="label">Qui je suis</p>
-            <h2>Yassine, développeur à Charleroi.</h2>
-            <p class="lead">Je construis des sites WordPress depuis 2020. Pas d'agence entre vous et moi : vous me parlez directement, du premier appel à la mise en ligne.</p>
-            <a class="link-arrow" href="/a-propos.html" style="margin-top: var(--space-3);">En savoir plus <span class="fleche" aria-hidden="true">→</span></a>
-          </div>
-          <div class="hero-photo">
-            <img src="assets/yassine-430.jpg" srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 900w" sizes="(max-width: 900px) 90vw, 430px" alt="Yassine Boukamir, développeur web" width="430" height="538">
-          </div>
+    <!-- ÉCRAN 7 · Qui je suis (court, renvoie vers À propos) -->
+    <section class="section section--tight" aria-labelledby="qui-title">
+      <div class="container grid grid--split-even">
+        <img class="photo" src="assets/yassine-430.jpg"
+             srcset="assets/yassine-430.jpg 430w, assets/yassine-900.jpg 860w"
+             sizes="(max-width: 900px) calc(100vw - 2 * var(--gutter)), 540px"
+             width="430" height="538"
+             alt="Yassine Boukamir, développeur web à Charleroi" loading="lazy" decoding="async">
+        <div class="stack-lg">
+          <span class="label">Qui je suis</span>
+          <h2 id="qui-title">Je m'appelle Yassine. Je fais des sites à Charleroi.</h2>
+          <p class="muted">Je travaille seul, en freelance, avec des patrons qui n'ont pas le temps de devenir experts du web. Mon boulot, c'est de vous expliquer ce qui compte en cinq mots, et de faire le reste sans vous embêter.</p>
+          <a class="link-arrow" href="a-propos.html">En savoir plus sur moi</a>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Questions fréquentes</p>
-          <h2>Ce qu'on me demande le plus.</h2>
+    <!-- ÉCRAN 8 · Questions -->
+    <section class="section" aria-labelledby="faq-title">
+      <div class="container grid grid--split">
+        <div class="section__head">
+          <span class="label">Questions fréquentes</span>
+          <h2 id="faq-title">Ce qu'on me demande souvent.</h2>
         </div>
         <div class="faq">
           <details>
-            <summary>Combien de temps pour avoir mon site ?</summary>
-            <p>Comptez deux à trois semaines pour une vitrine simple, selon la disponibilité des contenus (textes, photos) de votre côté.</p>
+            <summary>Combien ça coûte ?</summary>
+            <p>Ça dépend de ce dont vous avez besoin, mais c'est toujours un prix fixe, écrit avant de commencer. Les fourchettes sont sur la page <a href="services.html">Services</a>. Pas d'abonnement caché.</p>
           </details>
           <details>
-            <summary>Je n'ai pas encore de textes ni de photos, c'est grave ?</summary>
-            <p>Non. On peut avancer avec des textes provisoires et les remplacer ensuite, ou je vous aide à les structurer.</p>
+            <summary>J'ai déjà une page Facebook, ça ne suffit pas ?</summary>
+            <p>Pour vos habitués, si. Pour quelqu'un qui tape « boulangerie Marcinelle » dans Google, non : il tombe sur vos concurrents qui ont un site. Un site, c'est pour les clients que vous n'avez pas encore.</p>
           </details>
           <details>
-            <summary>Le prix annoncé, c'est vraiment fixe ?</summary>
-            <p>Oui. Le devis précise ce qui est compris. S'il y a une demande en plus en cours de route, on en parle avant, jamais après.</p>
+            <summary>Combien de temps ça prend ?</summary>
+            <p>Entre deux et cinq semaines selon la formule, à partir du moment où j'ai vos textes et vos photos. Le délai est écrit dans le devis.</p>
           </details>
           <details>
-            <summary>Et après la mise en ligne, qui s'occupe du site ?</summary>
-            <p>Vous, ou moi si vous prenez la formule de suivi mensuel. Dans tous les cas, le site vous appartient.</p>
+            <summary>Est-ce que je pourrai modifier le site moi-même ?</summary>
+            <p>Oui, pour les choses courantes : horaires, prix, photos, une annonce en page d'accueil. Je vous montre comment faire en 20 minutes, et si vous préférez, je le fais pour vous.</p>
           </details>
           <details>
-            <summary>Vous travaillez avec quels outils ?</summary>
-            <p>WordPress et WooCommerce le plus souvent : c'est un choix solide, que vous pourrez faire évoluer avec n'importe quel autre développeur si besoin.</p>
+            <summary>Vous êtes en règle ?</summary>
+            <p>Oui. Je facture via Smart, une coopérative belge qui gère la facturation et les cotisations. Vous recevez une facture normale, avec TVA, déductible.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section class="cta-final conteneur">
-      <p class="label">On en parle ?</p>
-      <h2>Prêt à avoir un site qui travaille pour vous ?</h2>
-      <div class="hero-actions">
-        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
+    <!-- ÉCRAN 9 · Appel final — deuxième bouton orange de la page, mais jamais sur le même écran que le premier. -->
+    <section class="section cta-final" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 class="display h2" id="cta-title">On en parle ?</h2>
+        <p class="lead">Racontez-moi votre commerce en trois lignes. Je vous réponds sous 24 h avec des questions, pas un discours.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="contact.html">Demander un devis</a>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer">
-    <div class="conteneur">
-      <div class="footer-grille">
-        <div>
-          <a class="logo" href="/" style="color: var(--creme);">Boukamir</a>
-          <p class="footer-desc">Sites vitrines pour commerçants, artisans et PME. Prix fixe, réponse rapide.</p>
+  <footer class="site-footer bg-noir">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="stack">
+          <a class="logo" href="/">boukamir<span class="logo__dot">.</span></a>
+          <p class="muted">Développeur web freelance à Charleroi. Je construis des sites qui font venir des clients aux commerçants, artisans et PME francophones.</p>
         </div>
         <div>
-          <h3>Pages</h3>
-          <ul>
-            <li><a href="/services.html">Services</a></li>
-            <li><a href="/a-propos.html">À propos</a></li>
-            <li><a href="/contact.html">Contact</a></li>
-            <li><a href="/index.html#audit">Audit gratuit</a></li>
+          <span class="label">Pages</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="services.html">Services</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#audit">Audit gratuit</a></li>
           </ul>
         </div>
         <div>
-          <h3>Contact</h3>
-          <ul>
-            <li><a href="mailto:yboukamir@gmail.com">yboukamir@gmail.com</a></li>
-            <li><a href="https://www.linkedin.com/in/yboukamir/">LinkedIn</a></li>
+          <span class="label">Contact</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="mailto:bonjour@boukamir.be">bonjour@boukamir.be</a></li>
+            <li><a href="https://www.instagram.com/boukamir.be" target="_blank" rel="noopener noreferrer">Instagram @boukamir.be<span class="sr-only"> (nouvel onglet)</span></a></li>
+            <li><a href="https://www.linkedin.com/in/yboukamir/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
             <li>Charleroi, Belgique</li>
           </ul>
         </div>
       </div>
-      <div class="footer-bas">
-        <p>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</p>
-        <p>Site fait à Charleroi, sans jargon.</p>
+      <div class="site-footer__bottom">
+        <span>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</span>
+        <span>Site fait à Charleroi, sans jargon.</span>
       </div>
     </div>
   </footer>

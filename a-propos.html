@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>À propos — Yassine Boukamir, développeur web à Charleroi</title>
-  <meta name="description" content="Développeur web indépendant à Charleroi depuis 2020. Comment je travaille, avec qui, et pourquoi ce métier.">
+  <title>À propos — Yassine Boukamir</title>
+  <meta name="description" content="Développeur web freelance à Charleroi. Je construis des sites pour des patrons qui ont un métier à faire tourner, et je leur explique ce qui compte sans jargon.">
 
   <meta property="og:title" content="À propos — Yassine Boukamir">
-  <meta property="og:description" content="Développeur web indépendant à Charleroi depuis 2020. Comment je travaille, avec qui, et pourquoi ce métier.">
-  <meta property="og:type" content="website">
+  <meta property="og:description" content="Développeur web freelance à Charleroi. Des sites simples, rapides, avec les bonnes infos au bon endroit.">
+  <meta property="og:type" content="profile">
   <meta property="og:url" content="https://boukamir.be/a-propos.html">
+  <meta property="og:locale" content="fr_BE">
   <link rel="canonical" href="https://boukamir.be/a-propos.html">
-  <meta property="og:image" content="https://boukamir.be/assets/apercu-4.jpg">
+  <meta property="og:image" content="https://boukamir.be/assets/apercu-5.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Yassine Boukamir, développeur web à Charleroi">
+  <meta property="og:image:alt" content="boukamir.be — un site qui fait venir des clients">
   <meta name="twitter:card" content="summary_large_image">
 
   <meta name="google-site-verification" content="LoE7iel1y7EDNJW5CL4DNfynYiIcXp9uapy0k_Mepdo">
@@ -23,178 +24,187 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230A0A0A'/><text x='50' y='74' font-family='Inter,Segoe UI,sans-serif' font-size='70' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>Y</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0A0A'/><text x='40' y='75' font-family='Inter,Segoe UI,Helvetica,sans-serif' font-size='78' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>b</text><circle cx='74' cy='67' r='9' fill='%23FF5A1F'/></svg>">
 </head>
 <body>
-  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+  <a class="lien-evitement" href="#main">Aller au contenu</a>
 
+  <!-- En-tête : pas de bouton orange ici. L'orange est réservé au bouton principal de la page. -->
   <header class="site-header">
-    <div class="conteneur entete-inner">
-      <a class="logo" href="/">Boukamir</a>
-
+    <div class="container site-header__inner">
+      <a class="logo" href="/" aria-label="boukamir.be — accueil">boukamir<span class="logo__dot">.</span></a>
       <nav class="nav" id="nav" aria-label="Navigation principale">
-        <ul>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/a-propos.html" aria-current="page">À propos</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
+        <a href="services.html">Services</a>
+        <a href="a-propos.html" aria-current="page">À propos</a>
+        <a href="contact.html">Contact</a>
       </nav>
-
-      <button class="nav-toggle" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M3 6h18M3 12h18M3 18h18"/>
-        </svg>
-      </button>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     </div>
   </header>
 
-  <main id="contenu">
+  <main id="main">
 
-    <section class="hero conteneur">
-      <div class="grid--split-even">
-        <div>
-          <p class="label">À propos</p>
-          <h1>Je m'appelle Yassine.</h1>
-          <p class="lead">Je construis des sites WordPress depuis 2020, pour des commerçants, des artisans et des PME qui veulent un site qui leur ressemble et qui travaille pour eux.</p>
-          <div class="hero-actions">
-            <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
-            <a class="btn btn--outline" href="/services.html">Voir les services</a>
+    <!-- ÉCRAN 1 · Héros avec photo — orange : le bouton uniquement. -->
+    <section class="section section--hero" aria-labelledby="hero-title">
+      <div class="container grid grid--split-even">
+        <div class="hero">
+          <span class="label">À propos</span>
+          <h1 class="display display--md hero__title" id="hero-title">Je m'appelle Yassine.</h1>
+          <p class="lead hero__lead">Développeur web freelance, à Charleroi. Je construis des sites pour des patrons qui ont un métier à faire tourner, et pas le temps de devenir experts du web. Et je leur explique ce qui compte, sans jargon.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="contact.html">Demander un devis</a>
+            <a class="btn btn--outline" href="index.html#travail">Voir mon travail</a>
           </div>
         </div>
-        <div class="hero-photo hero-photo--haute">
-          <img src="assets/yassine-a-propos-480.jpg" srcset="assets/yassine-a-propos-480.jpg 480w, assets/yassine-a-propos-960.jpg 960w" sizes="(max-width: 900px) 90vw, 480px" alt="Yassine Boukamir, développeur web" width="480" height="720">
+        <!-- fetchpriority="high" et pas de lazy : c'est la seule image visible
+             au chargement de cette page, la retarder décale tout le héros. -->
+        <img class="photo photo--haute" src="assets/yassine-a-propos-480.jpg"
+             srcset="assets/yassine-a-propos-480.jpg 480w, assets/yassine-a-propos-960.jpg 960w"
+             sizes="(max-width: 900px) calc(100vw - 2 * var(--gutter)), 540px"
+             width="480" height="720"
+             alt="Yassine Boukamir, développeur web freelance à Charleroi" fetchpriority="high" decoding="async">
+      </div>
+    </section>
+
+    <!-- ÉCRAN 2 · L'histoire, en trois paragraphes -->
+    <section class="section bg-noir" aria-labelledby="histoire-title">
+      <div class="container grid grid--split">
+        <div class="section__head">
+          <span class="label">Pourquoi ce métier</span>
+          <h2 id="histoire-title">J'ai grandi entre des <span class="accent">commerces.</span></h2>
+        </div>
+        <div class="stack-lg">
+          <p>Des gens qui ouvrent à 7 h, ferment à 19 h, et n'ont ni le temps ni l'envie de comprendre pourquoi leur site « ne marche pas ». Ce sont eux que je voulais aider quand j'ai appris à coder.</p>
+          <p>J'ai vu trop de commerçants payer un site cher, jamais mis à jour, avec des horaires faux et un numéro qu'on ne peut pas cliquer. Puis se faire dire que c'était « un problème de SEO ». Personne ne leur avait simplement expliqué ce qu'un client cherche en arrivant.</p>
+          <p>Alors je fais l'inverse. Des sites simples, rapides, avec les bonnes infos au bon endroit. Un prix fixe. Et je réponds au téléphone.</p>
         </div>
       </div>
     </section>
 
-    <section class="section bg-noir">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Pourquoi ce métier</p>
-          <h2>Un métier choisi, pas subi.</h2>
+    <!-- ÉCRAN 3 · Comment je travaille -->
+    <section class="section" aria-labelledby="principes-title">
+      <div class="container">
+        <div class="section__head">
+          <span class="label">Comment je travaille</span>
+          <h2 id="principes-title">Quatre choses auxquelles je tiens.</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: var(--space-3); max-width: var(--measure);">
-          <p class="gris">J'ai commencé par une formation chez BeCode en 2019, puis un stage chez Indigo Studio qui s'est transformé en poste. Deux ans plus tard, je suis passé indépendant : je voulais choisir mes clients et le temps que je leur donne.</p>
-          <p class="gris">Ce qui me plaît, c'est de travailler avec des <span class="accent">commerces</span> qui n'ont pas de service informatique : une boulangerie, un salon de coiffure, un artisan. Leur site n'a pas besoin d'être compliqué, il doit juste bien faire son travail.</p>
-          <p class="gris">Je m'appuie aussi sur des outils d'intelligence artificielle dans ma manière de travailler : ils accélèrent des tâches répétitives, jamais les décisions qui comptent pour votre projet.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Comment je travaille</p>
-          <h2>Direct, sans intermédiaire.</h2>
-        </div>
-        <div class="grille--4 grille">
+        <div class="grid grid--2">
           <div class="card">
-            <h3>Un seul interlocuteur</h3>
-            <p class="gris">Vous me parlez directement, du premier appel à la mise en ligne. Pas de chef de projet entre nous.</p>
+            <h3 class="card__title">Direct, clair, un peu frontal.</h3>
+            <p class="muted">Si votre idée ne va pas servir vos clients, je vous le dis avant de la facturer. Vous n'achetez pas un « oui », vous achetez un avis.</p>
           </div>
           <div class="card">
-            <h3>Des prix fixes</h3>
-            <p class="gris">Vous savez ce que vous payez avant que je commence à travailler.</p>
+            <h3 class="card__title">Le client est un patron, pas un développeur.</h3>
+            <p class="muted">Chaque mot technique que j'emploie, je l'explique en cinq mots. Si je n'y arrive pas, c'est que ce n'est pas important pour vous.</p>
           </div>
           <div class="card">
-            <h3>Des délais tenus</h3>
-            <p class="gris">Le calendrier annoncé au devis est celui que je respecte.</p>
+            <h3 class="card__title">Le prix est fixe. Le délai aussi.</h3>
+            <p class="muted">Vous savez combien et pour quand avant que je commence. Ce qui change en route est écrit, discuté, et accepté avant d'être fait.</p>
           </div>
           <div class="card">
-            <h3>Une disponibilité réelle</h3>
-            <p class="gris">Je réponds sous 24 h, même après la mise en ligne du site.</p>
+            <h3 class="card__title">Je reste joignable après.</h3>
+            <p class="muted">Un site vit. Les horaires changent, les photos vieillissent. Je ne disparais pas une fois la facture payée.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section--tight">
-      <div class="conteneur">
+    <!-- ÉCRAN 4 · Repères -->
+    <section class="section section--tight" aria-label="Repères">
+      <div class="container">
         <hr class="rule">
-        <div class="grille--4 grille" style="padding-block: var(--space-4)">
+        <div class="grid grid--4" style="padding-block: 40px">
           <div class="stat">
-            <p class="stat-num">24h</p>
-            <p class="stat-label">Délai de réponse</p>
+            <span class="stat__num">24 h</span>
+            <span class="stat__txt">pour vous répondre, jours ouvrés</span>
           </div>
           <div class="stat">
-            <p class="stat-num">1</p>
-            <p class="stat-label">Interlocuteur, du début à la fin</p>
+            <span class="stat__num">1</span>
+            <span class="stat__txt">interlocuteur, du devis à la mise en ligne</span>
           </div>
           <div class="stat">
-            <p class="stat-num">0</p>
-            <p class="stat-label">Frais caché sur un devis</p>
+            <span class="stat__num">0</span>
+            <span class="stat__txt">mot de jargon sans explication</span>
           </div>
           <div class="stat">
-            <p class="stat-num">6000</p>
-            <p class="stat-label">Charleroi, code postal</p>
+            <span class="stat__num">6000</span>
+            <span class="stat__txt">Charleroi, où je vis et où je travaille</span>
           </div>
         </div>
         <hr class="rule">
       </div>
     </section>
 
-    <section class="section">
-      <div class="conteneur">
-        <div class="section-head">
-          <p class="label">Côté pratique</p>
-          <h2>Les questions qu'on ne pense pas à poser.</h2>
+    <!-- ÉCRAN 5 · Côté pratique -->
+    <section class="section" aria-labelledby="pratique-title">
+      <div class="container grid grid--split">
+        <div class="section__head">
+          <span class="label">Côté pratique</span>
+          <h2 id="pratique-title">En règle, et simple pour vous.</h2>
         </div>
-        <div class="grille" style="grid-template-columns: repeat(3, 1fr);">
-          <div class="card">
-            <h3>Facturation</h3>
-            <p class="gris">Via Smart, en toute légalité — pas de travail au noir, une facture pour chaque prestation.</p>
+        <div class="stack-lg">
+          <div>
+            <h3>Facturation via Smart</h3>
+            <p class="muted">Je suis freelance et je facture via Smart, une coopérative belge qui s'occupe de la partie administrative. Pour vous, ça ne change rien : une facture belge normale, avec TVA, déductible comme n'importe quelle autre.</p>
           </div>
-          <div class="card">
+          <div>
             <h3>Où je travaille</h3>
-            <p class="gris">Depuis Charleroi, pour des clients de la région et au-delà. Les rendez-vous se font à distance ou sur place selon vos besoins.</p>
+            <p class="muted">Charleroi et ses alentours en personne. Ailleurs en Belgique et en France, par téléphone et visio. Toute la francophonie, en fait : il faut juste qu'on puisse se parler.</p>
           </div>
-          <div class="card">
+          <div>
+            <!-- La maquette promettait « deux fois par semaine ». C'est une
+                 cadence à tenir dans la durée, pas un fait déjà vrai : la
+                 phrase dit ce que le compte contient, pas un rythme garanti. -->
             <h3>Ce que je publie</h3>
-            <p class="gris">Vous pouvez suivre mon travail sur <a class="link-arrow" style="display:inline-flex" href="https://www.linkedin.com/in/yboukamir/">LinkedIn <span class="fleche" aria-hidden="true">→</span></a>.</p>
+            <p class="muted">Sur Instagram, j'explique une chose utile sur le web pour les commerçants : ce qui marche, ce qui fait fuir, et combien ça coûte vraiment. Gratuit, sans inscription. C'est ma façon de montrer comment je pense avant que vous me confiiez quoi que ce soit.</p>
+            <a class="link-arrow" href="https://www.instagram.com/boukamir.be" target="_blank" rel="noopener noreferrer" style="margin-top:12px">Suivre @boukamir.be<span class="sr-only"> (nouvel onglet)</span></a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="cta-final conteneur">
-      <p class="label">On en parle ?</p>
-      <h2>Prêt à avoir un site qui travaille pour vous ?</h2>
-      <div class="hero-actions">
-        <a class="btn btn--primary" href="/contact.html">Demander un devis</a>
+    <!-- ÉCRAN 6 · Appel final -->
+    <section class="section cta-final" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 class="display h2" id="cta-title">On se parle ?</h2>
+        <p class="lead">Trente minutes, sans engagement. Vous me racontez votre commerce, je vous dis franchement si je peux vous aider.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="contact.html">Demander un devis</a>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer">
-    <div class="conteneur">
-      <div class="footer-grille">
-        <div>
-          <a class="logo" href="/" style="color: var(--creme);">Boukamir</a>
-          <p class="footer-desc">Sites vitrines pour commerçants, artisans et PME. Prix fixe, réponse rapide.</p>
+  <footer class="site-footer bg-noir">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="stack">
+          <a class="logo" href="/">boukamir<span class="logo__dot">.</span></a>
+          <p class="muted">Développeur web freelance à Charleroi. Je construis des sites qui font venir des clients aux commerçants, artisans et PME francophones.</p>
         </div>
         <div>
-          <h3>Pages</h3>
-          <ul>
-            <li><a href="/services.html">Services</a></li>
-            <li><a href="/a-propos.html">À propos</a></li>
-            <li><a href="/contact.html">Contact</a></li>
-            <li><a href="/index.html#audit">Audit gratuit</a></li>
+          <span class="label">Pages</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="services.html">Services</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html#audit">Audit gratuit</a></li>
           </ul>
         </div>
         <div>
-          <h3>Contact</h3>
-          <ul>
-            <li><a href="mailto:yboukamir@gmail.com">yboukamir@gmail.com</a></li>
-            <li><a href="https://www.linkedin.com/in/yboukamir/">LinkedIn</a></li>
+          <span class="label">Contact</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="mailto:bonjour@boukamir.be">bonjour@boukamir.be</a></li>
+            <li><a href="https://www.instagram.com/boukamir.be" target="_blank" rel="noopener noreferrer">Instagram @boukamir.be<span class="sr-only"> (nouvel onglet)</span></a></li>
+            <li><a href="https://www.linkedin.com/in/yboukamir/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
             <li>Charleroi, Belgique</li>
           </ul>
         </div>
       </div>
-      <div class="footer-bas">
-        <p>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</p>
-        <p>Site fait à Charleroi, sans jargon.</p>
+      <div class="site-footer__bottom">
+        <span>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</span>
+        <span>Site fait à Charleroi, sans jargon.</span>
       </div>
     </div>
   </footer>
