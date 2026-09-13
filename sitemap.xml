@@ -32,6 +32,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://boukamir.be/dragonballquiz.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://boukamir.be/outils/suivi-candidatures/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
