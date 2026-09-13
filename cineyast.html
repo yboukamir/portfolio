@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cineyast, étude de cas — Yassine Boukamir</title>
+  <meta name="description" content="Cineyast, un site de découverte de films en ligne sur cineyast.com : données réelles, aperçus de partage propres à chaque page, 162 tests automatisés. Ce qui se voit, et ce qui ne se voit pas.">
+
+  <meta property="og:title" content="Cineyast, étude de cas — Yassine Boukamir">
+  <meta property="og:description" content="Un site de découverte de films, de la demande à la mise en ligne. Ce qui se voit, et ce qui ne se voit pas.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://boukamir.be/cineyast.html">
+  <meta property="og:locale" content="fr_BE">
+  <link rel="canonical" href="https://boukamir.be/cineyast.html">
+  <!-- Numéro de version dans le nom, comme apercu-N.jpg sur les autres
+       pages : LinkedIn garde l'image traitée (et ses échecs) par URL exacte.
+       Incrémenter si l'aperçu est refait. -->
+  <meta property="og:image" content="https://boukamir.be/assets/apercu-cineyast-1.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Page d'accueil de Cineyast, site de découverte de films">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0A0A'/><text x='40' y='75' font-family='Inter,Segoe UI,Helvetica,sans-serif' font-size='78' font-weight='800' text-anchor='middle' fill='%23F5F3EE'>b</text><circle cx='74' cy='67' r='9' fill='%23FF5A1F'/></svg>">
+</head>
+<body>
+  <!-- PAGE HORS MAQUETTE, ajoutée le 13/09/2026 à la demande de Yassine.
+       Elle n'existe pas dans la maquette livrée : elle ne fait donc que
+       réutiliser ses composants (aucune ligne ajoutée à style.css). Elle est
+       liée depuis la liste « Pages » du pied de page, et nulle part ailleurs :
+       choix de Yassine du 13/09, pour ne toucher à aucun écran de la
+       maquette. La page sert surtout en lien direct (LinkedIn, devis).
+       Tout ce qui est affirmé ici a été vérifié sur le site en ligne et dans
+       son dépôt le 13/09/2026. Si Cineyast change, relire la page. -->
+  <a class="lien-evitement" href="#main">Aller au contenu</a>
+
+  <!-- En-tête : pas de bouton orange ici. L'orange est réservé au bouton principal de la page. -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="/" aria-label="boukamir.be — accueil">boukamir<span class="logo__dot">.</span></a>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="services.html">Services</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ÉCRAN 1 · Héros — orange : le bouton uniquement. -->
+    <section class="section section--hero" aria-labelledby="hero-title">
+      <div class="container grid grid--split-even">
+        <div class="hero">
+          <span class="label">Étude de cas · projet personnel</span>
+          <h1 class="display display--md hero__title" id="hero-title">Cineyast.</h1>
+          <p class="lead hero__lead">Un site pour trouver quoi regarder ce soir : les films du moment, une recherche, une fiche par film et par acteur, et où voir chaque film en France.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="https://cineyast.com" target="_blank" rel="noopener">Voir le site<span class="sr-only"> (nouvel onglet)</span></a>
+            <a class="btn btn--outline" href="https://github.com/yboukamir/cineyast" target="_blank" rel="noopener noreferrer">Lire le code<span class="sr-only"> (nouvel onglet)</span></a>
+          </div>
+          <!-- Même règle que le bloc « La preuve » de l'accueil : un visiteur
+               qui découvre seul qu'il n'y a pas de client derrière perd
+               confiance. On le dit d'emblée. -->
+          <p class="muted small">Un projet à moi, pas une commande : il n'y a pas de client derrière, et je préfère le dire tout de suite.</p>
+        </div>
+        <img class="capture" src="assets/projets/cineyast-accueil@2x.jpg"
+             srcset="assets/projets/cineyast-accueil.jpg 620w, assets/projets/cineyast-accueil@2x.jpg 1240w"
+             sizes="(max-width: 900px) calc(100vw - 2 * var(--gutter)), 548px"
+             width="1240" height="775"
+             alt="Page d'accueil de Cineyast : le film à la une de la semaine en grand, sur fond sombre"
+             fetchpriority="high" decoding="async">
+      </div>
+    </section>
+
+    <!-- ÉCRAN 2 · Repères. Même composant que la page à propos. -->
+    <section class="section section--tight" aria-label="Repères">
+      <div class="container">
+        <hr class="rule">
+        <div class="grid grid--4" style="padding-block: 40px">
+          <div class="stat">
+            <span class="stat__num">0</span>
+            <span class="stat__txt">donnée inventée : tout vient de la base TMDB</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">162</span>
+            <span class="stat__txt">tests rejoués à chaque modification</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">8 / 8</span>
+            <span class="stat__txt">bugs remis exprès, tous repérés par les tests</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">0</span>
+            <span class="stat__txt">clé d'accès visible dans le navigateur</span>
+          </div>
+        </div>
+        <hr class="rule">
+      </div>
+    </section>
+
+    <!-- ÉCRAN 3 · La demande -->
+    <section class="section bg-noir" aria-labelledby="demande-title">
+      <div class="container grid grid--split">
+        <div class="section__head">
+          <span class="label">La demande</span>
+          <h2 id="demande-title">Un vrai site, pas une <span class="accent">maquette.</span></h2>
+        </div>
+        <div class="stack-lg">
+          <p>Le cahier des charges tenait en une page. Trouver des films par tendance, par titre, par genre, par année ou par note. Une fiche complète pour chaque film, bande-annonce comprise. Des favoris qu'on garde sans créer de compte. Et tout ça pensé d'abord pour le téléphone.</p>
+          <p>Deux règles ne se discutaient pas. Aucune donnée inventée : tout vient de TMDB, une base de films collaborative, avec la mention qu'elle exige en bas de chaque page. Et un site réellement en ligne, sur son propre nom de domaine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 4 · Ce qui se voit -->
+    <section class="section" aria-labelledby="voit-title">
+      <div class="container">
+        <div class="section__head">
+          <span class="label">Ce qui se voit</span>
+          <h2 id="voit-title">Une fiche par film, une page par acteur.</h2>
+        </div>
+        <div class="compare">
+          <div class="compare__panel">
+            <span class="label">Fiche film</span>
+            <div class="compare__body">
+              <img class="capture" src="assets/projets/cineyast-fiche@2x.jpg"
+                   srcset="assets/projets/cineyast-fiche.jpg 620w, assets/projets/cineyast-fiche@2x.jpg 1240w"
+                   sizes="(max-width: 700px) calc(100vw - 2 * var(--gutter) - 50px), 520px"
+                   width="1240" height="775"
+                   alt="Fiche du film Fight Club : affiche, note, réalisateur et bouton de bande-annonce"
+                   loading="lazy" decoding="async">
+              <p class="muted small">L'affiche, la note, le réalisateur, la bande-annonce. Et où voir le film en France, en abonnement, en location ou à l'achat, d'après les données de JustWatch.</p>
+            </div>
+          </div>
+          <div class="compare__panel">
+            <span class="label">Page acteur</span>
+            <div class="compare__body">
+              <img class="capture" src="assets/projets/cineyast-personne@2x.jpg"
+                   srcset="assets/projets/cineyast-personne.jpg 620w, assets/projets/cineyast-personne@2x.jpg 1240w"
+                   sizes="(max-width: 700px) calc(100vw - 2 * var(--gutter) - 50px), 520px"
+                   width="1240" height="775"
+                   alt="Page de Brad Pitt : portrait, métier et biographie"
+                   loading="lazy" decoding="async">
+              <p class="muted small">Ses films les plus connus d'abord, puis toute sa filmographie, rangée par métier. Les apparitions dans son propre rôle sont mises à part.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 5 · Ce qui ne se voit pas. Formulé pour un patron, pas pour
+         un développeur : le détail technique vit dans le README du dépôt.
+         Rien sur l'infrastructure précise (hébergeurs, adresses, comptes) :
+         c'est une page publique. -->
+    <section class="section bg-noir" aria-labelledby="coulisses-title">
+      <div class="container">
+        <div class="section__head">
+          <span class="label">Ce qui ne se voit pas</span>
+          <h2 id="coulisses-title">Le travail qui évite les mauvaises surprises.</h2>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3 class="card__title">La clé d'accès reste sur le serveur.</h3>
+            <p class="muted">Pour lire la base de films, il faut une clé personnelle. Elle ne passe jamais par le navigateur : un relais l'ajoute de son côté, et il refuse toute demande dont le site n'a pas besoin.</p>
+          </div>
+          <div class="card">
+            <h3 class="card__title">Chaque lien partagé a son propre aperçu.</h3>
+            <p class="muted">Partagez la fiche d'un film sur LinkedIn : c'est son titre, son résumé et son image qui s'affichent, pas ceux de l'accueil. Pour un acteur, une image est fabriquée à la volée avec son nom, son métier et ses films connus.</p>
+          </div>
+          <div class="card">
+            <!-- Formulation volontairement limitée à ce qui a été vérifié :
+                 les enregistrements de messagerie n'ont pas été modifiés.
+                 Ne pas écrire « sans interruption », rien ne l'a mesuré. -->
+            <h3 class="card__title">Nouvel hébergement, messagerie intacte.</h3>
+            <p class="muted">Le nom de domaine servait à un ancien site et à des adresses mail. Pour le brancher sur le nouvel hébergement, seuls les réglages du site ont changé : ceux de la messagerie n'ont pas été touchés.</p>
+          </div>
+          <div class="card">
+            <!-- GitHub rejoue les tests à chaque envoi, mais la mise en ligne
+                 ne l'attend pas : ne pas écrire que les tests « bloquent »
+                 une mise en ligne. -->
+            <h3 class="card__title">Des tests qui ont fait leurs preuves.</h3>
+            <p class="muted">162 tests vérifient les règles du site sur de vraies réponses de la base, enregistrées. GitHub les rejoue à chaque modification. Pour m'assurer qu'ils servaient à quelque chose, j'ai remis exprès huit bugs corrigés pendant le projet : les huit ont été repérés.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 6 · Honnêtement. Les limites connues, écrites avant qu'on les
+         trouve. -->
+    <section class="section" aria-labelledby="limites-title">
+      <div class="container grid grid--split">
+        <div class="section__head">
+          <span class="label">Honnêtement</span>
+          <h2 id="limites-title">Pas parfait, et je sais où.</h2>
+        </div>
+        <div class="stack-lg">
+          <div>
+            <!-- Réécrit à la demande de Yassine le 13/09 : la limite reste dite,
+                 mais tournée vers ce qui compte pour un commerce. Vrai des deux
+                 côtés : Cineyast se construit dans le navigateur, boukamir.be
+                 et les sites WordPress arrivent déjà prêts du serveur. -->
+            <h3>L'affichage sur téléphone</h3>
+            <p class="muted">Cineyast est une application qui se construit dans le navigateur, et sur téléphone ça se sent au premier chargement. Pour un site de commerce, je fais l'inverse : des pages prêtes à l'avance, qui s'affichent tout de suite.</p>
+          </div>
+          <div>
+            <h3>Fait avec un assistant IA</h3>
+            <p class="muted">Cineyast a été développé avec Claude Code, un assistant de programmation, sous ma direction. Chaque point de cette page a été vérifié sur le site en ligne.</p>
+          </div>
+          <div>
+            <h3>Les outils</h3>
+            <p class="muted">React, TypeScript et Tailwind CSS pour le site. L'API TMDB pour les films, JustWatch pour les offres de streaming. Vercel pour l'hébergement, Vitest et GitHub Actions pour les tests.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉCRAN 7 · Appel final -->
+    <section class="section cta-final" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 class="display h2" id="cta-title">Un projet en tête ?</h2>
+        <p class="lead">Un site de commerce n'a pas besoin de tout ça. Mais le même soin vaut pour le vôtre : des infos justes, un lien qui s'affiche bien quand on le partage, et rien de cassé en route.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="contact.html">Demander un devis</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer bg-noir">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="stack">
+          <a class="logo" href="/">boukamir<span class="logo__dot">.</span></a>
+          <p class="muted">Développeur web freelance. Je construis des sites qui font venir des clients aux commerçants, artisans et PME francophones.</p>
+        </div>
+        <div>
+          <span class="label">Pages</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="services.html">Services</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html#audit">Audit gratuit</a></li>
+            <li><a href="cineyast.html">Étude de cas : Cineyast</a></li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Contact</span>
+          <ul class="list" style="margin-top:16px">
+            <li><a href="mailto:bonjour@boukamir.be">bonjour@boukamir.be</a></li>
+            <li><a href="https://www.instagram.com/boukamir.be" target="_blank" rel="noopener noreferrer">Instagram @boukamir.be<span class="sr-only"> (nouvel onglet)</span></a></li>
+            <li><a href="https://www.linkedin.com/in/yboukamir/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
+            <li>Charleroi, Belgique</li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© <span id="annee">2026</span> Yassine Boukamir · Facturation via Smart</span>
+        <span>Fait à la main.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
