@@ -199,7 +199,7 @@
         if (!reponse.ok) throw new Error("HTTP " + reponse.status);
         if (etat) {
           etat.className = "form__status small succes";
-          etat.textContent = "Merci, c'est envoyé. Je vous réponds sous 24 h ouvrées.";
+          etat.textContent = "Merci, c'est envoyé. Je vous réponds sous 24 h ouvrées.";
         }
         formulaire.reset();
       })
